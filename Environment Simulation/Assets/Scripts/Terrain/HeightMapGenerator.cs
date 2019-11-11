@@ -56,7 +56,6 @@ public static class HeightMapGenerator
 			}
 		}
 
-		return map;
-		
+		return map;		
 	}
 }

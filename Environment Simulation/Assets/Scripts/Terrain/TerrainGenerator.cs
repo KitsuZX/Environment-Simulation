@@ -26,18 +26,25 @@ public class TerrainGenerator : MonoBehaviour
 	public int numWaterTiles;
 	public float waterPercent;
 
+    public TerrainData TerrainData{get; private set;}
+
 	MeshFilter meshFilter;
 	MeshRenderer meshRenderer;
 	Mesh mesh;
 
 	bool needsUpdate;
 
-	private void Update()
+    private void Awake()
+    {
+        TerrainData = Generate();
+    }
+
+    private void Update()
 	{
 		if(needsUpdate && autoUpdate)
 		{
 			needsUpdate = false;
-			Generate();
+			TerrainData = Generate();
 		}
 		else
 		{
@@ -200,7 +207,6 @@ public class TerrainGenerator : MonoBehaviour
 		}
 	}
 
-
 	/// <summary>
 	/// Devuelve el bioma en el que está un vertice y la distancia a la que está de otro bioma para calcular el color
 	/// </summary>
@@ -276,7 +282,7 @@ public class TerrainGenerator : MonoBehaviour
 		needsUpdate = true;	
 	}
 
-	[System.Serializable]
+    [System.Serializable]
 	public class Biome
 	{
 		[Range(0, 1)]
@@ -284,22 +290,5 @@ public class TerrainGenerator : MonoBehaviour
 		public Color startCol;
 		public Color endCol;
 		public int numSteps;
-	}
-
-	public class TerrainData
-	{
-		public int size;
-		public Vector3[,] tileCentres;
-		public bool[,] walkable;
-		public bool[,] shore;
-
-		public TerrainData(int size)
-		{
-			this.size = size;
-
-			tileCentres = new Vector3[size, size];
-			walkable = new bool[size, size];
-			shore = new bool[size, size];
-		}
-	}
+	}	
 }

@@ -17,7 +17,6 @@ public struct Coord
 		return (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y);
 	}
 
-
 	public static float Distance(Coord a, Coord b)
 	{
 		return (float)Mathf.Sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
