@@ -30,8 +30,6 @@ public class VitalFunctions : MonoBehaviour
         CurrentAge += dt/60;
         CurrentEnergy = Mathf.Max(CurrentEnergy - EnergyLostPerSecond * dt, 0); ;
         CurrentHydration = Mathf.Max(CurrentHydration - HydrationLostPerSecond * dt, 0);
-
-        Debug.Log("Age:" + CurrentAge +"/Energy:"+ CurrentEnergy + "/Hydration:" + CurrentHydration);
     }
    
     public void EatFood(Transform foodPos)

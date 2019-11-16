@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
-[RequireComponent(typeof(VitalFunctions))]
+[RequireComponent(typeof(VitalFunctions), typeof(AnimalMovement))]
 public class Genes : MonoBehaviour
 {
     public float lifeExpectancy = 9;
@@ -19,6 +20,7 @@ public class Genes : MonoBehaviour
     [SerializeField] private AnimationCurve statCurve = null;
 
     private VitalFunctions vitalFunctions;
+    private NavMeshAgent navMeshAgent;
     private Perceptor perceptor;
 
    
@@ -27,13 +29,15 @@ public class Genes : MonoBehaviour
     private void FixedUpdate()
     {
         float ageFactor = AgeStatFactor;
-        //TODO: UpdateMovementSpeed
+
+        navMeshAgent.speed = speed * ageFactor;
         perceptor.PerceptionRadius = perceptionRadius * ageFactor;
     }
 
     private void Awake()
     {
         vitalFunctions = GetComponent<VitalFunctions>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
         perceptor = GetComponentInChildren<Perceptor>();
     }
 }

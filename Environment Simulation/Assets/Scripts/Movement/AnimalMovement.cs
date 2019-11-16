@@ -30,10 +30,6 @@ public class AnimalMovement : MonoBehaviour
 		//_terrainData = terrainGenerator.GetComponent<TerrainGenerator>().TerrainData;
 	}
 
-	private void Start()
-	{
-		_agent.speed = _genes.speed;
-	}
 
 	void FixedUpdate()
     {
@@ -97,7 +93,7 @@ public class AnimalMovement : MonoBehaviour
 
 	public void MoveRandom()
 	{
-		Vector3 randomPosition = transform.position + Random.onUnitSphere * _genes.speed;
+		Vector3 randomPosition = transform.position + Random.onUnitSphere * _agent.speed;
 		randomPosition.y = transform.position.y;
 
 		_agent.SetDestination(randomPosition);		

@@ -1,10 +1,10 @@
 ﻿using Panda;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AnimalMovement))]
 public class MovementTasks : MonoBehaviour
 {
+    private AnimalMovement animalMovement;
 
     [Task]
     public void RunAway()
@@ -34,7 +34,12 @@ public class MovementTasks : MonoBehaviour
     public void MoveRandomly()
     {
         Task.current.Succeed();
-        //Animal movement -> MoveRandom
+        animalMovement.MoveRandom();
+    }
+
+    private void Awake()
+    {
+        animalMovement = GetComponent<AnimalMovement>();
     }
 
 }
