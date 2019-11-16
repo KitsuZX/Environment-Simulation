@@ -23,6 +23,7 @@ public class Perceptor : MonoBehaviour
 
     private new SphereCollider collider;
     private new Transform transform;
+    private VitalFunctions vitalFunctions;
 
     //Los objetos percibidos se guardan en un diccionario. La clave es el GameObject para poder identificarlo cuando se salga.
     //El valor es la información que necesitamos sobre este tipo de objeto percibido.
@@ -112,11 +113,17 @@ public class Perceptor : MonoBehaviour
                 break;
             case PerceiveeType.Mate:
                 //TODO: Comprobar si es del sexo opuesto. Añadir sólo si lo es.
-                perceivedMates.Add(perceivee, new PerceivedMate
+                VitalFunctions vitalF = perceivee.GetComponent<VitalFunctions>();
+                if(vitalFunctions.isFemale != vitalF.isFemale)
                 {
-                    transform = perceivee.transform,
-                    genes = perceivee.GetComponent<Genes>()
-                });
+                    perceivedMates.Add(perceivee, new PerceivedMate
+                    {
+                        transform = perceivee.transform,
+                        genes = perceivee.GetComponent<Genes>(),
+                        vitalFunctions = vitalF
+                    });
+                }
+               
                 break;
         }
     }
@@ -156,6 +163,8 @@ public class Perceptor : MonoBehaviour
         collider = GetComponent<SphereCollider>();
         collider.isTrigger = true;
 
+        vitalFunctions = GetComponentInParent<VitalFunctions>();
+
         gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
     }
 
@@ -181,8 +190,7 @@ public class Perceptor : MonoBehaviour
     public struct PerceivedMate
     {
         public Transform transform;
-        //TODO: esto cuando el componente exista
-        //public VitalFunctions vitalFunctions;
+        public VitalFunctions vitalFunctions;
         public Genes genes;
     }
     #endregion

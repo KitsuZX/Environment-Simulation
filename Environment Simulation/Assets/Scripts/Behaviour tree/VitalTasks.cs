@@ -5,6 +5,16 @@ using Panda;
 public class VitalTasks : MonoBehaviour
 {
 
+    private VitalFunctions vitalFunctions;
+    private Perceptor perceptor;
+    private Genes MyGenes;
+
+    public void Start()
+    {
+        vitalFunctions = GetComponent<VitalFunctions>();
+        perceptor = GetComponent<Perceptor>();
+    }
+
     [Task]
     public void DoINeedFood()
     {
@@ -30,10 +40,11 @@ public class VitalTasks : MonoBehaviour
         //Vital functions -> 
     }
     [Task]
-    public void EatFood()
+    public void EatFood(Transform foodPos)
     {
         Task.current.Fail();
         //Vital functions -> EatFood
+        vitalFunctions.EatFood(foodPos);
     }
     [Task]
     public void DrinkWater()
@@ -46,6 +57,13 @@ public class VitalTasks : MonoBehaviour
     {
         Task.current.Fail();
         //Vital functions -> Breed
+        Perceptor.PerceivedMate pm = perceptor.GetSexiestMate();
+
+        if (!vitalFunctions.isFemale) //Si yo soy chico y la otra es chica, la otra se queda preñada de mi, lets go
+        {
+            pm.vitalFunctions.GetPregnant(MyGenes);
+        }
+        
     }
 
 
