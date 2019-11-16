@@ -5,7 +5,7 @@ using UnityEngine;
 public class VitalFunctions : MonoBehaviour
 {
 
-    private float CurrentAge;
+    public float CurrentAge { get; private set; }
     private float CurrentEnergy;
     private float CurrentHydration;
 

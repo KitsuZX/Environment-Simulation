@@ -19,6 +19,7 @@ public class Perceptor : MonoBehaviour
     public bool SeesFood { get => perceivedFood.Count > 0; }
     public bool SeesPartner { get => perceivedMates.Count > 0; }
 
+    public float PerceptionRadius { get => collider.radius; set => collider.radius = value; }
 
     private new SphereCollider collider;
     private new Transform transform;
@@ -91,7 +92,6 @@ public class Perceptor : MonoBehaviour
         return sexiestMate;
     }
 
-
     #region Registration & Unregistration
     private void OnTriggerEnter(Collider other)
     {
@@ -149,13 +149,12 @@ public class Perceptor : MonoBehaviour
     #endregion
 
 
-    private void Start()
+    private void Awake()
     {
         transform = GetComponent<Transform>();
 
         collider = GetComponent<SphereCollider>();
         collider.isTrigger = true;
-        collider.radius = GetComponentInParent<Genes>().perceptionRadius;
 
         gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
     }

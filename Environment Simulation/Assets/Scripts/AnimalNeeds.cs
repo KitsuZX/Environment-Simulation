@@ -29,6 +29,6 @@ public class AnimalNeeds : MonoBehaviour
 
         CurrentAge = 0;
         CurrentEnergy = genes.maxEnergy;
-        CurrentHidration = genes.maxHidration;
+        CurrentHidration = genes.maxHydration;
     }
 }
