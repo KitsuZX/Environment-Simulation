@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5383177362180404176}
   - component: {fileID: 6499691975240736032}
+  - component: {fileID: 5749390879464611308}
   m_Layer: 0
   m_Name: Bush Prefab
-  m_TagString: Untagged
+  m_TagString: Bush
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47,6 +48,19 @@ MonoBehaviour:
   maxFoodAmount: 100
   foodGainedPerSecond: 10
   actualFoodAmount: 100
+--- !u!135 &5749390879464611308
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4264037407404337466}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.62
+  m_Center: {x: 0, y: 0.33, z: 0}
 --- !u!1001 &8341539091349455671
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54,11 +68,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5383177362180404176}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: 805f8205bd3480e4eb49b97be853493c,
-        type: 3}
-      propertyPath: m_Name
-      value: BushWithBerrys01
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 805f8205bd3480e4eb49b97be853493c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -113,6 +122,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 805f8205bd3480e4eb49b97be853493c,
+        type: 3}
+      propertyPath: m_Name
+      value: BushWithBerrys01
       objectReference: {fileID: 0}
     - target: {fileID: -6489695029711559627, guid: 805f8205bd3480e4eb49b97be853493c,
         type: 3}

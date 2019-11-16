@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 199727276690911796}
   - component: {fileID: 199727276690911797}
   - component: {fileID: 199727276690911754}
+  - component: {fileID: 1635231981}
   m_Layer: 8
   m_Name: Rabbit
-  m_TagString: Untagged
+  m_TagString: Rabbit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -128,6 +129,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   energyDecayPerSecond: 0.1
   hidrationDecayPerSecond: 0.1
+--- !u!54 &1635231981
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199727276690911755}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 1
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &438673293313000217
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,3 +202,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0b0ea9d919f53c48b7c7a8c869f1c91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rabbitPerception: 2
+  foxPerception: 1
+  bushPerception: 0
