@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class VitalFunctions : MonoBehaviour
 {
+    [SerializeField, Range(0, 1)] private float needThresholdPortion;
 
     public float CurrentAge { get; private set; }
+
+    public bool IsHungry { get => 1 - (CurrentEnergy / genes.maxEnergy) > needThresholdPortion; }
+    public bool IsThirsty { get => 1 - (CurrentHydration/ genes.maxHydration) > needThresholdPortion; }
+
+
     private float CurrentEnergy;
     private float CurrentHydration;
     private Genes genes;

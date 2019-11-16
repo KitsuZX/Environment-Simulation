@@ -5,41 +5,44 @@ using UnityEngine;
 public class MovementTasks : MonoBehaviour
 {
     private AnimalMovement animalMovement;
+    private Perceptor perceptor;
 
     [Task]
     public void RunAway()
     {
         Task.current.Succeed();
-        //Animal movement -> FleetFrom
+        //TODO: this
     }
     [Task]
     public void GoToFood()
     {
-        //Task.current.Fail();
-        //Animal movement -> GoTo
+        bool reached = animalMovement.GoTo(perceptor.GetClosestFood().position);
+        Task.current.Complete(reached);
     }
     [Task]
     public void GoToWater()
     {
         Task.current.Fail();
-        //Animal movement -> GoToWater
+        //TODO: Saber dónde está el agua
     }
     [Task]
     public void GoToPartner()
     {
-        Task.current.Fail();
-        //Animal movement -> GoTo
+        bool reached = animalMovement.GoTo(perceptor.GetSexiestMate().transform.position);
+        Task.current.Complete(reached);
     }
+
     [Task]
     public void MoveRandomly()
     {
-        Task.current.Succeed();
         animalMovement.MoveRandom();
+        Task.current.Succeed();
     }
 
     private void Awake()
     {
         animalMovement = GetComponent<AnimalMovement>();
+        perceptor = GetComponentInChildren<Perceptor>();
     }
 
 }

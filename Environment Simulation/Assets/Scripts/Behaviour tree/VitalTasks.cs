@@ -2,41 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Panda;
+
+[RequireComponent(typeof(VitalFunctions), typeof(Genes))]
 public class VitalTasks : MonoBehaviour
 {
 
+    [Task]
+    public bool DoINeedFood => vitalFunctions.IsHungry;
+
+    [Task]
+    public bool DoINeedWater => vitalFunctions.IsThirsty;
+
+    [Task]
+    public bool AmIOldEnough => vitalFunctions.CurrentAge > genes.reproductiveAgeRange.x && vitalFunctions.CurrentAge < genes.reproductiveAgeRange.y;
+
+
     private VitalFunctions vitalFunctions;
     private Perceptor perceptor;
-    private Genes MyGenes;
+    private Genes genes;
 
-    public void Start()
+    private void Awake()
     {
         vitalFunctions = GetComponent<VitalFunctions>();
-        perceptor = GetComponent<Perceptor>();
+        genes = GetComponent<Genes>();
+        perceptor = GetComponentInChildren<Perceptor>();
     }
 
-    [Task]
-    public void DoINeedFood()
-    {
-        Task.current.Fail();
-        //Vital functions -> currentEnergy
-    }
-    [Task]
-    public void DoINeedWater()
-    {
-        Task.current.Fail();
-        //Vital functions -> currentHidration
-    }
-    [Task]
-    public void AmIOldEnough()
-    {
-        Task.current.Succeed();
-        //Vital functions -> currentAge
-    }
     [Task]
     public void AmIPregnant()
     {
-        Task.current.Succeed();
+        Task.current.Fail();
         //Vital functions -> 
     }
     [Task]
@@ -62,7 +57,7 @@ public class VitalTasks : MonoBehaviour
 
         if (!vitalFunctions.isFemale) //Si yo soy chico y la otra es chica, la otra se queda preñada de mi, lets go
         {
-            pm.vitalFunctions.GetPregnant(MyGenes);
+            pm.vitalFunctions.GetPregnant(genes);
         }
         
     }

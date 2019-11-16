@@ -194,6 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d8f5deff50b1d64d9a40840c1342379, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  needThresholdPortion: 0.307
   isFemale: 0
 --- !u!65 &199727276690911796
 BoxCollider:
@@ -220,6 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5b36c71fd08f8749addc04513afd1bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thresholdDistance: 1
   jumpHeight: 1
   jumpTime: 1
   jumpCurve:

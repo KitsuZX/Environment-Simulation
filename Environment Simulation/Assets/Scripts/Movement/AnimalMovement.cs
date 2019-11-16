@@ -6,6 +6,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent), typeof(Genes))]
 public class AnimalMovement : MonoBehaviour
 {
+    [SerializeField] private float thresholdDistance;
 	[SerializeField] private float jumpHeight = 1f;
 	[SerializeField] private float jumpTime = 1f;
 	[SerializeField] private AnimationCurve jumpCurve;
@@ -86,10 +87,11 @@ public class AnimalMovement : MonoBehaviour
 		_agent.SetDestination(runTo);*/
 	}
 
-	public void GoTo(Vector3 position)
+	public bool GoTo(Vector3 position)
 	{
 		_agent.SetDestination(position);
-	}
+        return ((position - transform.position).sqrMagnitude < thresholdDistance * thresholdDistance);
+    }
 
 	public void MoveRandom()
 	{

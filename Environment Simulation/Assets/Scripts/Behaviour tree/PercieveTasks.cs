@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AnimalMovement))]
 public class PercieveTasks : MonoBehaviour
 {
     private Perceptor perceptor;
+    private AnimalMovement animalMovement;
 
     [Task]
     public bool IsInDanger => perceptor.IsInDanger;
@@ -17,8 +19,8 @@ public class PercieveTasks : MonoBehaviour
         if (perceptor.SeesFood) Task.current.Succeed();
         else
         {
+            animalMovement.MoveRandom();
             Task.current.Fail();
-            //TODO: MoveRandomly()
         }
     }
 
@@ -28,8 +30,8 @@ public class PercieveTasks : MonoBehaviour
         if (perceptor.SeesPartner) Task.current.Succeed();
         else
         {
+            animalMovement.MoveRandom();
             Task.current.Fail();
-            //TODO: MoveRandomly()
         }
     }
 
@@ -37,5 +39,6 @@ public class PercieveTasks : MonoBehaviour
     private void Awake()
     {
         perceptor = GetComponentInChildren<Perceptor>();
+        animalMovement = GetComponent<AnimalMovement>();
     }
 }
