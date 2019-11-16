@@ -71,7 +71,7 @@ public class Pregnant : MonoBehaviour
         //Asignación de elementos 
         childGenes.maxEnergy = rnd + ((arrayMadre[0] + arrayPadre[0]) / 2);
         childGenes.maxHydration = rnd + ((arrayMadre[1] + arrayPadre[1])/ 2);
-        childGenes.speed = rnd + ((arrayMadre[2] + arrayPadre[2])) / 2));
+        childGenes.speed = rnd + ((arrayMadre[2] + arrayPadre[2]) / 2);
         childGenes.childCountMean = rnd + ((arrayMadre[3] + arrayPadre[3])/ 2);
         childGenes.perceptionRadius = rnd + ((arrayMadre[4] + arrayPadre[4]) / 2);
         childGenes.gestationPeriodLength = rnd + ((arrayMadre[5] + arrayPadre[5]) / 2);
