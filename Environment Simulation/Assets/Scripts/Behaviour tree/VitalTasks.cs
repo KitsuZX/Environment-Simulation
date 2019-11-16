@@ -8,13 +8,13 @@ public class VitalTasks : MonoBehaviour
     [Task]
     public void DoINeedFood()
     {
-        Task.current.Succeed();
+        Task.current.Fail();
         //Vital functions -> currentEnergy
     }
     [Task]
     public void DoINeedWater()
     {
-        Task.current.Succeed();
+        Task.current.Fail();
         //Vital functions -> currentHidration
     }
     [Task]
@@ -26,7 +26,7 @@ public class VitalTasks : MonoBehaviour
     [Task]
     public void AmIPregnant()
     {
-        Task.current.Fail();
+        Task.current.Succeed();
         //Vital functions -> 
     }
     [Task]

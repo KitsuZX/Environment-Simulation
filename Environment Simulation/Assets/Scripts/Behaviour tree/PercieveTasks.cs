@@ -15,14 +15,22 @@ public class PercieveTasks : MonoBehaviour
     public void SearchForFood()
     {
         if (perceptor.SeesFood) Task.current.Succeed();
-        else Task.current.Fail();
+        else
+        {
+            Task.current.Fail();
+            //TODO: MoveRandomly()
+        }
     }
 
     [Task]
     public void SearchForAPartner()
     {
         if (perceptor.SeesPartner) Task.current.Succeed();
-        else Task.current.Fail();
+        else
+        {
+            Task.current.Fail();
+            //TODO: MoveRandomly()
+        }
     }
 
 

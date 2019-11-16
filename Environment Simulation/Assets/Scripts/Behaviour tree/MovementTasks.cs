@@ -9,7 +9,7 @@ public class MovementTasks : MonoBehaviour
     [Task]
     public void RunAway()
     {
-        Task.current.Fail();
+        Task.current.Succeed();
         //Animal movement -> FleetFrom
     }
     [Task]
@@ -33,7 +33,7 @@ public class MovementTasks : MonoBehaviour
     [Task]
     public void MoveRandomly()
     {
-        Task.current.Fail();
+        Task.current.Succeed();
         //Animal movement -> MoveRandom
     }
 

@@ -13,27 +13,30 @@ tree("Run away")
 
 tree("Need food")
 	while DoINeedFood
-		sequence
-			SearchForFood
-			GoToFood
-			EatFood
+		mute 
+			sequence
+				SearchForFood
+				GoToFood
+				EatFood
 
 tree("Need water")
-	sequence
-		DoINeedWater
-		sequence
-			GoToWater
-			DrinkWater
+	while DoINeedWater
+		mute
+			sequence
+				GoToWater
+				DrinkWater
 
 tree("Need to breed")
-	sequence
-		AmIOldEnough
-		not
-			AmIPregnant
+	while
 		sequence
-			SearchForAPartner
-			GoToPartner
-			Breed
+			AmIOldEnough
+			not AmIPregnant
+
+		mute
+			sequence
+				SearchForAPartner
+				GoToPartner
+				Breed
 
 tree("Move randomnly")
 	MoveRandomly
