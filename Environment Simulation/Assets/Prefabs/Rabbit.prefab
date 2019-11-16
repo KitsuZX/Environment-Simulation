@@ -141,7 +141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxEnergy: 10
   maxHidration: 10
-  hopDistance: 3.5
+  speed: 3.5
   childCountMean: 3
   perceptionRadius: 10
   gestationPeriodLength: 0.3

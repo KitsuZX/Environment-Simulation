@@ -6,7 +6,7 @@ public class Genes : MonoBehaviour
 {
     public float maxEnergy;
     public float maxHidration;
-    public float hopDistance;
+    public float speed;
     public float childCountMean;
     public float perceptionRadius;
     public float gestationPeriodLength;
