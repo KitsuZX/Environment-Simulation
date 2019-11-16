@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
@@ -10,12 +11,13 @@ public class Perceptor : MonoBehaviour
     private const string BUSH_TAG = "Bush";
 
 
-    [SerializeField] private PerceiveeType rabbitPerception;
-    [SerializeField] private PerceiveeType foxPerception;
-    [SerializeField] private PerceiveeType bushPerception;
+    [SerializeField] private PerceiveeType rabbitPerception = PerceiveeType.Irrelevant;
+    [SerializeField] private PerceiveeType foxPerception = PerceiveeType.Irrelevant;
+    [SerializeField] private PerceiveeType bushPerception = PerceiveeType.Irrelevant;
 
 
     private new SphereCollider collider;
+    private new Transform transform;
 
     //Los objetos percibidos se guardan en un diccionario. La clave es el GameObject para poder identificarlo cuando se salga.
     //El valor es la información que necesitamos sobre este tipo de objeto percibido.
@@ -24,7 +26,7 @@ public class Perceptor : MonoBehaviour
     private Dictionary<GameObject, PerceivedMate> perceivedMates = new Dictionary<GameObject, PerceivedMate>();
 
 
-    private PerceiveeType GetPerceiveeType(GameObject gameObject)
+    public PerceiveeType GetPerceiveeType(GameObject gameObject)
     {
         switch (gameObject.tag)
         {
@@ -39,7 +41,55 @@ public class Perceptor : MonoBehaviour
         }
     }
 
+    public Transform GetClosestFood()
+    {
+        Vector3 myPos = transform.position;
 
+        Transform closest = null
+;
+        float closestDistance = float.MaxValue;
+        float distance;
+
+        foreach (Transform transform in perceivedFood.Values)
+        {
+            distance = (myPos - transform.position).sqrMagnitude;
+            if (distance < closestDistance)
+            {
+                closest = transform;
+            }
+        }
+
+        return closest;
+    }
+
+    //Devuelve IEnumerable porque así no hace falta copiar a un array, se pasa directamente lo que contiene el diccionario.
+    public IEnumerable<Transform> GetDangers()
+    {
+        return perceivedDangers.Values;
+
+    }
+
+    public PerceivedMate GetSexiestMate()
+    {
+        PerceivedMate sexiestMate = new PerceivedMate();
+        float highestSexAppeal = float.MinValue;
+        float sexAppeal;
+
+        foreach (PerceivedMate mate in perceivedMates.Values)
+        {
+            sexAppeal = mate.genes.sexAppeal;
+            if (sexAppeal > highestSexAppeal)
+            {
+                highestSexAppeal = sexAppeal;
+                sexiestMate = mate;
+            }
+        }
+
+        return sexiestMate;
+    }
+
+
+    #region Registration & Unregistration
     private void OnTriggerEnter(Collider other)
     {
         AddToPerceived(other.gameObject, GetPerceiveeType(other.gameObject));
@@ -56,6 +106,7 @@ public class Perceptor : MonoBehaviour
                 perceivedDangers.Add(perceivee, perceivee.transform);
                 break;
             case PerceiveeType.Mate:
+                //TODO: Comprobar si es del sexo opuesto. Añadir sólo si lo es.
                 perceivedMates.Add(perceivee, new PerceivedMate
                 {
                     transform = perceivee.transform,
@@ -86,17 +137,20 @@ public class Perceptor : MonoBehaviour
                 break;
         }
     }
+    #endregion
 
 
     private void Start()
     {
-        gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        transform = GetComponent<Transform>();
 
         collider = GetComponent<SphereCollider>();
         collider.isTrigger = true;
-
         collider.radius = GetComponentInParent<Genes>().perceptionRadius;
+
+        gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
     }
+
 
     public override string ToString()
     {
@@ -107,18 +161,21 @@ public class Perceptor : MonoBehaviour
         return s;
     }
 
-
+    #region Types
     public enum PerceiveeType
     {
-        Food, 
+        Food,
         Danger,
         Mate,
         Irrelevant
     }
 
-    private struct PerceivedMate
+    public struct PerceivedMate
     {
         public Transform transform;
+        //TODO: esto cuando el componente exista
+        //public VitalFunctions vitalFunctions;
         public Genes genes;
     }
+    #endregion
 }
