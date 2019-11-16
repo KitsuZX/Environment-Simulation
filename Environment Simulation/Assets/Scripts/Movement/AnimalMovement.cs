@@ -27,7 +27,7 @@ public class AnimalMovement : MonoBehaviour
 		_agent = GetComponent<NavMeshAgent>();
 		_genes = GetComponent<Genes>();
 		_model = GetComponentInChildren<MeshRenderer>().transform;
-		_terrainData = terrainGenerator.GetComponent<TerrainGenerator>().TerrainData;
+		//_terrainData = terrainGenerator.GetComponent<TerrainGenerator>().TerrainData;
 	}
 
 	private void Start()
