@@ -40,11 +40,12 @@ public class VitalTasks : MonoBehaviour
         //Vital functions -> 
     }
     [Task]
-    public void EatFood(Transform foodPos)
+    public void EatFood()
     {
         Task.current.Fail();
+        Transform closestFood = perceptor.GetClosestFood();
         //Vital functions -> EatFood
-        vitalFunctions.EatFood(foodPos);
+        vitalFunctions.EatFood(closestFood);
     }
     [Task]
     public void DrinkWater()
