@@ -5,30 +5,29 @@ using UnityEngine;
 
 public class PercieveTasks : MonoBehaviour
 {
+    private Perceptor perceptor;
 
     [Task]
-    public void CheckForEnemies()
+    public bool IsInDanger => perceptor.IsInDanger;
+
+
+    [Task]
+    public void SearchForFood()
     {
-        //Perceptor -> GetEnemies
+        if (perceptor.SeesFood) Task.current.Succeed();
+        else Task.current.Fail();
     }
 
     [Task]
-    public void FindFood()
+    public void SearchForAPartner()
     {
-        //Perceptor -> GetClosestFood
-    }
-
-    [Task]
-    public void FindWater()
-    {
-        //Animal movement -> GoToWater
-    }
-
-    [Task]
-    public void FindAPartner()
-    {
-        //Perceptor -> GetBestPartnerToHaveSexWith
+        if (perceptor.SeesPartner) Task.current.Succeed();
+        else Task.current.Fail();
     }
 
 
+    private void Awake()
+    {
+        perceptor = GetComponentInChildren<Perceptor>();
+    }
 }

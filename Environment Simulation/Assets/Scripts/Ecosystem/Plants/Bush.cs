@@ -8,11 +8,15 @@ public class Bush : MonoBehaviour
     [SerializeField] private float maxFoodAmount = 100f;
     [SerializeField] private float foodGainedPerSecond = 10f;
     [SerializeField] private float actualFoodAmount;
-       
+
+    [SerializeField] private float perceptableFoodAmount = 15f;
+
+    private new Collider collider;
 
     private void Awake()
     {
-        actualFoodAmount = maxFoodAmount;     
+        actualFoodAmount = maxFoodAmount;
+        collider = GetComponent<Collider>();
     }
 
     private void FixedUpdate()
@@ -24,6 +28,9 @@ public class Bush : MonoBehaviour
 
             transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, actualFoodAmount / maxFoodAmount);
         }
+
+        //Si hay menos que x comida, se apaga el Collider para que los Perceptors no lo identifiquen como comida.
+        collider.enabled = actualFoodAmount > perceptableFoodAmount;
     }
     /// <summary>
     /// Returns the actual amount of food the animal gets from the bush

@@ -8,15 +8,13 @@ tree("Root")
 
 
 tree("Run away")
-	sequence
-		CheckForEnemies
+	while IsInDanger
 		RunAway
 
 tree("Need food")
-	sequence
-		DoINeedFood
+	while DoINeedFood
 		sequence
-			FindFood
+			SearchForFood
 			GoToFood
 			EatFood
 
@@ -24,7 +22,6 @@ tree("Need water")
 	sequence
 		DoINeedWater
 		sequence
-			FindWater
 			GoToWater
 			DrinkWater
 
@@ -34,7 +31,7 @@ tree("Need to breed")
 		not
 			AmIPregnant
 		sequence
-			FindAPartner
+			SearchForAPartner
 			GoToPartner
 			Breed
 

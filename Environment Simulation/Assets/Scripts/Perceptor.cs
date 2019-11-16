@@ -15,6 +15,10 @@ public class Perceptor : MonoBehaviour
     [SerializeField] private PerceiveeType foxPerception = PerceiveeType.Irrelevant;
     [SerializeField] private PerceiveeType bushPerception = PerceiveeType.Irrelevant;
 
+    public bool IsInDanger { get => perceivedDangers.Count > 0; }
+    public bool SeesFood { get => perceivedFood.Count > 0; }
+    public bool SeesPartner { get => perceivedMates.Count > 0; }
+
 
     private new SphereCollider collider;
     private new Transform transform;
@@ -66,7 +70,6 @@ public class Perceptor : MonoBehaviour
     public IEnumerable<Transform> GetDangers()
     {
         return perceivedDangers.Values;
-
     }
 
     public PerceivedMate GetSexiestMate()
@@ -92,6 +95,8 @@ public class Perceptor : MonoBehaviour
     #region Registration & Unregistration
     private void OnTriggerEnter(Collider other)
     {
+        ReliableOnTriggerExit.NotifyTriggerEnter(other, gameObject, OnTriggerExit);
+
         AddToPerceived(other.gameObject, GetPerceiveeType(other.gameObject));
     }
 
@@ -119,7 +124,11 @@ public class Perceptor : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        ReliableOnTriggerExit.NotifyTriggerExit(other, gameObject);
+
         RemoveFromPerceived(other.gameObject, GetPerceiveeType(other.gameObject));
+
+        print(this);
     }
 
     private void RemoveFromPerceived(GameObject perceivee, PerceiveeType perceiveeType)

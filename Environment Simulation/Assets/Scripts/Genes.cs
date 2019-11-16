@@ -12,4 +12,11 @@ public class Genes : MonoBehaviour
     public float gestationPeriodLength;
     public Vector2 reproductiveAgeRange;
     public float sexAppeal;
+
+
+
+    private void FixedUpdate()
+    {
+        
+    }
 }
