@@ -9,28 +9,33 @@ public class AnimalMovement : MonoBehaviour
     [SerializeField] private float thresholdDistance;
 	[SerializeField] private float jumpHeight = 1f;
 	[SerializeField] private float jumpTime = 1f;
+	[SerializeField] private float timeBetweenRandomlyChoosingTarget = 8f;
 	[SerializeField] private AnimationCurve jumpCurve;
 
 	[Header("References")]
-	[SerializeField] private Transform[] enemies;
-	[SerializeField] private GameObject terrainGenerator;
+	[SerializeField] private List<Transform> enemies;
 
 	private bool _isJumping = false;
 	private Transform _model;
 
 	private NavMeshAgent _agent;
 	private Genes _genes;
-	private TerrainData _terrainData;
+	private TerrainGenerator _terrainGenerator;
 
+	private Vector3 randomTarget;
 
 	private void Awake()
 	{
 		_agent = GetComponent<NavMeshAgent>();
 		_genes = GetComponent<Genes>();
 		_model = GetComponentInChildren<MeshRenderer>().transform;
-		//_terrainData = terrainGenerator.GetComponent<TerrainGenerator>().TerrainData;
+		_terrainGenerator = GameObject.FindGameObjectWithTag("TerrainGenerator").GetComponent<TerrainGenerator>();
 	}
 
+	private void Start()
+	{
+		InvokeRepeating("UpdateRandomTarget", 0f, timeBetweenRandomlyChoosingTarget);
+	}
 
 	void FixedUpdate()
     {
@@ -51,7 +56,7 @@ public class AnimalMovement : MonoBehaviour
 			MoveRandom();
 		}*/
 
-		//FleeFrom(enemy.position);
+		//FleeFrom(enemies);
 
 		if(_agent.velocity.magnitude > 0  && !_isJumping)
 		{			
@@ -78,13 +83,23 @@ public class AnimalMovement : MonoBehaviour
 		_isJumping = false;
 	}
 	
-	public void FleeFrom(Vector3 danger)
+	public void FleeFrom(List<Transform> dangers)
 	{
-		/*Vector3 dir = (transform.position - danger).normalized;
+		Vector3 meanDirection = Vector3.zero;
 
-		Vector3 runTo = transform.position + (transform.position - danger)  * _genes.speed;
+		for (int i = 0; i < dangers.Count; i++)
+		{
+			Vector3 enemyPos2d = dangers[i].position;
+			enemyPos2d.y = transform.position.y;
+			Vector3 dir = transform.position - enemyPos2d;
 
-		_agent.SetDestination(runTo);*/
+			meanDirection += dir / dangers.Count;
+		}
+
+		meanDirection = meanDirection.normalized;
+
+		_agent.SetDestination(GetFurthesPointInDirection(meanDirection));
+
 	}
 
 	public bool GoTo(Vector3 position)
@@ -95,10 +110,152 @@ public class AnimalMovement : MonoBehaviour
 
 	public void MoveRandom()
 	{
-		Vector3 randomPosition = transform.position + Random.onUnitSphere * _agent.speed;
-		randomPosition.y = transform.position.y;
+		GoTo(randomTarget);		
+	}
 
-		_agent.SetDestination(randomPosition);		
+	private Vector3 GetFurthesPointInDirection(Vector3 direction)
+	{
+		float terrainSize = _terrainGenerator.TerrainData.size * 0.5f;
+
+		float x = transform.position.x + direction.x * terrainSize * 2;
+		float y = transform.position.y;
+		float z = transform.position.z + direction.z * terrainSize * 2;
+
+		Vector2 intersection = Vector2.zero;
+		Vector2 pos2d = new Vector2(transform.position.x, transform.position.z);
+
+		Vector2 objective = new Vector2(x, z);
+
+		Vector2 upRightCorner = new Vector2(terrainSize, terrainSize);
+		Vector2 downRightCorner = new Vector2(terrainSize, -terrainSize);
+		Vector2 upLeftCorner = new Vector2(-terrainSize, terrainSize);
+		Vector2 downLeftCorner = new Vector2(-terrainSize, -terrainSize);
+
+		bool b;
+
+		if (x > terrainSize)
+		{
+			if (z > terrainSize)
+			{
+				if (Mathf.Abs(x) > Mathf.Abs(z))
+				{
+					intersection = GetIntersectionPointCoordinates(pos2d, objective, upRightCorner, downRightCorner, out b);
+				}
+				else
+				{
+					intersection = GetIntersectionPointCoordinates(pos2d, objective, upLeftCorner, upRightCorner, out b);
+				}
+
+			}
+			else if (z < -terrainSize)
+			{
+				if (Mathf.Abs(x) > Mathf.Abs(z))
+				{
+					intersection = GetIntersectionPointCoordinates(pos2d, objective, upRightCorner, downRightCorner, out b);
+				}
+				else
+				{
+					intersection = GetIntersectionPointCoordinates(pos2d, objective, downLeftCorner, downRightCorner, out b);
+				}
+			}
+			else
+			{
+				intersection = GetIntersectionPointCoordinates(pos2d, objective, upRightCorner, downRightCorner, out b);
+			}
+
+		}
+		else if (x < -terrainSize)
+		{
+			if (z > terrainSize)
+			{
+				if (Mathf.Abs(x) > Mathf.Abs(z))
+				{
+					intersection = GetIntersectionPointCoordinates(pos2d, objective, upLeftCorner, downLeftCorner, out b);
+				}
+				else
+				{
+					intersection = GetIntersectionPointCoordinates(pos2d, objective, upLeftCorner, upRightCorner, out b);
+				}
+
+			}
+			else if (z < -terrainSize)
+			{
+				if (Mathf.Abs(x) > Mathf.Abs(z))
+				{
+					intersection = GetIntersectionPointCoordinates(pos2d, objective, downLeftCorner, upLeftCorner, out b);
+				}
+				else
+				{
+					intersection = GetIntersectionPointCoordinates(pos2d, objective, downLeftCorner, downRightCorner, out b);
+				}
+			}
+			else
+			{
+				intersection = GetIntersectionPointCoordinates(pos2d, objective, upLeftCorner, downLeftCorner, out b);
+			}
+		}
+		else if (z > terrainSize)
+		{
+			if (x > terrainSize)
+			{
+				if (Mathf.Abs(x) > Mathf.Abs(z))
+				{
+					intersection = GetIntersectionPointCoordinates(pos2d, objective, upRightCorner, downRightCorner, out b);
+				}
+				else
+				{
+					intersection = GetIntersectionPointCoordinates(pos2d, objective, upLeftCorner, upRightCorner, out b);
+				}
+
+			}
+			else if (x < -terrainSize)
+			{
+				if (Mathf.Abs(x) > Mathf.Abs(z))
+				{
+					intersection = GetIntersectionPointCoordinates(pos2d, objective, upLeftCorner, downLeftCorner, out b);
+				}
+				else
+				{
+					intersection = GetIntersectionPointCoordinates(pos2d, objective, upRightCorner, upLeftCorner, out b);
+				}
+			}
+			else
+			{
+				intersection = GetIntersectionPointCoordinates(pos2d, objective, upLeftCorner, upRightCorner, out b);
+			}
+		}
+		else if (z < -terrainSize)
+		{
+			if (x > terrainSize)
+			{
+				if (Mathf.Abs(x) > Mathf.Abs(z))
+				{
+					intersection = GetIntersectionPointCoordinates(pos2d, objective, upRightCorner, downRightCorner, out b);
+				}
+				else
+				{
+					intersection = GetIntersectionPointCoordinates(pos2d, objective, downRightCorner, downLeftCorner, out b);
+				}
+
+			}
+			else if (x < -terrainSize)
+			{
+				if (Mathf.Abs(x) > Mathf.Abs(z))
+				{
+					intersection = GetIntersectionPointCoordinates(pos2d, objective, upLeftCorner, downLeftCorner, out b);
+				}
+				else
+				{
+					intersection = GetIntersectionPointCoordinates(pos2d, objective, downRightCorner, downLeftCorner, out b);
+				}
+			}
+			else
+			{
+				intersection = GetIntersectionPointCoordinates(pos2d, objective, downRightCorner, downLeftCorner, out b);
+			}
+		}
+
+		return new Vector3(intersection.x, y, intersection.y);
 	}
 
 	private void OnDrawGizmos()
@@ -109,55 +266,16 @@ public class AnimalMovement : MonoBehaviour
 		{
 			Vector3 enemyPos2d = enemies[i].position;
 			enemyPos2d.y = transform.position.y;
-			Vector3 dir = (transform.position - enemyPos2d).normalized;
+			Vector3 dir = transform.position - enemyPos2d;
 
 			meanDirection += dir / enemies.Length;
 		}
 
-		Gizmos.color = Color.red;
-		Gizmos.DrawLine(transform.position, transform.position + meanDirection * 3.5f);
+		meanDirection = meanDirection.normalized;
 
-		float terrainSize = terrainGenerator.GetComponent<TerrainGenerator>().TerrainData.size * 0.5f;
+		Vector3 tile = GetFurthesPointInDirection(meanDirection);
 
-		//Vector3 tile = Vector3.Scale(meanDirection, (new Vector3(terrainSize * 0.5f + transform.position.x + 0.5f, transform.position.y, terrainSize * 0.5f + transform.position.z + 0.5f)));
-	
-
-		float x = transform.position.x + meanDirection.x * 10f;
-		float y = transform.position.y;
-		float z = transform.position.z + meanDirection.z * 10f;
-
-		Gizmos.DrawSphere(new Vector3(x, y, z), 0.25f);
-		Vector2 intersection = Vector2.zero;
-		Vector2 pos2d = new Vector2(transform.position.x, transform.position.z);
-
-		Vector2 objective = new Vector2(x, z);
-
-		if(x > )
-		{
-			if(z > terrainSize)
-			{
-				
-			}
-			else
-			{
-
-			}
-		}
-		else
-		{
-			if (z > terrainSize)
-			{
-				intersection = GetIntersectionPointCoordinates(pos2d, objective, new Vector2(-terrainSize, terrainSize), new Vector2(terrainSize, terrainSize)); 
-			}
-			else
-			{
-
-			}
-		}
-
-		Vector3 tile = new Vector3(x, y, z);
-		//Debug.Log(tile);
-
+		Gizmos.color = Color.blue;
 		Gizmos.DrawSphere(tile, 0.25f);*/
 
 	}
@@ -181,5 +299,11 @@ public class AnimalMovement : MonoBehaviour
 			B1.x + (B2.x - B1.x) * mu,
 			B1.y + (B2.y - B1.y) * mu
 		);
+	}
+
+	private void UpdateRandomTarget()
+	{
+		randomTarget = _terrainGenerator.TerrainData.GetRandomWalkableTile();
+		print(randomTarget);
 	}
 }
