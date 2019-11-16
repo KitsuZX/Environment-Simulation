@@ -134,8 +134,6 @@ public class Perceptor : MonoBehaviour
         ReliableOnTriggerExit.NotifyTriggerExit(other, gameObject);
 
         RemoveFromPerceived(other.gameObject, GetPerceiveeType(other.gameObject));
-
-        print(this);
     }
 
     private void RemoveFromPerceived(GameObject perceivee, PerceiveeType perceiveeType)

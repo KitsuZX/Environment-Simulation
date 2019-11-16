@@ -7,7 +7,7 @@ public class Pregnant : MonoBehaviour
 
     private float timePregnant;
     private int childCount;
-    private Genes parentGenes;
+    private Genes fatherGenes;
     private float gestationPeriodLength;
 
     private bool pregnancyStarted = false;
@@ -36,7 +36,7 @@ public class Pregnant : MonoBehaviour
 
     public void AssignParentGenes(Genes parent)
     {
-        parentGenes = parent;
+        fatherGenes = parent;
     }
 
     public void StartPregnancy()
@@ -44,7 +44,7 @@ public class Pregnant : MonoBehaviour
         pregnancyStarted = true;
     }
     
-    public void GiveBirth(Genes genes)
+    public void GiveBirth(Genes motherGenes)
     {
 
     }
