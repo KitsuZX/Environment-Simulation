@@ -30,10 +30,10 @@ public class Bush : MonoBehaviour
     /// </summary>
     /// <param name="amountAskedFor">Amount of food the animal is asking</param>
     /// <returns></returns>
-    private float GetFoodFromBush(float amountAskedFor)
+    public float GetFoodFromBush(float amountAskedFor)
     {
         float foodRetrieved = actualFoodAmount - amountAskedFor;
-        foodRetrieved = Mathf.Clamp(foodRetrieved, 0, foodRetrieved);
+        foodRetrieved = Mathf.Clamp(foodRetrieved, 0, amountAskedFor);
 
         actualFoodAmount = foodRetrieved;
 

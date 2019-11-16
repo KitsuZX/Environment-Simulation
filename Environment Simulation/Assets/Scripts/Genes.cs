@@ -5,7 +5,7 @@ using UnityEngine;
 public class Genes : MonoBehaviour
 {
     public float maxEnergy;
-    public float maxHidration;
+    public float maxHydration;
     public float hopDistance;
     public float childCountMean;
     public float perceptionRadius;
