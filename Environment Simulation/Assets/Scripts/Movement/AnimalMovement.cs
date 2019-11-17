@@ -61,13 +61,13 @@ public class AnimalMovement : MonoBehaviour
 		_isJumping = false;
 	}
 	
-	public void FleeFrom(ICollection<Transform> dangers)
+	public void FleeFrom(List<Vector3> dangers)
 	{
 		Vector3 meanDirection = Vector3.zero;
 
 		foreach (Transform dangerSource in dangers)
 		{
-			Vector3 enemyPos2d = dangerSource.position;
+			Vector3 enemyPos2d = dangers[i];
 			enemyPos2d.y = transform.position.y;
 			Vector3 dir = transform.position - enemyPos2d;
 
@@ -91,7 +91,41 @@ public class AnimalMovement : MonoBehaviour
         //TODO: Si llega al punto aleatorio, volver a escoger un punto aleatorio para que no se quede quieto.
 		GoTo(randomTarget);		
 	}
+	
+	public bool GoToNearestWaterSource()
+	{
+		Vector3 waterSource = _terrainGenerator.TerrainData.GetNearestCoastalTile(transform.position);
+	
+		return GoTo(waterSource);
+	}
 
+	public Vector2 GetIntersectionPointCoordinates(Vector2 A1, Vector2 A2, Vector2 B1, Vector2 B2, out bool found)
+	{
+		float tmp = (B2.x - B1.x) * (A2.y - A1.y) - (B2.y - B1.y) * (A2.x - A1.x);
+
+		if (tmp == 0)
+		{
+			// No solution!
+			found = false;
+			return Vector2.zero;
+		}
+
+		float mu = ((A1.x - B1.x) * (A2.y - A1.y) - (A1.y - B1.y) * (A2.x - A1.x)) / tmp;
+
+		found = true;
+
+		return new Vector2(
+			B1.x + (B2.x - B1.x) * mu,
+			B1.y + (B2.y - B1.y) * mu
+		);
+	}
+
+
+	/// <summary>
+	/// Returns the position of the furthest tile which is walkable in a given direction
+	/// </summary>
+	/// <param name="direction"></param>
+	/// <returns></returns>
 	private Vector3 GetFurthestPointInDirection(Vector3 direction)
 	{
 		float terrainSize = _terrainGenerator.TerrainData.size * 0.5f;
@@ -234,35 +268,20 @@ public class AnimalMovement : MonoBehaviour
 			}
 		}
 
-		return new Vector3(intersection.x, y, intersection.y);
-	}
+		Vector2 tile = _terrainGenerator.TerrainData.WorldBorderToTile(intersection);
 
-	public bool GoToNearestWaterSource()
-	{
-		Vector3 waterSource = _terrainGenerator.TerrainData.GetNearestCoastalTile(transform.position);
-	
-		return GoTo(waterSource);
-	}
+		float tileX = _terrainGenerator.TerrainData.tileCentres[(int)tile.x, (int)tile.y].x;
+		float tileZ = _terrainGenerator.TerrainData.tileCentres[(int)tile.x, (int)tile.y].z;
 
-	public Vector2 GetIntersectionPointCoordinates(Vector2 A1, Vector2 A2, Vector2 B1, Vector2 B2, out bool found)
-	{
-		float tmp = (B2.x - B1.x) * (A2.y - A1.y) - (B2.y - B1.y) * (A2.x - A1.x);
-
-		if (tmp == 0)
+		if (!_terrainGenerator.TerrainData.walkable[(int)tile.x, (int)tile.y])
 		{
-			// No solution!
-			found = false;
-			return Vector2.zero;
+			tile = GetNearestBorderTileWithoutWater(tile);
 		}
 
-		float mu = ((A1.x - B1.x) * (A2.y - A1.y) - (A1.y - B1.y) * (A2.x - A1.x)) / tmp;
+		x = _terrainGenerator.TerrainData.tileCentres[(int)tile.x, (int)tile.y].x;
+		z = _terrainGenerator.TerrainData.tileCentres[(int)tile.x, (int)tile.y].z;
 
-		found = true;
-
-		return new Vector2(
-			B1.x + (B2.x - B1.x) * mu,
-			B1.y + (B2.y - B1.y) * mu
-		);
+		return new Vector3(x, y, z);
 	}
 
 	private void UpdateRandomTarget()
@@ -270,49 +289,45 @@ public class AnimalMovement : MonoBehaviour
 		randomTarget = _terrainGenerator.TerrainData.GetRandomWalkableTile();
 	}
 
-	private void OnDrawGizmos()
-	{
-		/*Vector3 meanDirection = Vector3.zero;
+	/// <summary>
+	/// Given a tile which is not walkable (is water), returns a tile in the same side of the terrain that doesn't  have water
+	/// </summary>
+	/// <param name="originTile"></param>
+	/// <returns></returns>
+	private Vector2 GetNearestBorderTileWithoutWater(Vector2 originTile)
+	{		
+		int X = (int)originTile.x;
+		int Y = (int)originTile.y;
 
-		for (int i = 0; i < enemies.Length; i++)
-		{
-			Vector3 enemyPos2d = enemies[i].position;
-			enemyPos2d.y = transform.position.y;
-			Vector3 dir = transform.position - enemyPos2d;
+		int offset = 1;
 
-			meanDirection += dir / enemies.Length;
-		}
-
-		meanDirection = meanDirection.normalized;
-
-		Vector3 tile = GetFurthesPointInDirection(meanDirection);
-
-		Gizmos.color = Color.blue;
-		Gizmos.DrawSphere(tile, 0.25f);*/
-
-		TerrainGenerator generator = GameObject.FindGameObjectWithTag("TerrainGenerator").GetComponent<TerrainGenerator>();
-
-		Gizmos.color = Color.blue;
-		Gizmos.DrawSphere(generator.TerrainData.GetNearestCoastalTile(transform.position), 0.25f);
-
-	
-		for (int y = 0; y < generator.TerrainData.size; y++)
-		{
-
-			for (int x = 0; x < generator.TerrainData.size; x++)
+		while(true)
+		{			
+			if(X <= 0 || X >= _terrainGenerator.TerrainData.size * 0.5f - 1)
 			{
-				if(generator.TerrainData.shore[x, y])
+				if (Y + offset < _terrainGenerator.TerrainData.size * 0.5 && _terrainGenerator.TerrainData.walkable[X, Y + offset])
 				{
-					Gizmos.color = Color.red;
-					Gizmos.DrawSphere(generator.TerrainData.tileCentres[x, y], 0.25f);
+					return new Vector2(X, Y + offset);
 				}
+				else if (Y - offset > 0 && _terrainGenerator.TerrainData.walkable[X, Y - offset])
+				{
+					return new Vector2(X, Y - offset);
+				}
+			}		
 
-				if (generator.TerrainData.coastal[x, y])
+			if(Y <= 0 || Y >= _terrainGenerator.TerrainData.size * 0.5f - 1)
+			{				
+				if (X + offset < _terrainGenerator.TerrainData.size * 0.5 && _terrainGenerator.TerrainData.walkable[X + offset, Y])
 				{
-					Gizmos.color = Color.green;
-					Gizmos.DrawSphere(generator.TerrainData.tileCentres[x, y], 0.25f);
+					return new Vector2(X + offset, Y);
 				}
-			}
+				else if (X - offset > 0 && _terrainGenerator.TerrainData.walkable[X - offset, Y])
+				{
+					return new Vector2(X - offset, Y);
+				}							
+			}		
+
+			offset++;
 		}
 	}
 }
