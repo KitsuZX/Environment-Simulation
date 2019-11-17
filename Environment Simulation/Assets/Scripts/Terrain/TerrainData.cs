@@ -17,4 +17,26 @@ public class TerrainData
         walkable = new bool[size, size];
         shore = new bool[size, size];
     }
+
+	public Vector3 GetRandomWalkableTile()
+	{
+		int x = 0, y = 0;
+
+		do
+		{
+			x = Random.Range(0, size);
+			y = Random.Range(0, size);
+		}
+		while (!walkable[x, y]);
+
+		return tileCentres[x, y];
+	}
+
+	public Vector3 GetRandomTile()
+	{
+		int x = Random.Range(0, size);
+		int y = Random.Range(0, size);
+
+		return tileCentres[x, y];
+	}
 }
