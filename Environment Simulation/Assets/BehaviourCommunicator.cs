@@ -11,6 +11,8 @@ public class BehaviourCommunicator : MonoBehaviour
     public void SetSprite(Sprite sprite)
     {
         spriteRenderer.sprite = sprite;
+
+        spriteRenderer.enabled = sprite;
     }
 
 

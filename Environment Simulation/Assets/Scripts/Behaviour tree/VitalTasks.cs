@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using Panda;
 
+#pragma warning disable 649
 [RequireComponent(typeof(VitalFunctions), typeof(Genes))]
 public class VitalTasks : MonoBehaviour
 {
+    [SerializeField] private Sprite eatFoodSprite;
+    [SerializeField] private Sprite drinkWaterSprite;
+    [SerializeField] private Sprite breedSprite;
+
 
     private VitalFunctions vitalFunctions;
     private Perceptor perceptor;
     private Genes genes;
+    private BehaviourCommunicator communicator;
 
     [Task]
     public bool IsHungry => vitalFunctions.IsHungry;
@@ -30,6 +36,8 @@ public class VitalTasks : MonoBehaviour
         IEatable closestFood = perceptor.GetClosestFood();
         vitalFunctions.EatFood(closestFood);
         Task.current.Succeed();
+
+        communicator.SetSprite(eatFoodSprite);
     }
 
     [Task]
@@ -37,6 +45,8 @@ public class VitalTasks : MonoBehaviour
     {
         vitalFunctions.DrinkWater();
         Task.current.Succeed();
+
+        communicator.SetSprite(drinkWaterSprite);
     }
 
     [Task]
@@ -50,6 +60,8 @@ public class VitalTasks : MonoBehaviour
         }
 
         Task.current.Succeed();
+
+        communicator.SetSprite(breedSprite);
     }
 
 
@@ -58,5 +70,6 @@ public class VitalTasks : MonoBehaviour
         vitalFunctions = GetComponent<VitalFunctions>();
         genes = GetComponent<Genes>();
         perceptor = GetComponentInChildren<Perceptor>();
+        communicator = GetComponentInChildren<BehaviourCommunicator>();
     }
 }

@@ -17,11 +17,21 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Fox
       objectReference: {fileID: 0}
-    - target: {fileID: 199727276690911797, guid: d8af8a8003b2fd1499a057086be30e73,
+    - target: {fileID: 1635231983, guid: d8af8a8003b2fd1499a057086be30e73, type: 3}
+      propertyPath: searchForFoodSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 07d9f25f3079a6d49b6083c5565884e6,
         type: 3}
-      propertyPath: maxHydration
-      value: 10
-      objectReference: {fileID: 0}
+    - target: {fileID: 1635231982, guid: d8af8a8003b2fd1499a057086be30e73, type: 3}
+      propertyPath: eatFoodSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 346810a19b0feb34ca4d65c0a74b2205,
+        type: 3}
+    - target: {fileID: 1635231984, guid: d8af8a8003b2fd1499a057086be30e73, type: 3}
+      propertyPath: goToFoodSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e5c3125f9222d3045af638730f7b7566,
+        type: 3}
     - target: {fileID: 199727276690911793, guid: d8af8a8003b2fd1499a057086be30e73,
         type: 3}
       propertyPath: m_LocalPosition.x

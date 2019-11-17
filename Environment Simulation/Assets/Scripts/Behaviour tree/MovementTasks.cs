@@ -1,9 +1,15 @@
 ﻿using Panda;
 using UnityEngine;
 
+#pragma warning disable 649
 [RequireComponent(typeof(AnimalMovement))]
 public class MovementTasks : MonoBehaviour
 {
+    [SerializeField] private Sprite runAwaySprite;
+    [SerializeField] private Sprite goToFoodSprite;
+    [SerializeField] private Sprite goToWaterSprite;
+    [SerializeField] private Sprite goToPartnerSprite;
+
     private AnimalMovement animalMovement;
     private Perceptor perceptor;
     private BehaviourCommunicator communicator;
@@ -13,6 +19,8 @@ public class MovementTasks : MonoBehaviour
     {
         animalMovement.FleeFrom(perceptor.GetDangers());
         Task.current.Succeed();
+
+        communicator.SetSprite(runAwaySprite);
     }
 
     [Task]
@@ -20,12 +28,17 @@ public class MovementTasks : MonoBehaviour
     {
         bool reached = animalMovement.GoTo(perceptor.GetClosestFood().Position);
         Task.current.Complete(reached);
+
+        if (!reached) communicator.SetSprite(goToFoodSprite);
     }
 
     [Task]
     public void GoToWater()
     {
-        Task.current.Complete(animalMovement.GoToNearestWaterSource());
+        bool reached = animalMovement.GoToNearestWaterSource();
+        Task.current.Complete(reached);
+
+        if (!reached) communicator.SetSprite(goToWaterSprite);
     }
 
     [Task]
@@ -33,6 +46,8 @@ public class MovementTasks : MonoBehaviour
     {
         bool reached = animalMovement.GoTo(perceptor.GetSexiestMate().transform.position);
         Task.current.Complete(reached);
+
+        if (!reached) communicator.SetSprite(goToPartnerSprite);
     }
 
     [Task]
@@ -40,6 +55,8 @@ public class MovementTasks : MonoBehaviour
     {
         animalMovement.MoveRandom();
         Task.current.Succeed();
+
+        communicator.SetSprite(null);
     }
 
 

@@ -3,11 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+#pragma warning disable 649
 [RequireComponent(typeof(AnimalMovement))]
 public class PercieveTasks : MonoBehaviour
 {
+    [SerializeField] private Sprite searchForFoodSprite;
+    [SerializeField] private Sprite searchForAPartnerSprite;
+
     private Perceptor perceptor;
     private AnimalMovement animalMovement;
+    private BehaviourCommunicator communicator;
 
 
     [Task]
@@ -22,6 +27,8 @@ public class PercieveTasks : MonoBehaviour
         {
             animalMovement.MoveRandom();
             Task.current.Fail();
+
+            communicator.SetSprite(searchForFoodSprite);
         }
     }
 
@@ -33,6 +40,8 @@ public class PercieveTasks : MonoBehaviour
         {
             animalMovement.MoveRandom();
             Task.current.Fail();
+
+            communicator.SetSprite(searchForAPartnerSprite);
         }
     }
 
@@ -41,5 +50,6 @@ public class PercieveTasks : MonoBehaviour
     {
         perceptor = GetComponentInChildren<Perceptor>();
         animalMovement = GetComponent<AnimalMovement>();
+        communicator = GetComponentInChildren<BehaviourCommunicator>();
     }
 }

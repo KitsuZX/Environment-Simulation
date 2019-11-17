@@ -29,21 +29,21 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Rabbit
       objectReference: {fileID: 0}
-    - target: {fileID: 199727276690911797, guid: d8af8a8003b2fd1499a057086be30e73,
+    - target: {fileID: 1635231983, guid: d8af8a8003b2fd1499a057086be30e73, type: 3}
+      propertyPath: searchForFoodSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2436c72f63ac4634ba9a103dfc659de7,
         type: 3}
-      propertyPath: maxHydration
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 199727276690911797, guid: d8af8a8003b2fd1499a057086be30e73,
+    - target: {fileID: 1635231982, guid: d8af8a8003b2fd1499a057086be30e73, type: 3}
+      propertyPath: eatFoodSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8c3b26ff290e73c4b8970866ab31e409,
         type: 3}
-      propertyPath: reproductiveAgeRange.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 199727276690911797, guid: d8af8a8003b2fd1499a057086be30e73,
+    - target: {fileID: 1635231984, guid: d8af8a8003b2fd1499a057086be30e73, type: 3}
+      propertyPath: goToFoodSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2436c72f63ac4634ba9a103dfc659de7,
         type: 3}
-      propertyPath: reproductiveAgeRange.y
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 199727276690911793, guid: d8af8a8003b2fd1499a057086be30e73,
         type: 3}
       propertyPath: m_LocalPosition.x
