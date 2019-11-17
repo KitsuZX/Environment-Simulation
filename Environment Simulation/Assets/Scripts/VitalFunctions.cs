@@ -55,8 +55,13 @@ public class VitalFunctions : MonoBehaviour
         float dt = Time.fixedDeltaTime;
 
         CurrentAge += dt / 60;
-        currentEnergy = Mathf.Max(currentEnergy - energyLostPerSecond * dt, 0); ;
-        currentHydration = Mathf.Max(currentHydration - hydrationLostPerSecond * dt, 0);
+        currentEnergy -= energyLostPerSecond * dt;
+        currentHydration -= hydrationLostPerSecond * dt;
+
+        if (currentEnergy < 0 || currentHydration < 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
 

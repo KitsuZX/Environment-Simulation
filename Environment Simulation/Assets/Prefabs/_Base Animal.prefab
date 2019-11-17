@@ -133,7 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifeExpectancy: 9
   maxEnergy: 10
-  maxHydration: 0
+  maxHydration: 10
   speed: 3.5
   childCountMean: 3
   perceptionRadius: 10
@@ -196,6 +196,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   needThresholdPortion: 0.307
   isFemale: 0
+  energyLostPerSecond: 0.1
+  hydrationLostPerSecond: 0.1
 --- !u!114 &417898898
 MonoBehaviour:
   m_ObjectHideFlags: 0
