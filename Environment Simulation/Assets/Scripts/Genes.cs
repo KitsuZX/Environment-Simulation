@@ -7,25 +7,17 @@ using UnityEngine.AI;
 public class Genes : MonoBehaviour
 {
     public float lifeExpectancy = 9;
+   
 
-    public float maxEnergy;
-    public float maxHydration;
-    public float speed;
-    public float childCountMean;
-    public float perceptionRadius;
-    public float gestationPeriodLength;
+    public float SexAppeal => (genesData.maxEnergy + genesData.maxHydration + genesData.speed + genesData.perceptionRadius) / 4;
     public Vector2 reproductiveAgeRange;
-
-    public float SexAppeal => (maxEnergy + maxHydration + speed + perceptionRadius) / 4;
-
-    
 
     [SerializeField] private AnimationCurve statCurve = null;
 
     private VitalFunctions vitalFunctions;
     private NavMeshAgent navMeshAgent;
     private Perceptor perceptor;
-
+    public GenesData genesData;
    
     private float AgeStatFactor { get => statCurve.Evaluate(vitalFunctions.CurrentAge / lifeExpectancy); }
         
@@ -33,8 +25,8 @@ public class Genes : MonoBehaviour
     {
         float ageFactor = AgeStatFactor;
 
-        navMeshAgent.speed = speed * ageFactor;
-        perceptor.PerceptionRadius = perceptionRadius * ageFactor;
+        navMeshAgent.speed = genesData.speed * ageFactor;
+        perceptor.PerceptionRadius = genesData.perceptionRadius * ageFactor;
     }
 
     private void Awake()
@@ -46,18 +38,10 @@ public class Genes : MonoBehaviour
     public float[] getArrayGenes()
     {
         //Valor de los genes en array
-        float[] arrayGenes = new float[]{lifeExpectancy, maxEnergy, maxHydration, speed, childCountMean,
-                        perceptionRadius, gestationPeriodLength, sexAppeal}; ;
+        float[] arrayGenes = new float[]{ genesData.maxEnergy, genesData.maxHydration, genesData.speed, genesData.childCountMean,
+                        genesData.perceptionRadius, genesData.gestationPeriodLength}; ;
 
         return arrayGenes;
     }
-    public float averageGenes()
-    {
-        //media
-        float sum = lifeExpectancy + maxEnergy + maxHydration + speed + childCountMean +
-                        perceptionRadius + gestationPeriodLength + sexAppeal;
-        float average = sum / 7;
 
-        return average;
-    }
 }

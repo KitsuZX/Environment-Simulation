@@ -9,8 +9,8 @@ public class VitalFunctions : MonoBehaviour
     public float CurrentAge { get; private set; }
     public bool IsFemale { get; private set; }
 
-    public bool IsHungry => 1 - (currentEnergy / genes.maxEnergy) > needThresholdPortion;
-    public bool IsThirsty => 1 - (currentHydration/ genes.maxHydration) > needThresholdPortion;
+    public bool IsHungry => 1 - (currentEnergy / genes.genesData.maxEnergy) > needThresholdPortion;
+    public bool IsThirsty => 1 - (currentHydration/ genes.genesData.maxHydration) > needThresholdPortion;
     public bool IsOldEnoughForSex => CurrentAge > genes.reproductiveAgeRange.x && CurrentAge < genes.reproductiveAgeRange.y;
     public bool IsPregnant => pregnancy;
 
@@ -22,11 +22,14 @@ public class VitalFunctions : MonoBehaviour
     [SerializeField] private float energyLostPerSecond = 0.1f;
     [SerializeField] private float hydrationLostPerSecond = 0.1f;
 
+    [SerializeField] private Vector3 minimumScale = new Vector3(0.5f,0.5f,0.5f);
+    [SerializeField] private Vector3 maxScale = new Vector3(2f,2f, 2f);
+
     public void EatFood(IEatable food)
     {
         //SALE EL LOGO DE COMIENDO///
         /////////////////////////////
-        float maxEnergyToGet = genes.maxEnergy - currentEnergy;
+        float maxEnergyToGet = genes.genesData.maxEnergy - currentEnergy;
 
         float energyEarned = food.Eat(maxEnergyToGet);
         currentEnergy += energyEarned;
@@ -36,16 +39,16 @@ public class VitalFunctions : MonoBehaviour
     {
         //SALE EL LOGO DE BEBIENDO///
         ////////////////////////////
-        float maxWaterToGet = genes.maxHydration - currentHydration;
+        float maxWaterToGet = genes.genesData.maxHydration - currentHydration;
         currentHydration += maxWaterToGet;
     }
 
-    public void GetPregnant(Genes fatherGenes)
+    public void GetPregnant(GenesData fatherGenesData)
     {
         //SALE EL LOGO DE FOLLANDO///
         ////////////////////////////
         pregnancy = gameObject.AddComponent<Pregnant>();
-        pregnancy.StartPregnancy(fatherGenes);
+        pregnancy.StartPregnancy(fatherGenesData);
     }
 
 
@@ -53,7 +56,7 @@ public class VitalFunctions : MonoBehaviour
     {
         float dt = Time.fixedDeltaTime;
 
-        CurrentAge += dt / 60;
+        growUp(dt);
         currentEnergy -= energyLostPerSecond * dt;
         currentHydration -= hydrationLostPerSecond * dt;
 
@@ -63,6 +66,12 @@ public class VitalFunctions : MonoBehaviour
         }
     }
 
+    private void growUp(float dt)
+    {
+        CurrentAge += dt / 60;
+        transform.localScale = Vector3.Lerp(minimumScale,maxScale, CurrentAge/genes.lifeExpectancy); ;
+    }
+
     private void Awake()
     {
         genes = GetComponent<Genes>();
@@ -70,10 +79,9 @@ public class VitalFunctions : MonoBehaviour
 
         IsFemale = Random.value < 0.5f;
     }
-
     private void Start() 
     {
-        currentEnergy = genes.maxEnergy;
-        currentHydration = genes.maxHydration;
+        currentEnergy = genes.genesData.maxEnergy;
+        currentHydration = genes.genesData.maxHydration;
     }
 }

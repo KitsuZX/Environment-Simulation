@@ -56,7 +56,7 @@ public class VitalTasks : MonoBehaviour
 
         if (!vitalFunctions.IsFemale) //Si yo soy chico y la otra es chica, la otra se queda preñada de mi, lets go
         {
-            pm.vitalFunctions.GetPregnant(genes);
+            pm.vitalFunctions.GetPregnant(genes.genesData);
         }
 
         Task.current.Succeed();

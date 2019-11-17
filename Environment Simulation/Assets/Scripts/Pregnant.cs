@@ -8,8 +8,8 @@ public class Pregnant : MonoBehaviour
     private float timePregnant;
     private int childCount;
     private float gestationPeriodLength;
-    private Genes motherGenes;
-    private Genes fatherGenes;
+    private GenesData motherGenesData;
+    private GenesData fatherGenesData;
 
     private bool pregnancyStarted = false;
 
@@ -27,57 +27,60 @@ public class Pregnant : MonoBehaviour
         }
     }
 
-    
-
-    public void StartPregnancy(Genes fatherGenes)
+    public void StartPregnancy(GenesData fatherGenes)
     {
-        this.fatherGenes = fatherGenes;
+        this.fatherGenesData = fatherGenes;
 
         pregnancyStarted = true;
         timePregnant = 0;
-        childCount = Mathf.RoundToInt(motherGenes.childCountMean);
-        gestationPeriodLength = motherGenes.gestationPeriodLength;
+        childCount = Mathf.RoundToInt(motherGenesData.childCountMean);
+        gestationPeriodLength = motherGenesData.gestationPeriodLength;
     }
     
-    public Genes GiveBirth(Genes motherGenes)
+    public void GiveBirth()
     {
-
-        Genes childGenes = new Genes();
-        float aux = 0;
-
-        //Media de los padres
-        float averageParents = (motherGenes.averageGenes() + fatherGenes.averageGenes())/2;
-
-        //Genes de los padres
-        float[] arrayMadre = motherGenes.getArrayGenes();
-        float[] arrayPadre = fatherGenes.getArrayGenes();
-
-        //Cálculo de Varianzas
-        for (int i = 0; i < 7; i++)
-        {
-            float xi = (arrayMadre[i] + arrayPadre[i]) / 2;
-            aux += (Mathf.Pow((xi - averageParents),2) );
-        }
-        float var = aux / 2;
-
-        //Offset aleatorio entre varianzas
-        float rnd = Random.Range(-var, var);
+        //Se calculan los genes base de cada hijo
+        float meanmaxEnergy = mean(motherGenesData.maxEnergy, fatherGenesData.maxEnergy);
+        float meanmaxHydration = mean(motherGenesData.maxHydration, fatherGenesData.maxHydration);
+        float meanspeed = mean(motherGenesData.speed, fatherGenesData.speed);
+        float meanchildCountMean = mean(motherGenesData.childCountMean, fatherGenesData.childCountMean);
+        float meanperceptionRadius = mean(motherGenesData.perceptionRadius, fatherGenesData.perceptionRadius);
+        float meangestationPeriodLength = mean(motherGenesData.gestationPeriodLength, fatherGenesData.gestationPeriodLength);
 
         //Asignación de elementos 
-        childGenes.maxEnergy = rnd + ((arrayMadre[0] + arrayPadre[0]) / 2);
-        childGenes.maxHydration = rnd + ((arrayMadre[1] + arrayPadre[1])/ 2);
-        childGenes.speed = rnd + ((arrayMadre[2] + arrayPadre[2]) / 2);
-        childGenes.childCountMean = rnd + ((arrayMadre[3] + arrayPadre[3])/ 2);
-        childGenes.perceptionRadius = rnd + ((arrayMadre[4] + arrayPadre[4]) / 2);
-        childGenes.gestationPeriodLength = rnd + ((arrayMadre[5] + arrayPadre[5]) / 2);
-        childGenes.sexAppeal = rnd + ((arrayMadre[6] + arrayPadre[6]) / 2);
+        for (int i = 0;i < childCount; i++) //Para cada hijo se calcula el valor base + un random de ese stat
+        {
+            GenesData childGenesData = new GenesData();
+            childGenesData.maxEnergy = meanmaxEnergy + randomVariation(meanmaxEnergy, childGenesData.variance);
+            childGenesData.maxHydration = meanmaxHydration + randomVariation(meanmaxHydration, childGenesData.variance);
+            childGenesData.speed = meanspeed + randomVariation(meanspeed, childGenesData.variance);
+            childGenesData.childCountMean = meanchildCountMean + randomVariation(meanchildCountMean, childGenesData.variance);
+            childGenesData.perceptionRadius = meanperceptionRadius + randomVariation(meanperceptionRadius, childGenesData.variance);
+            childGenesData.gestationPeriodLength = meangestationPeriodLength + randomVariation(meangestationPeriodLength, childGenesData.variance);
 
-        return childGenes;
+            InstantiateNewAnimal(childGenesData);
+        }
+        
+    }
+    public void InstantiateNewAnimal(GenesData childGenes)
+    {
+        GameObject son = Instantiate(gameObject);
+        son.GetComponent<Genes>().genesData = childGenes;
+        Destroy(son.GetComponent<Pregnant>());
+    }
+    public float mean(float mother,float father)
+    {
+        return (mother + father) / 2;
+    }
+    public float randomVariation(float stat,float variance)
+    {
+        float random = Random.Range(-variance * stat, variance * stat);
+        return random;
     }
 
 
     private void Awake()
     {
-        motherGenes = GetComponent<Genes>();
+        motherGenesData = GetComponent<Genes>().genesData;
     }
 }
