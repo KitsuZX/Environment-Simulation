@@ -36,7 +36,9 @@ public class AnimalMovement : MonoBehaviour
 
 	void FixedUpdate()
     {
-		if(_agent.velocity.magnitude > 0  && !_isJumping)
+		if ((randomTarget - transform.position).sqrMagnitude < thresholdDistance * thresholdDistance) UpdateRandomTarget();
+
+		if (_agent.velocity.magnitude > 0  && !_isJumping)
 		{			
 			StartCoroutine(jumpAnimation());
 		}
@@ -269,16 +271,20 @@ public class AnimalMovement : MonoBehaviour
 
 		Vector2 tile = _terrainGenerator.TerrainData.WorldBorderToTile(intersection);
 
-		float tileX = _terrainGenerator.TerrainData.tileCentres[(int)tile.x, (int)tile.y].x;
-		float tileZ = _terrainGenerator.TerrainData.tileCentres[(int)tile.x, (int)tile.y].z;
+		int X = (int)Mathf.Clamp(tile.x, 0, terrainSize * 2 - 1);
+		int Z = (int)Mathf.Clamp(tile.y, 0, terrainSize * 2 - 1);
 
-		if (!_terrainGenerator.TerrainData.walkable[(int)tile.x, (int)tile.y])
+
+		float tileX = _terrainGenerator.TerrainData.tileCentres[X, Z].x;
+		float tileZ = _terrainGenerator.TerrainData.tileCentres[X, Z].z;
+
+		if (!_terrainGenerator.TerrainData.walkable[X, Z])
 		{
 			tile = GetNearestBorderTileWithoutWater(tile);
 		}
 
-		x = _terrainGenerator.TerrainData.tileCentres[(int)tile.x, (int)tile.y].x;
-		z = _terrainGenerator.TerrainData.tileCentres[(int)tile.x, (int)tile.y].z;
+		x = _terrainGenerator.TerrainData.tileCentres[X, Z].x;
+		z = _terrainGenerator.TerrainData.tileCentres[X, Z].z;
 
 		return new Vector3(x, y, z);
 	}
