@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Genes)), AddComponentMenu("Hidden")]
+[RequireComponent(typeof(Genes))]
 public class Pregnant : MonoBehaviour
 {
     private float timePregnant;
@@ -36,7 +36,7 @@ public class Pregnant : MonoBehaviour
         pregnancyStarted = true;
         timePregnant = 0;
         childCount = Mathf.RoundToInt(motherGenes.childCountMean);
-        gestationPeriodLength = Mathf.RoundToInt(motherGenes.gestationPeriodLength);
+        gestationPeriodLength = motherGenes.gestationPeriodLength;
     }
     
     public void GiveBirth()

@@ -556,7 +556,7 @@ MonoBehaviour:
   treeThreshold: 0.025
   scaleVariation: 0.2
   bushThreshold: 0.025
-  rabbitCount: 1
+  rabbitCount: 2
   foxCount: 0
   rabbitPrefab: {fileID: 1587338229735979916, guid: f2bd56d5ed9513c4791ba67447441a63,
     type: 3}

@@ -8,13 +8,15 @@ public class VitalFunctions : MonoBehaviour
 
     public float CurrentAge { get; private set; }
 
-    public bool IsHungry { get => 1 - (CurrentEnergy / genes.maxEnergy) > needThresholdPortion; }
-    public bool IsThirsty { get => 1 - (CurrentHydration/ genes.maxHydration) > needThresholdPortion; }
-
+    public bool IsHungry => 1 - (CurrentEnergy / genes.maxEnergy) > needThresholdPortion;
+    public bool IsThirsty => 1 - (CurrentHydration/ genes.maxHydration) > needThresholdPortion;
+    public bool IsOldEnoughForSex => CurrentAge > genes.reproductiveAgeRange.x && CurrentAge < genes.reproductiveAgeRange.y;
+    public bool IsPregnant => pregnancy;
 
     private float CurrentEnergy;
     private float CurrentHydration;
     private Genes genes;
+    private Pregnant pregnancy;
 
     public bool isFemale;
 
@@ -60,8 +62,8 @@ public class VitalFunctions : MonoBehaviour
     {
         //SALE EL LOGO DE FOLLANDO///
         ////////////////////////////
-        Pregnant pregnant = gameObject.AddComponent<Pregnant>();
-        pregnant.StartPregnancy(fatherGenes);
+        pregnancy = gameObject.AddComponent<Pregnant>();
+        pregnancy.StartPregnancy(fatherGenes);
     }
 
 }

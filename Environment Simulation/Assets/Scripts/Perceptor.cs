@@ -27,7 +27,17 @@ public class Perceptor : MonoBehaviour
             return false;
         }
     }
-    public bool SeesPartner { get => perceivedMates.Count > 0; }
+    public bool SeesPartner
+    {
+        get
+        {
+            foreach (PerceivedMate mate in perceivedMates.Values)
+            {
+                if (mate.vitalFunctions.IsOldEnoughForSex && !mate.vitalFunctions.IsPregnant) return true;
+            }
+            return false;
+        }
+    }
 
     public float PerceptionRadius { get => collider.radius; set => collider.radius = value; }
 
@@ -40,7 +50,6 @@ public class Perceptor : MonoBehaviour
     private Dictionary<GameObject, Transform> perceivedDangers = new Dictionary<GameObject, Transform>();
     private Dictionary<GameObject, IEatable> perceivedFood = new Dictionary<GameObject, IEatable>();
     private Dictionary<GameObject, PerceivedMate> perceivedMates = new Dictionary<GameObject, PerceivedMate>();
-    private List<Transform> cachedTransformList = new List<Transform>();
 
     #region Getters
     public PerceiveeType GetPerceiveeType(GameObject gameObject)
@@ -95,6 +104,8 @@ public class Perceptor : MonoBehaviour
 
         foreach (PerceivedMate mate in perceivedMates.Values)
         {
+            if (!mate.vitalFunctions.IsOldEnoughForSex || mate.vitalFunctions.IsPregnant) continue;
+
             sexAppeal = mate.genes.sexAppeal;
             if (sexAppeal > highestSexAppeal)
             {

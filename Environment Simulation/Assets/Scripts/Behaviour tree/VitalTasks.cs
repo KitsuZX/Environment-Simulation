@@ -18,10 +18,10 @@ public class VitalTasks : MonoBehaviour
     public bool IsThirsty => vitalFunctions.IsThirsty;
 
     [Task]
-    public bool IsOldEnoughForSex => vitalFunctions.CurrentAge > genes.reproductiveAgeRange.x && vitalFunctions.CurrentAge < genes.reproductiveAgeRange.y;
+    public bool IsOldEnoughForSex => vitalFunctions.IsOldEnoughForSex;
 
-    [Task]//TODO: Puede que esto cause mal rendimiento pero hey por ahora así sirve.
-    public bool IsPregnant => GetComponent<Pregnant>();
+    [Task]
+    public bool IsPregnant => vitalFunctions.IsPregnant;
     
 
     [Task]
