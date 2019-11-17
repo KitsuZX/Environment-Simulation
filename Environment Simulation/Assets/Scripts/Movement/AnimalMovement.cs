@@ -61,13 +61,13 @@ public class AnimalMovement : MonoBehaviour
 		_isJumping = false;
 	}
 	
-	public void FleeFrom(List<Vector3> dangers)
+	public void FleeFrom(ICollection<Transform> dangers)
 	{
 		Vector3 meanDirection = Vector3.zero;
 
 		foreach (Transform dangerSource in dangers)
 		{
-			Vector3 enemyPos2d = dangers[i];
+			Vector3 enemyPos2d = dangerSource.position;
 			enemyPos2d.y = transform.position.y;
 			Vector3 dir = transform.position - enemyPos2d;
 
@@ -77,7 +77,6 @@ public class AnimalMovement : MonoBehaviour
 		meanDirection = meanDirection.normalized;
 
 		_agent.SetDestination(GetFurthestPointInDirection(meanDirection));
-
 	}
 
 	public bool GoTo(Vector3 position)
