@@ -47,7 +47,7 @@ public class VitalTasks : MonoBehaviour
     public void ImpregnateMate()
     { 
         Perceptor.PerceivedMate pm = perceptor.GetSexiestMate();
-        pm.vitalFunctions.GetPregnant(genes);
+        pm.vitalFunctions.GetPregnant(genes.genesData);
 
         Task.current.Succeed();
     }
