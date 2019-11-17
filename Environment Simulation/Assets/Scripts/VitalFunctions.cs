@@ -57,7 +57,7 @@ public class VitalFunctions : MonoBehaviour
     [ContextMenu("Dejar preñá")]
     public void DebugGetPregnant()
     {
-        GetPregnant(null);
+        GetPregnant(new GenesData());
     }
 
     private void FixedUpdate()

@@ -55,12 +55,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeExpectancy: 9
-  maxEnergy: 10
-  maxHydration: 10
-  speed: 3.5
-  childCountMean: 3
-  perceptionRadius: 10
-  gestationPeriodLength: 0.3
   reproductiveAgeRange: {x: 1, y: 6}
   statCurve:
     serializedVersion: 2
@@ -104,6 +98,14 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  genesData:
+    variance: 0.2
+    maxEnergy: 10
+    maxHydration: 10
+    speed: 3.5
+    childCountMean: 3
+    perceptionRadius: 10
+    gestationPeriodLength: 0.3
 --- !u!114 &4135570546072025918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,6 +122,8 @@ MonoBehaviour:
   energyLostPerSecond: 0.1
   hydrationLostPerSecond: 0.1
   _pregnantCommunicationSprite: {fileID: 0}
+  minimumScale: {x: 0.5, y: 0.5, z: 0.5}
+  maxScale: {x: 2, y: 2, z: 2}
 --- !u!114 &417898898
 MonoBehaviour:
   m_ObjectHideFlags: 0
