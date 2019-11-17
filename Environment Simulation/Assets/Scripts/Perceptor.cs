@@ -106,7 +106,7 @@ public class Perceptor : MonoBehaviour
         {
             if (!mate.vitalFunctions.IsOldEnoughForSex || mate.vitalFunctions.IsPregnant) continue;
 
-            sexAppeal = mate.genes.sexAppeal;
+            sexAppeal = mate.genes.SexAppeal;
             if (sexAppeal > highestSexAppeal)
             {
                 highestSexAppeal = sexAppeal;
@@ -138,7 +138,7 @@ public class Perceptor : MonoBehaviour
                 break;
             case PerceiveeType.Mate:
                 VitalFunctions mateVitalFunctions = perceivee.GetComponent<VitalFunctions>();
-                if(vitalFunctions.isFemale != mateVitalFunctions.isFemale)
+                if(vitalFunctions.IsFemale != mateVitalFunctions.IsFemale)
                 {
                     perceivedMates.Add(perceivee, new PerceivedMate
                     {

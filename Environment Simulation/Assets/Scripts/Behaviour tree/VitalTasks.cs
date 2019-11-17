@@ -44,7 +44,7 @@ public class VitalTasks : MonoBehaviour
     { 
         Perceptor.PerceivedMate pm = perceptor.GetSexiestMate();
 
-        if (!vitalFunctions.isFemale) //Si yo soy chico y la otra es chica, la otra se queda preñada de mi, lets go
+        if (!vitalFunctions.IsFemale) //Si yo soy chico y la otra es chica, la otra se queda preñada de mi, lets go
         {
             pm.vitalFunctions.GetPregnant(genes);
         }

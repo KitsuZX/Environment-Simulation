@@ -15,7 +15,8 @@ public class Genes : MonoBehaviour
     public float perceptionRadius;
     public float gestationPeriodLength;
     public Vector2 reproductiveAgeRange;
-    public float sexAppeal;
+
+    public float SexAppeal => (maxEnergy + maxHydration + speed + perceptionRadius) / 4;
 
     [SerializeField] private AnimationCurve statCurve = null;
 
