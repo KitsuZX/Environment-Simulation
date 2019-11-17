@@ -10,6 +10,10 @@ public class MovementTasks : MonoBehaviour
     [SerializeField] private Sprite goToWaterSprite;
     [SerializeField] private Sprite goToPartnerSprite;
 
+    [SerializeField] private Sprite breedSprite;
+    [SerializeField] private Sprite eatFoodSprite;
+    [SerializeField] private Sprite drinkWaterSprite;
+
     private AnimalMovement animalMovement;
     private Perceptor perceptor;
     private BehaviourCommunicator communicator;
@@ -29,7 +33,8 @@ public class MovementTasks : MonoBehaviour
         bool reached = animalMovement.GoTo(perceptor.GetClosestFood().Position);
         Task.current.Complete(reached);
 
-        if (!reached) communicator.SetSprite(goToFoodSprite);
+        if (reached) communicator.SetSprite(eatFoodSprite);
+        else communicator.SetSprite(goToFoodSprite);
     }
 
     [Task]
@@ -38,7 +43,8 @@ public class MovementTasks : MonoBehaviour
         bool reached = animalMovement.GoToNearestWaterSource();
         Task.current.Complete(reached);
 
-        if (!reached) communicator.SetSprite(goToWaterSprite);
+        if (reached) communicator.SetSprite(drinkWaterSprite);
+        else communicator.SetSprite(goToWaterSprite);
     }
 
     [Task]
@@ -47,7 +53,8 @@ public class MovementTasks : MonoBehaviour
         bool reached = animalMovement.GoTo(perceptor.GetSexiestMate().transform.position);
         Task.current.Complete(reached);
 
-        if (!reached) communicator.SetSprite(goToPartnerSprite);
+        if (reached) communicator.SetSprite(breedSprite);
+        else communicator.SetSprite(goToPartnerSprite);
     }
 
     [Task]

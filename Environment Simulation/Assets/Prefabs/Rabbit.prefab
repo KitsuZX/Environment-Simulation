@@ -44,6 +44,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 2436c72f63ac4634ba9a103dfc659de7,
         type: 3}
+    - target: {fileID: 1635231984, guid: d8af8a8003b2fd1499a057086be30e73, type: 3}
+      propertyPath: eatFoodSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8c3b26ff290e73c4b8970866ab31e409,
+        type: 3}
     - target: {fileID: 417898897, guid: d8af8a8003b2fd1499a057086be30e73, type: 3}
       propertyPath: m_BaseOffset
       value: 0

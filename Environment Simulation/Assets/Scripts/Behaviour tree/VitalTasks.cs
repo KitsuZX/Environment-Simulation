@@ -7,11 +7,6 @@ using Panda;
 [RequireComponent(typeof(VitalFunctions), typeof(Genes))]
 public class VitalTasks : MonoBehaviour
 {
-    [SerializeField] private Sprite eatFoodSprite;
-    [SerializeField] private Sprite drinkWaterSprite;
-    [SerializeField] private Sprite breedSprite;
-
-
     private VitalFunctions vitalFunctions;
     private Perceptor perceptor;
     private Genes genes;
@@ -28,6 +23,9 @@ public class VitalTasks : MonoBehaviour
 
     [Task]
     public bool IsPregnant => vitalFunctions.IsPregnant;
+
+    [Task]
+    public bool IsMale => vitalFunctions.IsMale;
     
 
     [Task]
@@ -36,8 +34,6 @@ public class VitalTasks : MonoBehaviour
         IEatable closestFood = perceptor.GetClosestFood();
         vitalFunctions.EatFood(closestFood);
         Task.current.Succeed();
-
-        communicator.SetSprite(eatFoodSprite);
     }
 
     [Task]
@@ -45,23 +41,15 @@ public class VitalTasks : MonoBehaviour
     {
         vitalFunctions.DrinkWater();
         Task.current.Succeed();
-
-        communicator.SetSprite(drinkWaterSprite);
     }
 
     [Task]
-    public void Breed()
+    public void ImpregnateMate()
     { 
         Perceptor.PerceivedMate pm = perceptor.GetSexiestMate();
-
-        if (!vitalFunctions.IsFemale) //Si yo soy chico y la otra es chica, la otra se queda preñada de mi, lets go
-        {
-            pm.vitalFunctions.GetPregnant(genes);
-        }
+        pm.vitalFunctions.GetPregnant(genes);
 
         Task.current.Succeed();
-
-        communicator.SetSprite(breedSprite);
     }
 
 

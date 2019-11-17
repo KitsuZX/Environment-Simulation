@@ -119,6 +119,7 @@ MonoBehaviour:
   needThresholdPortion: 0.307
   energyLostPerSecond: 0.1
   hydrationLostPerSecond: 0.1
+  _pregnantCommunicationSprite: {fileID: 0}
 --- !u!114 &417898898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,9 +254,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46dcfb1ff3d62d741be702a808cb198b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eatFoodSprite: {fileID: 0}
-  drinkWaterSprite: {fileID: 21300000, guid: 57cb2ebb80144bf4795cba8664e4ee33, type: 3}
-  breedSprite: {fileID: 21300000, guid: 5fa6f38c1db1d994eb3e3dc99d2ce53c, type: 3}
 --- !u!114 &1635231983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,6 +285,9 @@ MonoBehaviour:
   goToFoodSprite: {fileID: 0}
   goToWaterSprite: {fileID: 21300000, guid: 5061c12eb490363478005737dc232916, type: 3}
   goToPartnerSprite: {fileID: 21300000, guid: 72d8e408752e36f448c2f52b706d2f4e, type: 3}
+  breedSprite: {fileID: 21300000, guid: 5fa6f38c1db1d994eb3e3dc99d2ce53c, type: 3}
+  eatFoodSprite: {fileID: 0}
+  drinkWaterSprite: {fileID: 21300000, guid: 57cb2ebb80144bf4795cba8664e4ee33, type: 3}
 --- !u!1 &438673293313000217
 GameObject:
   m_ObjectHideFlags: 0

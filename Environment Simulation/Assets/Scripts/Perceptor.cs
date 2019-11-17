@@ -138,7 +138,7 @@ public class Perceptor : MonoBehaviour
                 break;
             case PerceiveeType.Mate:
                 VitalFunctions mateVitalFunctions = perceivee.GetComponent<VitalFunctions>();
-                if(vitalFunctions.IsFemale != mateVitalFunctions.IsFemale)
+                if(vitalFunctions.IsMale != mateVitalFunctions.IsMale)
                 {
                     perceivedMates.Add(perceivee, new PerceivedMate
                     {

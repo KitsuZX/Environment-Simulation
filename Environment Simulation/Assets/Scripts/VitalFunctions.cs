@@ -7,7 +7,7 @@ public class VitalFunctions : MonoBehaviour
     [SerializeField, Range(0, 1)] private float needThresholdPortion = 0.5f;
 
     public float CurrentAge { get; private set; }
-    public bool IsFemale { get; private set; }
+    public bool IsMale { get; private set; }
 
     public bool IsHungry => 1 - (currentEnergy / genes.maxEnergy) > needThresholdPortion;
     public bool IsThirsty => 1 - (currentHydration/ genes.maxHydration) > needThresholdPortion;
@@ -77,7 +77,7 @@ public class VitalFunctions : MonoBehaviour
         genes = GetComponent<Genes>();
         CurrentAge = 0;
 
-        IsFemale = Random.value < 0.5f;
+        IsMale = Random.value < 0.5f;
     }
 
     private void Start() 
