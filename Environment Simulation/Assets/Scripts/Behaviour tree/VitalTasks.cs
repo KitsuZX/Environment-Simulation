@@ -7,19 +7,51 @@ using Panda;
 public class VitalTasks : MonoBehaviour
 {
 
-    [Task]
-    public bool DoINeedFood => vitalFunctions.IsHungry;
-
-    [Task]
-    public bool DoINeedWater => vitalFunctions.IsThirsty;
-
-    [Task]
-    public bool AmIOldEnough => vitalFunctions.CurrentAge > genes.reproductiveAgeRange.x && vitalFunctions.CurrentAge < genes.reproductiveAgeRange.y;
-
-
     private VitalFunctions vitalFunctions;
     private Perceptor perceptor;
     private Genes genes;
+
+    [Task]
+    public bool IsHungry => vitalFunctions.IsHungry;
+
+    [Task]
+    public bool IsThirsty => vitalFunctions.IsThirsty;
+
+    [Task]
+    public bool IsOldEnoughForSex => vitalFunctions.CurrentAge > genes.reproductiveAgeRange.x && vitalFunctions.CurrentAge < genes.reproductiveAgeRange.y;
+
+    [Task]//TODO: Puede que esto cause mal rendimiento pero hey por ahora así sirve.
+    public bool IsPregnant => GetComponent<Pregnant>();
+    
+
+    [Task]
+    public void EatFood()
+    {
+        Transform closestFood = perceptor.GetClosestFood();
+        vitalFunctions.EatFood(closestFood);
+        Task.current.Succeed();
+    }
+
+    [Task]
+    public void DrinkWater()
+    {
+        vitalFunctions.DrinkWater();
+        Task.current.Succeed();
+    }
+
+    [Task]
+    public void Breed()
+    { 
+        Perceptor.PerceivedMate pm = perceptor.GetSexiestMate();
+
+        if (!vitalFunctions.isFemale) //Si yo soy chico y la otra es chica, la otra se queda preñada de mi, lets go
+        {
+            pm.vitalFunctions.GetPregnant(genes);
+        }
+
+        Task.current.Succeed();
+    }
+
 
     private void Awake()
     {
@@ -27,40 +59,4 @@ public class VitalTasks : MonoBehaviour
         genes = GetComponent<Genes>();
         perceptor = GetComponentInChildren<Perceptor>();
     }
-
-    [Task]
-    public void AmIPregnant()
-    {
-        Task.current.Fail();
-        //Vital functions -> 
-    }
-    [Task]
-    public void EatFood()
-    {
-        Task.current.Fail();
-        Transform closestFood = perceptor.GetClosestFood();
-        //Vital functions -> EatFood
-        vitalFunctions.EatFood(closestFood);
-    }
-    [Task]
-    public void DrinkWater()
-    {
-        Task.current.Fail();
-        //Vital functions -> DrinkWater
-    }
-    [Task]
-    public void Breed()
-    {
-        Task.current.Fail();
-        //Vital functions -> Breed
-        Perceptor.PerceivedMate pm = perceptor.GetSexiestMate();
-
-        if (!vitalFunctions.isFemale) //Si yo soy chico y la otra es chica, la otra se queda preñada de mi, lets go
-        {
-            pm.vitalFunctions.GetPregnant(genes);
-        }
-        
-    }
-
-
 }

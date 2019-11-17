@@ -41,8 +41,10 @@ public class VitalFunctions : MonoBehaviour
     public void EatFood(Transform foodPos)
     {
         //SALE EL LOGO DE COMIENDO///
-        ////////////////////////////
+        /////////////////////////////
         float maxEnergyToGet = genes.maxEnergy - CurrentEnergy;
+
+        //TODO: Que los zorros coman conejos, no fruta
         float energyEarned = foodPos.GetComponent<Bush>().GetFoodFromBush(maxEnergyToGet);
         CurrentEnergy += energyEarned;
     }

@@ -9,6 +9,7 @@ public class PercieveTasks : MonoBehaviour
     private Perceptor perceptor;
     private AnimalMovement animalMovement;
 
+
     [Task]
     public bool IsInDanger => perceptor.IsInDanger;
 

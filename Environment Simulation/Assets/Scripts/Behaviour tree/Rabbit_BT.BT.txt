@@ -12,7 +12,7 @@ tree("Run away")
 		RunAway
 
 tree("Need food")
-	while DoINeedFood
+	while IsHungry
 		mute 
 			sequence
 				SearchForFood
@@ -20,7 +20,7 @@ tree("Need food")
 				EatFood
 
 tree("Need water")
-	while DoINeedWater
+	while IsThirst
 		mute
 			sequence
 				GoToWater
@@ -29,8 +29,8 @@ tree("Need water")
 tree("Need to breed")
 	while
 		sequence
-			AmIOldEnough
-			not AmIPregnant
+			IsOldEnoughForSex
+			not IsPregnant
 
 		mute
 			sequence
