@@ -74,5 +74,14 @@ public class TerrainData
 		return nearestSourceWater;
 	}
 
-	
+	public Vector2 WorldBorderToTile(Vector2 position)
+	{
+		float x = Mathf.Floor(position.x) + ((position.x > 0) ? 0.5f - 1 : -0.5f + 1);
+		float y = Mathf.Floor(position.y) + ((position.y > 0) ? 0.5f - 1: -0.5f + 1);
+
+		int inX = Mathf.Abs(Mathf.FloorToInt(x + size * 0.5f));
+		int inY = Mathf.Abs(Mathf.FloorToInt(y + size * 0.5f));
+
+		return new Vector2(inX, inY);
+	}	
 }
