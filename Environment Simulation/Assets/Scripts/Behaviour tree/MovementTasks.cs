@@ -17,7 +17,7 @@ public class MovementTasks : MonoBehaviour
     [Task]
     public void GoToFood()
     {
-        bool reached = animalMovement.GoTo(perceptor.GetClosestFood().position);
+        bool reached = animalMovement.GoTo(perceptor.GetClosestFood().Position);
         Task.current.Complete(reached);
     }
 

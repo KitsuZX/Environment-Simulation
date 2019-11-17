@@ -112,4 +112,9 @@ public class ReliableOnTriggerExit : MonoBehaviour
         waitingForOnTriggerExit.Clear();
         enabled = false;
     }
+
+    private void OnDestroy()
+    {
+        CallCallbacks();
+    }
 }

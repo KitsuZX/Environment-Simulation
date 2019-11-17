@@ -16,7 +16,17 @@ public class Perceptor : MonoBehaviour
     [SerializeField] private PerceiveeType bushPerception = PerceiveeType.Irrelevant;
 
     public bool IsInDanger { get => perceivedDangers.Count > 0; }
-    public bool SeesFood { get => perceivedFood.Count > 0; }
+    public bool SeesFood
+    {
+        get
+        {
+            foreach (IEatable eatable in perceivedFood.Values)
+            {
+                if (eatable.IsAvailableToEat) return true;
+            }
+            return false;
+        }
+    }
     public bool SeesPartner { get => perceivedMates.Count > 0; }
 
     public float PerceptionRadius { get => collider.radius; set => collider.radius = value; }
@@ -28,10 +38,11 @@ public class Perceptor : MonoBehaviour
     //Los objetos percibidos se guardan en un diccionario. La clave es el GameObject para poder identificarlo cuando se salga.
     //El valor es la información que necesitamos sobre este tipo de objeto percibido.
     private Dictionary<GameObject, Transform> perceivedDangers = new Dictionary<GameObject, Transform>();
-    private Dictionary<GameObject, Transform> perceivedFood = new Dictionary<GameObject, Transform>();
+    private Dictionary<GameObject, IEatable> perceivedFood = new Dictionary<GameObject, IEatable>();
     private Dictionary<GameObject, PerceivedMate> perceivedMates = new Dictionary<GameObject, PerceivedMate>();
     private List<Transform> cachedTransformList = new List<Transform>();
 
+    #region Getters
     public PerceiveeType GetPerceiveeType(GameObject gameObject)
     {
         switch (gameObject.tag)
@@ -47,21 +58,23 @@ public class Perceptor : MonoBehaviour
         }
     }
 
-    public Transform GetClosestFood()
+    public IEatable GetClosestFood()
     {
         Vector3 myPos = transform.position;
 
-        Transform closest = null
+        IEatable closest = null;
 ;
         float closestDistance = float.MaxValue;
         float distance;
 
-        foreach (Transform transform in perceivedFood.Values)
+        foreach (IEatable eatable in perceivedFood.Values)
         {
-            distance = (myPos - transform.position).sqrMagnitude;
+            if (!eatable.IsAvailableToEat) continue;
+
+            distance = (myPos - eatable.Position).sqrMagnitude;
             if (distance < closestDistance)
             {
-                closest = transform;
+                closest = eatable;
             }
         }
 
@@ -92,6 +105,7 @@ public class Perceptor : MonoBehaviour
 
         return sexiestMate;
     }
+    #endregion
 
     #region Registration & Unregistration
     private void OnTriggerEnter(Collider other)
@@ -106,21 +120,20 @@ public class Perceptor : MonoBehaviour
         switch (perceiveeType)
         {
             case PerceiveeType.Food:
-                perceivedFood.Add(perceivee, perceivee.transform);
+                perceivedFood.Add(perceivee, perceivee.GetComponent<IEatable>());
                 break;
             case PerceiveeType.Danger:
                 perceivedDangers.Add(perceivee, perceivee.transform);
                 break;
             case PerceiveeType.Mate:
-                //TODO: Comprobar si es del sexo opuesto. Añadir sólo si lo es.
-                VitalFunctions vitalF = perceivee.GetComponent<VitalFunctions>();
-                if(vitalFunctions.isFemale != vitalF.isFemale)
+                VitalFunctions mateVitalFunctions = perceivee.GetComponent<VitalFunctions>();
+                if(vitalFunctions.isFemale != mateVitalFunctions.isFemale)
                 {
                     perceivedMates.Add(perceivee, new PerceivedMate
                     {
                         transform = perceivee.transform,
                         genes = perceivee.GetComponent<Genes>(),
-                        vitalFunctions = vitalF
+                        vitalFunctions = mateVitalFunctions
                     });
                 }
                
@@ -163,7 +176,7 @@ public class Perceptor : MonoBehaviour
 
         vitalFunctions = GetComponentInParent<VitalFunctions>();
 
-        gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        gameObject.layer = LayerMask.NameToLayer("PerceptorLayer");
     }
 
 

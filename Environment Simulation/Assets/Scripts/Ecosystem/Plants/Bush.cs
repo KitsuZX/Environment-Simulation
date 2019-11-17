@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bush : MonoBehaviour
+public class Bush : MonoBehaviour, IEatable
 {
     [Range(0, 100)]
     [SerializeField] private float maxFoodAmount = 100f;
@@ -11,12 +11,23 @@ public class Bush : MonoBehaviour
 
     [SerializeField] private float perceptableFoodAmount = 15f;
 
-    private new Collider collider;
+    public bool IsAvailableToEat => actualFoodAmount > perceptableFoodAmount;
+    public Vector3 Position => transform.position;
+
 
     private void Awake()
     {
         actualFoodAmount = maxFoodAmount;
-        collider = GetComponent<Collider>();
+    }
+
+    public float Eat(float requestedEnergy)
+    {
+        float foodRetrieved = actualFoodAmount - requestedEnergy;
+        foodRetrieved = Mathf.Clamp(foodRetrieved, 0, requestedEnergy);
+
+        actualFoodAmount = foodRetrieved;
+
+        return foodRetrieved;
     }
 
     private void FixedUpdate()
@@ -28,24 +39,5 @@ public class Bush : MonoBehaviour
 
             transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, actualFoodAmount / maxFoodAmount);
         }
-
-        //Si hay menos que x comida, se apaga el Collider para que los Perceptors no lo identifiquen como comida.
-        collider.enabled = actualFoodAmount > perceptableFoodAmount;
     }
-    /// <summary>
-    /// Returns the actual amount of food the animal gets from the bush
-    /// </summary>
-    /// <param name="amountAskedFor">Amount of food the animal is asking</param>
-    /// <returns></returns>
-    public float GetFoodFromBush(float amountAskedFor)
-    {
-        float foodRetrieved = actualFoodAmount - amountAskedFor;
-        foodRetrieved = Mathf.Clamp(foodRetrieved, 0, amountAskedFor);
-
-        actualFoodAmount = foodRetrieved;
-
-        return foodRetrieved;        
-    }
-
-
 }

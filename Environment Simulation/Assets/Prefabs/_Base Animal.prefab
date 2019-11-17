@@ -365,7 +365,7 @@ GameObject:
   - component: {fileID: 660099223276500944}
   - component: {fileID: 3377446471123963556}
   - component: {fileID: 5011048986808969544}
-  m_Layer: 2
+  m_Layer: 10
   m_Name: Perceptor
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -27,7 +27,7 @@ public class VitalTasks : MonoBehaviour
     [Task]
     public void EatFood()
     {
-        Transform closestFood = perceptor.GetClosestFood();
+        IEatable closestFood = perceptor.GetClosestFood();
         vitalFunctions.EatFood(closestFood);
         Task.current.Succeed();
     }

@@ -38,14 +38,13 @@ public class VitalFunctions : MonoBehaviour
         CurrentHydration = Mathf.Max(CurrentHydration - HydrationLostPerSecond * dt, 0);
     }
    
-    public void EatFood(Transform foodPos)
+    public void EatFood(IEatable food)
     {
         //SALE EL LOGO DE COMIENDO///
         /////////////////////////////
         float maxEnergyToGet = genes.maxEnergy - CurrentEnergy;
 
-        //TODO: Que los zorros coman conejos, no fruta
-        float energyEarned = foodPos.GetComponent<Bush>().GetFoodFromBush(maxEnergyToGet);
+        float energyEarned = food.Eat(maxEnergyToGet);
         CurrentEnergy += energyEarned;
     }
 
