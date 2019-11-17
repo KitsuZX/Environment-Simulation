@@ -6,6 +6,7 @@ public class MovementTasks : MonoBehaviour
 {
     private AnimalMovement animalMovement;
     private Perceptor perceptor;
+    private BehaviourCommunicator communicator;
 
     [Task]
     public void RunAway()
@@ -46,6 +47,7 @@ public class MovementTasks : MonoBehaviour
     {
         animalMovement = GetComponent<AnimalMovement>();
         perceptor = GetComponentInChildren<Perceptor>();
+        communicator = GetComponentInChildren<BehaviourCommunicator>();
     }
 
 }
