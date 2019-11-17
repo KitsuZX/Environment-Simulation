@@ -87,14 +87,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 104738284, guid: d8af8a8003b2fd1499a057086be30e73, type: 3}
-      propertyPath: m_Mesh
+    - target: {fileID: 4135570546072025918, guid: d8af8a8003b2fd1499a057086be30e73,
+        type: 3}
+      propertyPath: _pregnantCommunicationSprite
       value: 
-      objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-    - target: {fileID: 104738283, guid: d8af8a8003b2fd1499a057086be30e73, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 254235e0a2a061a4699d89d6b8fb81ae, type: 2}
+      objectReference: {fileID: 21300000, guid: 32267f519898d4146a28d9b7a867efbd,
+        type: 3}
     - target: {fileID: 5011048986808969544, guid: d8af8a8003b2fd1499a057086be30e73,
         type: 3}
       propertyPath: rabbitPerception
@@ -105,6 +103,14 @@ PrefabInstance:
       propertyPath: foxPerception
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 104738284, guid: d8af8a8003b2fd1499a057086be30e73, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 104738283, guid: d8af8a8003b2fd1499a057086be30e73, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 254235e0a2a061a4699d89d6b8fb81ae, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8af8a8003b2fd1499a057086be30e73, type: 3}
 --- !u!4 &1587338229735979958 stripped

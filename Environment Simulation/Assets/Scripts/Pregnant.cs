@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Genes))]
+[RequireComponent(typeof(Genes), typeof(VitalFunctions))]
 public class Pregnant : MonoBehaviour
 {
+    private static Vector3 COMMUNICATION_OFFSET = new Vector3(0, 0.7f, 0);
+    private const float COMMUNICATION_SCALE = 0.7f;
+
     private float timePregnant;
     private int childCount;
     private float gestationPeriodLength;
@@ -12,6 +15,8 @@ public class Pregnant : MonoBehaviour
     private Genes fatherGenes;
 
     private bool pregnancyStarted = false;
+
+    private SpriteRenderer pregnantIcon;
 
 
     private void FixedUpdate()
@@ -48,5 +53,23 @@ public class Pregnant : MonoBehaviour
     private void Awake()
     {
         motherGenes = GetComponent<Genes>();
+
+        GameObject pregnantSignGO = new GameObject();
+        pregnantSignGO.name = "Pregnant Sign";
+
+        BehaviourCommunicator communicator = GetComponentInChildren<BehaviourCommunicator>();
+        pregnantSignGO.transform.parent = communicator.transform;
+        pregnantSignGO.transform.localPosition = COMMUNICATION_OFFSET;
+        pregnantSignGO.transform.localScale = new Vector3(COMMUNICATION_SCALE,COMMUNICATION_SCALE, COMMUNICATION_SCALE);
+
+        pregnantIcon = pregnantSignGO.AddComponent<SpriteRenderer>();
+        pregnantIcon.sprite = GetComponent<VitalFunctions>().PregnantCommunicationSprite;
+        pregnantIcon.sortingOrder = communicator.GetComponent<SpriteRenderer>().sortingOrder + 1;
+
+    }
+
+    private void OnDestroy()
+    {
+        Destroy(pregnantIcon.gameObject);
     }
 }

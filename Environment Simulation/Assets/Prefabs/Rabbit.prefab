@@ -44,6 +44,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 2436c72f63ac4634ba9a103dfc659de7,
         type: 3}
+    - target: {fileID: 417898897, guid: d8af8a8003b2fd1499a057086be30e73, type: 3}
+      propertyPath: m_BaseOffset
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 199727276690911793, guid: d8af8a8003b2fd1499a057086be30e73,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -99,6 +103,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4135570546072025918, guid: d8af8a8003b2fd1499a057086be30e73,
+        type: 3}
+      propertyPath: _pregnantCommunicationSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d3d7ed8ba9d0a704b8082f60339eb390,
+        type: 3}
+    - target: {fileID: 5011048986808969544, guid: d8af8a8003b2fd1499a057086be30e73,
+        type: 3}
+      propertyPath: rabbitPerception
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5011048986808969544, guid: d8af8a8003b2fd1499a057086be30e73,
+        type: 3}
+      propertyPath: foxPerception
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5011048986808969544, guid: d8af8a8003b2fd1499a057086be30e73,
+        type: 3}
+      propertyPath: bushPerception
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 104738284, guid: d8af8a8003b2fd1499a057086be30e73, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -123,21 +148,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -2510483096459867325, guid: c5e988b8007e68242a83a894f29aef35,
         type: 3}
-    - target: {fileID: 5011048986808969544, guid: d8af8a8003b2fd1499a057086be30e73,
-        type: 3}
-      propertyPath: rabbitPerception
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5011048986808969544, guid: d8af8a8003b2fd1499a057086be30e73,
-        type: 3}
-      propertyPath: foxPerception
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5011048986808969544, guid: d8af8a8003b2fd1499a057086be30e73,
-        type: 3}
-      propertyPath: bushPerception
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8af8a8003b2fd1499a057086be30e73, type: 3}
 --- !u!1 &1587338229735979916 stripped

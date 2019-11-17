@@ -22,6 +22,10 @@ public class VitalFunctions : MonoBehaviour
     [SerializeField] private float energyLostPerSecond = 0.1f;
     [SerializeField] private float hydrationLostPerSecond = 0.1f;
 
+    public Sprite PregnantCommunicationSprite => _pregnantCommunicationSprite;
+    [SerializeField] private Sprite _pregnantCommunicationSprite;
+
+
     public void EatFood(IEatable food)
     {
         //SALE EL LOGO DE COMIENDO///
@@ -48,6 +52,11 @@ public class VitalFunctions : MonoBehaviour
         pregnancy.StartPregnancy(fatherGenes);
     }
 
+    [ContextMenu("Dejar preñá")]
+    public void DebugGetPregnant()
+    {
+        GetPregnant(null);
+    }
 
     private void FixedUpdate()
     {

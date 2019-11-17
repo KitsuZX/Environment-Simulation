@@ -4,8 +4,7 @@ tree("Root")
 		tree("Need food")
 		tree("Need water")
 		tree("Need to breed")
-		tree("Move randomnly")
-
+		tree("Move randomly")
 
 tree("Run away")
 	while IsInDanger
@@ -13,11 +12,12 @@ tree("Run away")
 
 tree("Need food")
 	while IsHungry
-		mute 
+		mute
 			sequence
 				SearchForFood
 				GoToFood
 				EatFood
+				Wait(2.0)
 
 tree("Need water")
 	while IsThirsty
@@ -25,6 +25,7 @@ tree("Need water")
 			sequence
 				GoToWater
 				DrinkWater
+				Wait(2.0)
 
 tree("Need to breed")
 	while
@@ -37,6 +38,7 @@ tree("Need to breed")
 				SearchForAPartner
 				GoToPartner
 				Breed
+				Wait(2.0)
 
-tree("Move randomnly")
+tree("Move randomly")
 	MoveRandomly

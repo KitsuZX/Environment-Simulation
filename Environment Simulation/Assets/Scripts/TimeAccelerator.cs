@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TimeAccelerator : MonoBehaviour
 {
+
     [SerializeField, Range(0.1f, 5)] private float timeScale = 1;
 
     private void FixedUpdate()
