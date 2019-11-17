@@ -17,6 +17,26 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Rabbit
       objectReference: {fileID: 0}
+    - target: {fileID: 1669547873746271220, guid: d8af8a8003b2fd1499a057086be30e73,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 199727276690911797, guid: d8af8a8003b2fd1499a057086be30e73,
+        type: 3}
+      propertyPath: maxHydration
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 199727276690911797, guid: d8af8a8003b2fd1499a057086be30e73,
+        type: 3}
+      propertyPath: reproductiveAgeRange.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 199727276690911797, guid: d8af8a8003b2fd1499a057086be30e73,
+        type: 3}
+      propertyPath: reproductiveAgeRange.y
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 199727276690911793, guid: d8af8a8003b2fd1499a057086be30e73,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -71,21 +91,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 199727276690911797, guid: d8af8a8003b2fd1499a057086be30e73,
-        type: 3}
-      propertyPath: maxHydration
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 199727276690911797, guid: d8af8a8003b2fd1499a057086be30e73,
-        type: 3}
-      propertyPath: reproductiveAgeRange.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 199727276690911797, guid: d8af8a8003b2fd1499a057086be30e73,
-        type: 3}
-      propertyPath: reproductiveAgeRange.y
-      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 104738284, guid: d8af8a8003b2fd1499a057086be30e73, type: 3}
       propertyPath: m_Mesh

@@ -47,7 +47,7 @@ public class EcosystemGenerator : MonoBehaviour
         {
             for (int x = 0; x < terrainData.size; x++)
             {
-                if(terrainData.walkable[x, y] && !terrainData.shore[x, y])
+                if(terrainData.walkable[x, y] && !terrainData.coastal[x, y])
                 {
                     float treeRrand = Random.Range(0f, 1f);
                     if(treeRrand <= treeThreshold)
@@ -72,7 +72,7 @@ public class EcosystemGenerator : MonoBehaviour
         {
             for (int x = 0; x < terrainData.size; x++)
             {
-                if (terrainData.walkable[x, y] && !terrainData.shore[x, y])
+                if (terrainData.walkable[x, y] && !terrainData.coastal[x, y])
                 {
                     float bushRand = Random.Range(0f, 1f);
                     if (bushRand <= bushThreshold)

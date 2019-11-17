@@ -141,6 +141,7 @@ public class TerrainGenerator : MonoBehaviour
 							if (neighbourIsWater)
 							{
 								terrainData.shore[neigbhourX, neihbhourY] = true;
+								terrainData.coastal[x, y] = true;
 							}
 						}
 
