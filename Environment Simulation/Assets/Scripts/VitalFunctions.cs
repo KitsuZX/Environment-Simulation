@@ -22,8 +22,8 @@ public class VitalFunctions : MonoBehaviour
     [SerializeField] private float energyLostPerSecond = 0.1f;
     [SerializeField] private float hydrationLostPerSecond = 0.1f;
 
-    [SerializeField] private Vector3 minimumScale = new Vector3(0.5f,0.5f,0.5f);
-    [SerializeField] private Vector3 maxScale = new Vector3(2f,2f, 2f);
+    public Vector3 minimumScale;
+    public Vector3 maxScale;
 
     public void EatFood(IEatable food)
     {
