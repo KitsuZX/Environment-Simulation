@@ -6,14 +6,11 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent), typeof(Genes))]
 public class AnimalMovement : MonoBehaviour
 {
-    [SerializeField] private float thresholdDistance;
+    [SerializeField] private float thresholdDistance = 1f;
 	[SerializeField] private float jumpHeight = 1f;
 	[SerializeField] private float jumpTime = 1f;
 	[SerializeField] private float timeBetweenRandomlyChoosingTarget = 8f;
-	[SerializeField] private AnimationCurve jumpCurve;
-
-	[Header("References")]
-	[SerializeField] private List<Transform> enemies;
+	[SerializeField] private AnimationCurve jumpCurve = null;
 
 	private bool _isJumping = false;
 	private Transform _model;
@@ -29,7 +26,7 @@ public class AnimalMovement : MonoBehaviour
 		_agent = GetComponent<NavMeshAgent>();
 		_genes = GetComponent<Genes>();
 		_model = GetComponentInChildren<MeshRenderer>().transform;
-		_terrainGenerator = GameObject.FindGameObjectWithTag("TerrainGenerator").GetComponent<TerrainGenerator>();
+        _terrainGenerator = FindObjectOfType<TerrainGenerator>();
 	}
 
 	private void Start()
@@ -83,13 +80,13 @@ public class AnimalMovement : MonoBehaviour
 		_isJumping = false;
 	}
 	
-	public void FleeFrom(List<Transform> dangers)
+	public void FleeFrom(ICollection<Transform> dangers)
 	{
 		Vector3 meanDirection = Vector3.zero;
 
-		for (int i = 0; i < dangers.Count; i++)
+		foreach (Transform dangerSource in dangers)
 		{
-			Vector3 enemyPos2d = dangers[i].position;
+			Vector3 enemyPos2d = dangerSource.position;
 			enemyPos2d.y = transform.position.y;
 			Vector3 dir = transform.position - enemyPos2d;
 
@@ -112,6 +109,7 @@ public class AnimalMovement : MonoBehaviour
 	{
 		GoTo(randomTarget);		
 	}
+
 
 	private Vector3 GetFurthesPointInDirection(Vector3 direction)
 	{
@@ -304,6 +302,6 @@ public class AnimalMovement : MonoBehaviour
 	private void UpdateRandomTarget()
 	{
 		randomTarget = _terrainGenerator.TerrainData.GetRandomWalkableTile();
-		print(randomTarget);
+//		print(randomTarget);
 	}
 }

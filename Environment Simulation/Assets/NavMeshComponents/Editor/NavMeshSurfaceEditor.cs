@@ -7,6 +7,7 @@ using UnityEditorInternal;
 using UnityEngine.AI;
 using UnityEngine;
 
+#pragma warning disable 618
 namespace UnityEditor.AI
 {
     [CanEditMultipleObjects]

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class VitalFunctions : MonoBehaviour
 {
-    [SerializeField, Range(0, 1)] private float needThresholdPortion;
+    [SerializeField, Range(0, 1)] private float needThresholdPortion = 0.5f;
 
     public float CurrentAge { get; private set; }
 

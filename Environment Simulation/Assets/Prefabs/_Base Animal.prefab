@@ -88,14 +88,14 @@ GameObject:
   - component: {fileID: 199727276690911793}
   - component: {fileID: 199727276690911797}
   - component: {fileID: 4135570546072025918}
-  - component: {fileID: 199727276690911796}
   - component: {fileID: 417898898}
   - component: {fileID: 417898897}
   - component: {fileID: 1635231981}
+  - component: {fileID: 199727276690911796}
+  - component: {fileID: 1669547873746271220}
   - component: {fileID: 1635231982}
   - component: {fileID: 1635231983}
   - component: {fileID: 1635231984}
-  - component: {fileID: 1669547873746271220}
   m_Layer: 8
   m_Name: _Base Animal
   m_TagString: Untagged
@@ -196,19 +196,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   needThresholdPortion: 0.307
   isFemale: 0
---- !u!65 &199727276690911796
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 199727276690911755}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5, z: 0.5}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &417898898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,6 +211,7 @@ MonoBehaviour:
   thresholdDistance: 1
   jumpHeight: 1
   jumpTime: 1
+  timeBetweenRandomlyChoosingTarget: 8
   jumpCurve:
     serializedVersion: 2
     m_Curve:
@@ -257,8 +245,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  enemies: []
-  terrainGenerator: {fileID: 0}
 --- !u!195 &417898897
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -297,6 +283,41 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &199727276690911796
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199727276690911755}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.5, z: 0.5}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1669547873746271220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199727276690911755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17e43e7170fb45b4b81dcd16d0ff55d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scripts:
+  - {fileID: 4900000, guid: 33291a617d583c842984db557895e1eb, type: 3}
+  autoReset: 1
+  tickOn: 2
+  sourceInfos:
+  - isFoldout: 1
+    breakPoints: 
+    breakPointStatuses: 
+    collapsedLines: 0200000028000000
+    btScript: 
 --- !u!114 &1635231982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,28 +354,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5220b901bb7c6914d97bd1cf98002cb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1669547873746271220
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 199727276690911755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17e43e7170fb45b4b81dcd16d0ff55d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scripts:
-  - {fileID: 4900000, guid: 33291a617d583c842984db557895e1eb, type: 3}
-  autoReset: 1
-  tickOn: 2
-  sourceInfos:
-  - isFoldout: 1
-    breakPoints: 
-    breakPointStatuses: 
-    collapsedLines: 0200000028000000
-    btScript: 
 --- !u!1 &438673293313000217
 GameObject:
   m_ObjectHideFlags: 0

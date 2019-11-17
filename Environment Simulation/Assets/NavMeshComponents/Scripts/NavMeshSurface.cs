@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 
+#pragma warning disable 618
 namespace UnityEngine.AI
 {
     public enum CollectObjects

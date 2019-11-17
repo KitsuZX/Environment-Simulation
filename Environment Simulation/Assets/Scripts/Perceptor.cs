@@ -30,7 +30,7 @@ public class Perceptor : MonoBehaviour
     private Dictionary<GameObject, Transform> perceivedDangers = new Dictionary<GameObject, Transform>();
     private Dictionary<GameObject, Transform> perceivedFood = new Dictionary<GameObject, Transform>();
     private Dictionary<GameObject, PerceivedMate> perceivedMates = new Dictionary<GameObject, PerceivedMate>();
-
+    private List<Transform> cachedTransformList = new List<Transform>();
 
     public PerceiveeType GetPerceiveeType(GameObject gameObject)
     {
@@ -68,8 +68,8 @@ public class Perceptor : MonoBehaviour
         return closest;
     }
 
-    //Devuelve IEnumerable porque así no hace falta copiar a un array, se pasa directamente lo que contiene el diccionario.
-    public IEnumerable<Transform> GetDangers()
+    //Devuelve ICollection porque así no hace falta copiar a un array, se pasa directamente lo que contiene el diccionario.
+    public ICollection<Transform> GetDangers()
     {
         return perceivedDangers.Values;
     }

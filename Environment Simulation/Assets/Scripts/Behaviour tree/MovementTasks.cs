@@ -10,21 +10,24 @@ public class MovementTasks : MonoBehaviour
     [Task]
     public void RunAway()
     {
+        animalMovement.FleeFrom(perceptor.GetDangers());
         Task.current.Succeed();
-        //TODO: this
     }
+
     [Task]
     public void GoToFood()
     {
         bool reached = animalMovement.GoTo(perceptor.GetClosestFood().position);
         Task.current.Complete(reached);
     }
+
     [Task]
     public void GoToWater()
     {
         Task.current.Fail();
         //TODO: Saber dónde está el agua
     }
+
     [Task]
     public void GoToPartner()
     {
@@ -38,6 +41,7 @@ public class MovementTasks : MonoBehaviour
         animalMovement.MoveRandom();
         Task.current.Succeed();
     }
+
 
     private void Awake()
     {

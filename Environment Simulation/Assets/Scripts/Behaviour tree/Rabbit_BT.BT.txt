@@ -20,7 +20,7 @@ tree("Need food")
 				EatFood
 
 tree("Need water")
-	while IsThirst
+	while IsThirsty
 		mute
 			sequence
 				GoToWater
