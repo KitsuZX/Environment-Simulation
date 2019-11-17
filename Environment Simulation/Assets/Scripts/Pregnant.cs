@@ -2,50 +2,51 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Genes)), AddComponentMenu("Hidden")]
 public class Pregnant : MonoBehaviour
 {
-
     private float timePregnant;
     private int childCount;
-    private Genes fatherGenes;
     private float gestationPeriodLength;
+    private Genes motherGenes;
+    private Genes fatherGenes;
 
     private bool pregnancyStarted = false;
 
-    public void Start()
-    {
-        timePregnant = 0;
-        childCount = Mathf.RoundToInt(GetComponent<Genes>().childCountMean);
-        gestationPeriodLength = Mathf.RoundToInt(GetComponent<Genes>().gestationPeriodLength);
-    }
 
-    public void Update()
+    private void FixedUpdate()
     {
         if (pregnancyStarted)
         {
-            float dt = Time.fixedDeltaTime;
-
-            timePregnant += dt / 60;
+            timePregnant += Time.fixedDeltaTime / 60;
         }
         if(timePregnant >= gestationPeriodLength)
         {
-            GiveBirth(GetComponent<Genes>());
+            GiveBirth();
             Destroy(this);
         }
     }
 
-    public void AssignParentGenes(Genes parent)
-    {
-        fatherGenes = parent;
-    }
+    
 
-    public void StartPregnancy()
+    public void StartPregnancy(Genes fatherGenes)
     {
+        this.fatherGenes = fatherGenes;
+
         pregnancyStarted = true;
+        timePregnant = 0;
+        childCount = Mathf.RoundToInt(motherGenes.childCountMean);
+        gestationPeriodLength = Mathf.RoundToInt(motherGenes.gestationPeriodLength);
     }
     
-    public void GiveBirth(Genes motherGenes)
+    public void GiveBirth()
     {
 
+    }
+
+
+    private void Awake()
+    {
+        motherGenes = GetComponent<Genes>();
     }
 }

@@ -56,15 +56,12 @@ public class VitalFunctions : MonoBehaviour
         CurrentHydration += maxWaterToGet;
     }
   
-    public void GetPregnant(Genes pm)
+    public void GetPregnant(Genes fatherGenes)
     {
         //SALE EL LOGO DE FOLLANDO///
         ////////////////////////////
-        
         Pregnant pregnant = gameObject.AddComponent<Pregnant>();
-        pregnant.StartPregnancy();
-        pregnant.AssignParentGenes(pm);
-
+        pregnant.StartPregnancy(fatherGenes);
     }
 
 }
