@@ -301,8 +301,8 @@ public class AnimalMovement : MonoBehaviour
 	/// <returns></returns>
 	private Vector2 GetNearestBorderTileWithoutWater(Vector2 originTile)
 	{		
-		int X = (int)originTile.x;
-		int Y = (int)originTile.y;
+		int X = Mathf.Clamp((int)originTile.x, 0, _terrainGenerator.TerrainData.size -1);
+		int Y = Mathf.Clamp((int)originTile.y, 0, _terrainGenerator.TerrainData.size - 1); ;
 
 		int offset = 1;
 
