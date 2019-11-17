@@ -18,6 +18,8 @@ public class Genes : MonoBehaviour
 
     public float SexAppeal => (maxEnergy + maxHydration + speed + perceptionRadius) / 4;
 
+    
+
     [SerializeField] private AnimationCurve statCurve = null;
 
     private VitalFunctions vitalFunctions;
@@ -40,5 +42,22 @@ public class Genes : MonoBehaviour
         vitalFunctions = GetComponent<VitalFunctions>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         perceptor = GetComponentInChildren<Perceptor>();
+    }
+    public float[] getArrayGenes()
+    {
+        //Valor de los genes en array
+        float[] arrayGenes = new float[]{lifeExpectancy, maxEnergy, maxHydration, speed, childCountMean,
+                        perceptionRadius, gestationPeriodLength, sexAppeal}; ;
+
+        return arrayGenes;
+    }
+    public float averageGenes()
+    {
+        //media
+        float sum = lifeExpectancy + maxEnergy + maxHydration + speed + childCountMean +
+                        perceptionRadius + gestationPeriodLength + sexAppeal;
+        float average = sum / 7;
+
+        return average;
     }
 }
