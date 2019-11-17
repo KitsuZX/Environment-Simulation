@@ -22,8 +22,7 @@ public class VitalFunctions : MonoBehaviour
     [SerializeField] private float energyLostPerSecond = 0.1f;
     [SerializeField] private float hydrationLostPerSecond = 0.1f;
 
-    public Vector3 minimumScale;
-    public Vector3 maxScale;
+    [SerializeField] private AnimationCurve curveGrowUp;
 
     public void EatFood(IEatable food)
     {
@@ -69,7 +68,8 @@ public class VitalFunctions : MonoBehaviour
     private void growUp(float dt)
     {
         CurrentAge += dt / 60;
-        transform.localScale = Vector3.Lerp(minimumScale,maxScale, CurrentAge/genes.lifeExpectancy); ;
+        float size = curveGrowUp.Evaluate(CurrentAge / genes.lifeExpectancy);
+        transform.localScale = new Vector3(size, size, size);
     }
 
     private void Awake()
