@@ -8,56 +8,39 @@ public class VitalFunctions : MonoBehaviour
 
     public float CurrentAge { get; private set; }
 
-    public bool IsHungry => 1 - (CurrentEnergy / genes.maxEnergy) > needThresholdPortion;
-    public bool IsThirsty => 1 - (CurrentHydration/ genes.maxHydration) > needThresholdPortion;
+    public bool IsHungry => 1 - (currentEnergy / genes.maxEnergy) > needThresholdPortion;
+    public bool IsThirsty => 1 - (currentHydration/ genes.maxHydration) > needThresholdPortion;
     public bool IsOldEnoughForSex => CurrentAge > genes.reproductiveAgeRange.x && CurrentAge < genes.reproductiveAgeRange.y;
     public bool IsPregnant => pregnancy;
 
-    private float CurrentEnergy;
-    private float CurrentHydration;
+    private float currentEnergy;
+    private float currentHydration;
     private Genes genes;
     private Pregnant pregnancy;
 
     public bool isFemale;
 
-    private float EnergyLostPerSecond = 0.1f;
-    private float HydrationLostPerSecond = 0.1f;
+    [SerializeField] private float energyLostPerSecond = 0.1f;
+    [SerializeField] private float hydrationLostPerSecond = 0.1f;
 
-    public void Start() 
-    {
-        genes = GetComponent<Genes>();
-        CurrentAge = 0;
-        CurrentEnergy = genes.maxEnergy;
-        CurrentHydration = genes.maxHydration;
-    }
-
-    public void FixedUpdate()
-    {
-        float dt = Time.fixedDeltaTime;
-
-        CurrentAge += dt/60;
-        CurrentEnergy = Mathf.Max(CurrentEnergy - EnergyLostPerSecond * dt, 0); ;
-        CurrentHydration = Mathf.Max(CurrentHydration - HydrationLostPerSecond * dt, 0);
-    }
-   
     public void EatFood(IEatable food)
     {
         //SALE EL LOGO DE COMIENDO///
         /////////////////////////////
-        float maxEnergyToGet = genes.maxEnergy - CurrentEnergy;
+        float maxEnergyToGet = genes.maxEnergy - currentEnergy;
 
         float energyEarned = food.Eat(maxEnergyToGet);
-        CurrentEnergy += energyEarned;
+        currentEnergy += energyEarned;
     }
 
     public void DrinkWater()
     {
         //SALE EL LOGO DE BEBIENDO///
         ////////////////////////////
-        float maxWaterToGet = genes.maxHydration - CurrentHydration;
-        CurrentHydration += maxWaterToGet;
+        float maxWaterToGet = genes.maxHydration - currentHydration;
+        currentHydration += maxWaterToGet;
     }
-  
+
     public void GetPregnant(Genes fatherGenes)
     {
         //SALE EL LOGO DE FOLLANDO///
@@ -66,4 +49,22 @@ public class VitalFunctions : MonoBehaviour
         pregnancy.StartPregnancy(fatherGenes);
     }
 
+
+    private void FixedUpdate()
+    {
+        float dt = Time.fixedDeltaTime;
+
+        CurrentAge += dt / 60;
+        currentEnergy = Mathf.Max(currentEnergy - energyLostPerSecond * dt, 0); ;
+        currentHydration = Mathf.Max(currentHydration - hydrationLostPerSecond * dt, 0);
+    }
+
+
+    private void Start() 
+    {
+        genes = GetComponent<Genes>();
+        CurrentAge = 0;
+        currentEnergy = genes.maxEnergy;
+        currentHydration = genes.maxHydration;
+    }
 }

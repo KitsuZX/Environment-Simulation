@@ -8,6 +8,7 @@ public class TerrainData
     public Vector3[,] tileCentres;
     public bool[,] walkable;
     public bool[,] shore;
+	public bool[,] coastal;
 
     public TerrainData(int size)
     {
@@ -16,6 +17,7 @@ public class TerrainData
         tileCentres = new Vector3[size, size];
         walkable = new bool[size, size];
         shore = new bool[size, size];
+		coastal = new bool[size, size];
     }
 
 	public Vector3 GetRandomWalkableTile()
@@ -39,4 +41,38 @@ public class TerrainData
 
 		return tileCentres[x, y];
 	}
+
+	public Vector3 GetNearestCoastalTile(Vector3 position)
+	{
+		Vector3 nearestSourceWater = Vector3.zero;
+		Vector2 originTile = new Vector2(Mathf.Round(position.x) + 0.5f, Mathf.Round(position.z) + 0.5f);
+
+		Vector2 pos = new Vector2(position.x, position.z);		
+
+		float maxDistance = float.MaxValue;
+
+		for (int y = 0; y < size; y++)
+		{
+			for (int x = 0; x < size; x++)
+			{
+				if (coastal[x, y])
+				{
+					Vector2 tile = new Vector2(tileCentres[x, y].x, tileCentres[x, y].z);
+
+					float distance = Vector2.Distance(pos, tile);
+					if (distance < maxDistance)
+					{
+						maxDistance = distance;
+						nearestSourceWater = tileCentres[x, y];
+					}
+				}
+			}
+		}
+
+		nearestSourceWater.y = position.y;
+
+		return nearestSourceWater;
+	}
+
+	
 }

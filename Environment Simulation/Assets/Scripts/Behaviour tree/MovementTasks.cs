@@ -24,8 +24,7 @@ public class MovementTasks : MonoBehaviour
     [Task]
     public void GoToWater()
     {
-        Task.current.Fail();
-        //TODO: Saber dónde está el agua
+        Task.current.Complete(animalMovement.GoToNearestWaterSource());
     }
 
     [Task]

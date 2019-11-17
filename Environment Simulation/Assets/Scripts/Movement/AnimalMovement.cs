@@ -36,25 +36,6 @@ public class AnimalMovement : MonoBehaviour
 
 	void FixedUpdate()
     {
-		/*if (Input.GetMouseButtonDown(0))
-		{
-			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			RaycastHit hit;
-
-			if(Physics.Raycast(ray, out hit))
-			{
-				_agent.SetDestination(hit.point);
-			}
-
-		}*/
-
-		/*if(_agent.velocity.magnitude == 0)
-		{
-			MoveRandom();
-		}*/
-
-		//FleeFrom(enemies);
-
 		if(_agent.velocity.magnitude > 0  && !_isJumping)
 		{			
 			StartCoroutine(jumpAnimation());
@@ -95,7 +76,7 @@ public class AnimalMovement : MonoBehaviour
 
 		meanDirection = meanDirection.normalized;
 
-		_agent.SetDestination(GetFurthesPointInDirection(meanDirection));
+		_agent.SetDestination(GetFurthestPointInDirection(meanDirection));
 
 	}
 
@@ -107,11 +88,11 @@ public class AnimalMovement : MonoBehaviour
 
 	public void MoveRandom()
 	{
+        //TODO: Si llega al punto aleatorio, volver a escoger un punto aleatorio para que no se quede quieto.
 		GoTo(randomTarget);		
 	}
 
-
-	private Vector3 GetFurthesPointInDirection(Vector3 direction)
+	private Vector3 GetFurthestPointInDirection(Vector3 direction)
 	{
 		float terrainSize = _terrainGenerator.TerrainData.size * 0.5f;
 
@@ -256,26 +237,11 @@ public class AnimalMovement : MonoBehaviour
 		return new Vector3(intersection.x, y, intersection.y);
 	}
 
-	private void OnDrawGizmos()
+	public bool GoToNearestWaterSource()
 	{
-		/*Vector3 meanDirection = Vector3.zero;
-
-		for (int i = 0; i < enemies.Length; i++)
-		{
-			Vector3 enemyPos2d = enemies[i].position;
-			enemyPos2d.y = transform.position.y;
-			Vector3 dir = transform.position - enemyPos2d;
-
-			meanDirection += dir / enemies.Length;
-		}
-
-		meanDirection = meanDirection.normalized;
-
-		Vector3 tile = GetFurthesPointInDirection(meanDirection);
-
-		Gizmos.color = Color.blue;
-		Gizmos.DrawSphere(tile, 0.25f);*/
-
+		Vector3 waterSource = _terrainGenerator.TerrainData.GetNearestCoastalTile(transform.position);
+	
+		return GoTo(waterSource);
 	}
 
 	public Vector2 GetIntersectionPointCoordinates(Vector2 A1, Vector2 A2, Vector2 B1, Vector2 B2, out bool found)
@@ -302,6 +268,51 @@ public class AnimalMovement : MonoBehaviour
 	private void UpdateRandomTarget()
 	{
 		randomTarget = _terrainGenerator.TerrainData.GetRandomWalkableTile();
-//		print(randomTarget);
+	}
+
+	private void OnDrawGizmos()
+	{
+		/*Vector3 meanDirection = Vector3.zero;
+
+		for (int i = 0; i < enemies.Length; i++)
+		{
+			Vector3 enemyPos2d = enemies[i].position;
+			enemyPos2d.y = transform.position.y;
+			Vector3 dir = transform.position - enemyPos2d;
+
+			meanDirection += dir / enemies.Length;
+		}
+
+		meanDirection = meanDirection.normalized;
+
+		Vector3 tile = GetFurthesPointInDirection(meanDirection);
+
+		Gizmos.color = Color.blue;
+		Gizmos.DrawSphere(tile, 0.25f);*/
+
+		TerrainGenerator generator = GameObject.FindGameObjectWithTag("TerrainGenerator").GetComponent<TerrainGenerator>();
+
+		Gizmos.color = Color.blue;
+		Gizmos.DrawSphere(generator.TerrainData.GetNearestCoastalTile(transform.position), 0.25f);
+
+	
+		for (int y = 0; y < generator.TerrainData.size; y++)
+		{
+
+			for (int x = 0; x < generator.TerrainData.size; x++)
+			{
+				if(generator.TerrainData.shore[x, y])
+				{
+					Gizmos.color = Color.red;
+					Gizmos.DrawSphere(generator.TerrainData.tileCentres[x, y], 0.25f);
+				}
+
+				if (generator.TerrainData.coastal[x, y])
+				{
+					Gizmos.color = Color.green;
+					Gizmos.DrawSphere(generator.TerrainData.tileCentres[x, y], 0.25f);
+				}
+			}
+		}
 	}
 }
