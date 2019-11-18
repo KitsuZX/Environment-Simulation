@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 1635231982}
   - component: {fileID: 1635231983}
   - component: {fileID: 1635231984}
+  - component: {fileID: 3124669621952521773}
   m_Layer: 8
   m_Name: _Base Animal
   m_TagString: Untagged
@@ -298,6 +299,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46dcfb1ff3d62d741be702a808cb198b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskDuration: 2
+  breedSprite: {fileID: 21300000, guid: 5fa6f38c1db1d994eb3e3dc99d2ce53c, type: 3}
+  eatFoodSprite: {fileID: 0}
+  drinkWaterSprite: {fileID: 21300000, guid: 57cb2ebb80144bf4795cba8664e4ee33, type: 3}
 --- !u!114 &1635231983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,9 +334,18 @@ MonoBehaviour:
   goToFoodSprite: {fileID: 0}
   goToWaterSprite: {fileID: 21300000, guid: 5061c12eb490363478005737dc232916, type: 3}
   goToPartnerSprite: {fileID: 21300000, guid: 72d8e408752e36f448c2f52b706d2f4e, type: 3}
-  breedSprite: {fileID: 21300000, guid: 5fa6f38c1db1d994eb3e3dc99d2ce53c, type: 3}
-  eatFoodSprite: {fileID: 0}
-  drinkWaterSprite: {fileID: 21300000, guid: 57cb2ebb80144bf4795cba8664e4ee33, type: 3}
+--- !u!114 &3124669621952521773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199727276690911755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a5926ff60c119f4fbe34fd6f795d443, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &438673293313000217
 GameObject:
   m_ObjectHideFlags: 0
@@ -403,6 +417,7 @@ GameObject:
   - component: {fileID: 6875901560537161103}
   - component: {fileID: 8308892159132413326}
   - component: {fileID: 1930835293496818298}
+  - component: {fileID: 4590614368541998886}
   m_Layer: 8
   m_Name: Behaviour Communicator
   m_TagString: Untagged
@@ -436,6 +451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83064485b7b155446b9b5141813fbdad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxShowDistance: 50
 --- !u!212 &1930835293496818298
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -484,3 +500,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4590614368541998886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8423825933039921245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6f54a33fbaf78c4aad0496c16315d21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minimumScale: 0.075

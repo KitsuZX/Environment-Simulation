@@ -27,7 +27,7 @@ public class Perceptor : MonoBehaviour
             return false;
         }
     }
-    public bool SeesPartner
+    public bool SeesPotentialPartner
     {
         get
         {
@@ -144,7 +144,8 @@ public class Perceptor : MonoBehaviour
                     {
                         transform = perceivee.transform,
                         genes = perceivee.GetComponent<Genes>(),
-                        vitalFunctions = mateVitalFunctions
+                        vitalFunctions = mateVitalFunctions,
+                        sexuality = perceivee.GetComponent<Sexuality>()
                     });
                 }
                
@@ -214,6 +215,7 @@ public class Perceptor : MonoBehaviour
         public Transform transform;
         public VitalFunctions vitalFunctions;
         public Genes genes;
+        public Sexuality sexuality;
     }
     #endregion
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 #pragma warning disable 649
-[RequireComponent(typeof(AnimalMovement))]
+[RequireComponent(typeof(AnimalMovement), typeof(Sexuality))]
 public class PercieveTasks : MonoBehaviour
 {
     [SerializeField] private Sprite searchForFoodSprite;
@@ -13,11 +13,25 @@ public class PercieveTasks : MonoBehaviour
     private Perceptor perceptor;
     private AnimalMovement animalMovement;
     private BehaviourCommunicator communicator;
+    private Sexuality sexuality;
 
 
     [Task]
     public bool IsInDanger => perceptor.IsInDanger;
 
+    [Task]//Lo sé. Juro que está bien. Miramos si mi chosen partner busca follar, y si soy su chosen partner.
+    public bool IsMyChosenPartnerIntoMe
+    {
+        get
+        {
+            Sexuality partnerSexuality = sexuality.chosenPartner.sexuality;
+            if (partnerSexuality)
+            {
+                return partnerSexuality.IsLookingToBreed && partnerSexuality.chosenPartner.sexuality == sexuality;
+            }
+            else return false;
+        }
+    }
 
     [Task]
     public void SearchForFood()
@@ -35,13 +49,23 @@ public class PercieveTasks : MonoBehaviour
     [Task]
     public void SearchForAPartner()
     {
-        if (perceptor.SeesPartner) Task.current.Succeed();
+        Task task = Task.current;
+        //Walk randomly until we see a potential mate.
+        if (perceptor.SeesPotentialPartner)
+        {
+            //If there are multiple, choose the sexiest one.
+            Perceptor.PerceivedMate sexiestMate = perceptor.GetSexiestMate();
+            sexuality.chosenPartner = sexiestMate;
+            
+            task.Succeed();
+        }
         else
         {
+            //Kepp looking
             animalMovement.MoveRandom();
-            Task.current.Fail();
-
             communicator.SetSprite(searchForAPartnerSprite);
+            task.Fail();
+            return;
         }
     }
 
@@ -51,5 +75,6 @@ public class PercieveTasks : MonoBehaviour
         perceptor = GetComponentInChildren<Perceptor>();
         animalMovement = GetComponent<AnimalMovement>();
         communicator = GetComponentInChildren<BehaviourCommunicator>();
+        sexuality = GetComponent<Sexuality>();
     }
 }

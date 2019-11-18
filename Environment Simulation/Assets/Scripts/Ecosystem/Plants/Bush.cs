@@ -11,7 +11,7 @@ public class Bush : MonoBehaviour, IEatable
 
     [SerializeField] private float perceptableFoodAmount = 15f;
 
-    public bool IsAvailableToEat => actualFoodAmount > perceptableFoodAmount;
+    public bool IsAvailableToEat => this && actualFoodAmount > perceptableFoodAmount;
     public Vector3 Position => transform.position;
 
 

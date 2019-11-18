@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DieWhenEaten : MonoBehaviour, IEatable
 {
-    public bool IsAvailableToEat => true;
+    public bool IsAvailableToEat => this && true;
     public Vector3 Position => transform.position;
 
 
