@@ -363,6 +363,7 @@ GameObject:
   - component: {fileID: 6875901560537161103}
   - component: {fileID: 8308892159132413326}
   - component: {fileID: 1930835293496818298}
+  - component: {fileID: 4590614368541998886}
   m_Layer: 8
   m_Name: Behaviour Communicator
   m_TagString: Untagged
@@ -396,6 +397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83064485b7b155446b9b5141813fbdad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxShowDistance: 50
 --- !u!212 &1930835293496818298
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -444,3 +446,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4590614368541998886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8423825933039921245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6f54a33fbaf78c4aad0496c16315d21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minimumScale: 0.075
