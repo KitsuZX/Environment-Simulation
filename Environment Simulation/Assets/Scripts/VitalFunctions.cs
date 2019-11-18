@@ -87,7 +87,18 @@ public class VitalFunctions : MonoBehaviour
         genes = GetComponent<Genes>();
         CurrentAge = 0;
 
+        Material[] mats = GetComponentInChildren<MeshRenderer>().materials;
+
         IsMale = Random.value < 0.5f;
+        if (IsMale)
+        {
+            mats[1].color = new Color(92,55,16);
+            
+        }
+        else
+        {
+            mats[1].color = new Color(173, 103, 29);
+        }
     }
     private void Start() 
     {
