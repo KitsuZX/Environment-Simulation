@@ -35,6 +35,7 @@ tree("Need to breed")
 			sequence
 				SearchForAPartner
 				GoToPartner
+				IsMyChosenPartnerIntoMe
 				Breed
 
 tree("Move randomly")

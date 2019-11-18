@@ -8,6 +8,9 @@ using Panda;
 public class VitalTasks : MonoBehaviour
 {
     [SerializeField] private float taskDuration = 2;
+    [SerializeField] private Sprite breedSprite;
+    [SerializeField] private Sprite eatFoodSprite;
+    [SerializeField] private Sprite drinkWaterSprite;
 
     private VitalFunctions vitalFunctions;
     private Perceptor perceptor;
@@ -28,7 +31,11 @@ public class VitalTasks : MonoBehaviour
 
     [Task]
     public bool IsMale => vitalFunctions.IsMale;
-    
+
+    [Task]//Lo sé. Juro que está bien. Miramos si soy el chosen partner de mi chosen partner.
+    //TODO: //Are they looking for a partner?
+    public bool IsMyChosenPartnerIntoMe => vitalFunctions.chosenPartner.vitalFunctions.chosenPartner.vitalFunctions == vitalFunctions;
+
 
     [Task]
     public void EatFood()
@@ -40,6 +47,7 @@ public class VitalTasks : MonoBehaviour
         if (Task.current.isStarting)
         {
             context = new WaitTaskContext(perceptor.GetClosestFood(), taskDuration);
+            communicator.SetSprite(eatFoodSprite);
         }
         else
         {
@@ -76,6 +84,7 @@ public class VitalTasks : MonoBehaviour
         if (Task.current.isStarting)
         {
             context = new WaitTaskContext(null, taskDuration);
+            communicator.SetSprite(drinkWaterSprite);
         }
         else
         {
@@ -105,6 +114,7 @@ public class VitalTasks : MonoBehaviour
         if (Task.current.isStarting)
         {
             context = new WaitTaskContext(perceptor.GetSexiestMate(), taskDuration);
+            communicator.SetSprite(breedSprite);
         }
         else
         {

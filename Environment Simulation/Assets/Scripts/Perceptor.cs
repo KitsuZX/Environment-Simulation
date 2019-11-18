@@ -27,7 +27,7 @@ public class Perceptor : MonoBehaviour
             return false;
         }
     }
-    public bool SeesPartner
+    public bool SeesPotentialPartner
     {
         get
         {

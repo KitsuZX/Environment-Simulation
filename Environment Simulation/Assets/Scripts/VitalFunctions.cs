@@ -5,29 +5,30 @@ using UnityEngine;
 public class VitalFunctions : MonoBehaviour
 {
     [SerializeField, Range(0, 1)] private float needThresholdPortion = 0.5f;
-
-    public float CurrentAge { get; private set; }
-    public bool IsMale { get; private set; }
-
-    public bool IsHungry => 1 - (currentEnergy / genes.genesData.maxEnergy) > needThresholdPortion;
-    public bool IsThirsty => 1 - (currentHydration/ genes.genesData.maxHydration) > needThresholdPortion;
-    public bool IsOldEnoughForSex => CurrentAge > genes.reproductiveAgeRange.x && CurrentAge < genes.reproductiveAgeRange.y;
-    public bool IsPregnant => pregnancy;
-
-    private float currentEnergy;
-    private float currentHydration;
-    private Genes genes;
-    private Pregnant pregnancy;
-
     [SerializeField] private float energyLostPerSecond = 0.1f;
     [SerializeField] private float hydrationLostPerSecond = 0.1f;
-
     public Sprite PregnantCommunicationSprite => _pregnantCommunicationSprite;
     [SerializeField] private Sprite _pregnantCommunicationSprite;
 
     public Vector3 minimumScale;
     public Vector3 maxScale;
 
+    public float CurrentAge { get; private set; }
+    public bool IsMale { get; private set; }
+    
+    public bool IsHungry => 1 - (currentEnergy / genes.genesData.maxEnergy) > needThresholdPortion;
+    public bool IsThirsty => 1 - (currentHydration/ genes.genesData.maxHydration) > needThresholdPortion;
+    public bool IsOldEnoughForSex => CurrentAge > genes.reproductiveAgeRange.x && CurrentAge < genes.reproductiveAgeRange.y;
+    public bool IsPregnant => pregnancy;
+
+    [System.NonSerialized] public Perceptor.PerceivedMate chosenPartner;
+
+    private float currentEnergy;
+    private float currentHydration;
+    private Genes genes;
+    private Pregnant pregnancy;
+
+    
     public void EatFood(IEatable food)
     {
         //SALE EL LOGO DE COMIENDO///
