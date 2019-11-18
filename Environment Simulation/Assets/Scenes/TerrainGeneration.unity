@@ -679,10 +679,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1587338229735979954, guid: f2bd56d5ed9513c4791ba67447441a63,
+        type: 3}
+      propertyPath: reproductiveAgeRange.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3289517598498206393, guid: f2bd56d5ed9513c4791ba67447441a63,
         type: 3}
       propertyPath: needThresholdPortion
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2bd56d5ed9513c4791ba67447441a63, type: 3}

@@ -2,7 +2,7 @@
 using UnityEngine;
 
 #pragma warning disable 649
-[RequireComponent(typeof(AnimalMovement), typeof(VitalFunctions))]
+[RequireComponent(typeof(AnimalMovement), typeof(Sexuality))]
 public class MovementTasks : MonoBehaviour
 {
     [SerializeField] private Sprite runAwaySprite;
@@ -12,7 +12,7 @@ public class MovementTasks : MonoBehaviour
 
     private AnimalMovement animalMovement;
 
-    private VitalFunctions vitalFunctions;
+    private Sexuality sexuality;
     private Perceptor perceptor;
     private BehaviourCommunicator communicator;
 
@@ -46,7 +46,7 @@ public class MovementTasks : MonoBehaviour
     [Task]
     public void GoToPartner()
     {
-        bool reached = animalMovement.GoTo(vitalFunctions.chosenPartner.transform.position);
+        bool reached = animalMovement.GoTo(sexuality.chosenPartner.transform.position);
         Task.current.Complete(reached);
 
         if (!reached) communicator.SetSprite(goToPartnerSprite);
@@ -67,7 +67,7 @@ public class MovementTasks : MonoBehaviour
         animalMovement = GetComponent<AnimalMovement>();
         perceptor = GetComponentInChildren<Perceptor>();
         communicator = GetComponentInChildren<BehaviourCommunicator>();
-        vitalFunctions = GetComponent<VitalFunctions>();
+        sexuality = GetComponent<Sexuality>();
     }
 
 }

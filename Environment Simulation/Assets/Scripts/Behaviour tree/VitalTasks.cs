@@ -32,9 +32,7 @@ public class VitalTasks : MonoBehaviour
     [Task]
     public bool IsMale => vitalFunctions.IsMale;
 
-    [Task]//Lo sé. Juro que está bien. Miramos si soy el chosen partner de mi chosen partner.
-    //TODO: //Are they looking for a partner?
-    public bool IsMyChosenPartnerIntoMe => vitalFunctions.chosenPartner.vitalFunctions.chosenPartner.vitalFunctions == vitalFunctions;
+    
 
 
     [Task]

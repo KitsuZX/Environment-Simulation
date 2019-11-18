@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 #pragma warning disable 649
-[RequireComponent(typeof(AnimalMovement), typeof(VitalFunctions))]
+[RequireComponent(typeof(AnimalMovement), typeof(Sexuality))]
 public class PercieveTasks : MonoBehaviour
 {
     [SerializeField] private Sprite searchForFoodSprite;
@@ -13,12 +13,25 @@ public class PercieveTasks : MonoBehaviour
     private Perceptor perceptor;
     private AnimalMovement animalMovement;
     private BehaviourCommunicator communicator;
-    private VitalFunctions vitalFunctions;
+    private Sexuality sexuality;
 
 
     [Task]
     public bool IsInDanger => perceptor.IsInDanger;
 
+    [Task]//Lo sé. Juro que está bien. Miramos si mi chosen partner busca follar, y si soy su chosen partner.
+    public bool IsMyChosenPartnerIntoMe
+    {
+        get
+        {
+            Sexuality partnerSexuality = sexuality.chosenPartner.sexuality;
+            if (partnerSexuality)
+            {
+                return partnerSexuality.IsLookingToBreed && partnerSexuality.chosenPartner.sexuality == sexuality;
+            }
+            else return false;
+        }
+    }
 
     [Task]
     public void SearchForFood()
@@ -42,8 +55,8 @@ public class PercieveTasks : MonoBehaviour
         {
             //If there are multiple, choose the sexiest one.
             Perceptor.PerceivedMate sexiestMate = perceptor.GetSexiestMate();
-            vitalFunctions.chosenPartner = sexiestMate;
-
+            sexuality.chosenPartner = sexiestMate;
+            
             task.Succeed();
         }
         else
@@ -62,6 +75,6 @@ public class PercieveTasks : MonoBehaviour
         perceptor = GetComponentInChildren<Perceptor>();
         animalMovement = GetComponent<AnimalMovement>();
         communicator = GetComponentInChildren<BehaviourCommunicator>();
-        vitalFunctions = GetComponent<VitalFunctions>();
+        sexuality = GetComponent<Sexuality>();
     }
 }
