@@ -17,6 +17,7 @@ public class Pregnant : MonoBehaviour
     private bool pregnancyStarted = false;
 
     private SpriteRenderer pregnantIcon;
+    private Ecosystem ecosystem;
 
 
     private void FixedUpdate()
@@ -70,6 +71,7 @@ public class Pregnant : MonoBehaviour
     public void InstantiateNewAnimal(GenesData childGenes)
     {
         GameObject son = Instantiate(gameObject);
+        ecosystem.AddAnimal(son);
         son.GetComponent<Genes>().genesData = childGenes;
         Destroy(son.GetComponent<Pregnant>());
     }
@@ -101,6 +103,8 @@ public class Pregnant : MonoBehaviour
         pregnantIcon = pregnantSignGO.AddComponent<SpriteRenderer>();
         pregnantIcon.sprite = GetComponent<VitalFunctions>().PregnantCommunicationSprite;
         pregnantIcon.sortingOrder = communicator.GetComponent<SpriteRenderer>().sortingOrder + 1;
+
+        ecosystem = FindObjectOfType<Ecosystem>();
 
     }
 
