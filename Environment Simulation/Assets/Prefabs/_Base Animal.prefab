@@ -122,8 +122,48 @@ MonoBehaviour:
   energyLostPerSecond: 0.1
   hydrationLostPerSecond: 0.1
   _pregnantCommunicationSprite: {fileID: 0}
-  minimumScale: {x: 0.5, y: 0.5, z: 0.5}
-  maxScale: {x: 2, y: 2, z: 2}
+  curveGrowUp:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.5
+      inSlope: 1.917399
+      outSlope: 1.917399
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.51772285
+      value: 1.4926813
+      inSlope: -0.008241948
+      outSlope: -0.008241948
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 1
+    - serializedVersion: 3
+      time: 1.0179559
+      value: 1.301944
+      inSlope: -0.26598537
+      outSlope: -0.26598537
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 2.9992385
+      value: 1.0034163
+      inSlope: -0.15067397
+      outSlope: -0.15067397
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &417898898
 MonoBehaviour:
   m_ObjectHideFlags: 0
