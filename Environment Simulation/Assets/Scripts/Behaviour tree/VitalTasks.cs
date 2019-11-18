@@ -7,6 +7,11 @@ using Panda;
 [RequireComponent(typeof(VitalFunctions), typeof(Genes))]
 public class VitalTasks : MonoBehaviour
 {
+    [SerializeField] private float taskDuration = 2;
+    [SerializeField] private Sprite breedSprite;
+    [SerializeField] private Sprite eatFoodSprite;
+    [SerializeField] private Sprite drinkWaterSprite;
+
     private VitalFunctions vitalFunctions;
     private Perceptor perceptor;
     private Genes genes;
@@ -26,30 +31,114 @@ public class VitalTasks : MonoBehaviour
 
     [Task]
     public bool IsMale => vitalFunctions.IsMale;
+
     
+
 
     [Task]
     public void EatFood()
     {
-        IEatable closestFood = perceptor.GetClosestFood();
-        vitalFunctions.EatFood(closestFood);
-        Task.current.Succeed();
+        Task task = Task.current;
+        WaitTaskContext context;
+
+        //Get the context, initializing if necessary
+        if (Task.current.isStarting)
+        {
+            context = new WaitTaskContext(perceptor.GetClosestFood(), taskDuration);
+            communicator.SetSprite(eatFoodSprite);
+        }
+        else
+        {
+            context = (WaitTaskContext) Task.current.item;
+        }
+
+        //Interrupt if food is no longer available
+        IEatable food = (IEatable) context.context;
+        if (!food.IsAvailableToEat)
+        {
+            task.Fail();
+            return;
+        }
+        
+        //Advance the wait
+        context.timeLeft -= Time.deltaTime;
+        task.item = context;
+        if (Task.isInspected) task.debugInfo = context.FormattedTimeLeft;
+
+        //Check for success
+        if (context.timeLeft <= 0)
+        {
+            vitalFunctions.EatFood(food);
+            Task.current.Succeed();
+        }
     }
 
     [Task]
     public void DrinkWater()
     {
-        vitalFunctions.DrinkWater();
-        Task.current.Succeed();
+        Task task = Task.current;
+        WaitTaskContext context;
+
+        //Get the context, initializing if necessary
+        if (Task.current.isStarting)
+        {
+            context = new WaitTaskContext(null, taskDuration);
+            communicator.SetSprite(drinkWaterSprite);
+        }
+        else
+        {
+            context = (WaitTaskContext)Task.current.item;
+        }
+
+        //Advance the wait
+        context.timeLeft -= Time.deltaTime;
+        task.item = context;
+        if (Task.isInspected) task.debugInfo = context.FormattedTimeLeft;
+
+        //Check for success
+        if (context.timeLeft <= 0)
+        {
+            vitalFunctions.DrinkWater();
+            Task.current.Succeed();
+        }
     }
 
     [Task]
-    public void ImpregnateMate()
-    { 
-        Perceptor.PerceivedMate pm = perceptor.GetSexiestMate();
-        pm.vitalFunctions.GetPregnant(genes.genesData);
+    public void Breed()
+    {
+        Task task = Task.current;
+        WaitTaskContext context;
 
-        Task.current.Succeed();
+        //Get the context, initializing if necessary
+        if (Task.current.isStarting)
+        {
+            context = new WaitTaskContext(perceptor.GetSexiestMate(), taskDuration);
+            communicator.SetSprite(breedSprite);
+        }
+        else
+        {
+            context = (WaitTaskContext)Task.current.item;
+        }
+
+        //Interrupt if the mate dies
+        if (!(context.context is Perceptor.PerceivedMate mate) || !mate.vitalFunctions)
+        {
+            task.Fail();
+            return;
+        }
+
+        //Advance the wait
+        context.timeLeft -= Time.deltaTime;
+        task.item = context;
+        if (Task.isInspected) task.debugInfo = context.FormattedTimeLeft;
+
+        //Check for success
+        if (context.timeLeft <= 0)
+        {
+            if (vitalFunctions.IsMale) mate.vitalFunctions.Impregnate(genes.genesData);
+
+            Task.current.Succeed();
+        }
     }
 
 
@@ -59,5 +148,19 @@ public class VitalTasks : MonoBehaviour
         genes = GetComponent<Genes>();
         perceptor = GetComponentInChildren<Perceptor>();
         communicator = GetComponentInChildren<BehaviourCommunicator>();
+    }
+
+    private struct WaitTaskContext
+    {
+        public object context;
+        public float timeLeft;
+
+        public string FormattedTimeLeft => string.Format("t-{0:0.000}", timeLeft);
+
+        public WaitTaskContext(object context, float timeLeft)
+        {
+            this.context = context;
+            this.timeLeft = timeLeft;
+        }
     }
 }
