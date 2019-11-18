@@ -9,6 +9,7 @@ public class VitalFunctions : MonoBehaviour
     [SerializeField] private float hydrationLostPerSecond = 0.1f;
     public Sprite PregnantCommunicationSprite => _pregnantCommunicationSprite;
     [SerializeField] private Sprite _pregnantCommunicationSprite;
+    [SerializeField] private AnimationCurve curveGrowUp;
 
     public Vector3 minimumScale;
     public Vector3 maxScale;
@@ -27,14 +28,6 @@ public class VitalFunctions : MonoBehaviour
     private float currentHydration;
     private Genes genes;
     private Pregnant pregnancy;
-
-    [SerializeField] private float energyLostPerSecond = 0.1f;
-    [SerializeField] private float hydrationLostPerSecond = 0.1f;
-
-    public Sprite PregnantCommunicationSprite => _pregnantCommunicationSprite;
-    [SerializeField] private Sprite _pregnantCommunicationSprite;
-
-    [SerializeField] private AnimationCurve curveGrowUp;
 
     public void EatFood(IEatable food)
     {
