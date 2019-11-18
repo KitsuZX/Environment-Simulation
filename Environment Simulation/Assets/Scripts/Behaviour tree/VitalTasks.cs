@@ -51,9 +51,10 @@ public class VitalTasks : MonoBehaviour
         {
             context = (WaitTaskContext) Task.current.item;
         }
-            
+
         //Interrupt if food is no longer available
-        if (!(context.context is IEatable food) || !food.IsAvailableToEat)
+        IEatable food = (IEatable) context.context;
+        if (!food.IsAvailableToEat)
         {
             task.Fail();
             return;
