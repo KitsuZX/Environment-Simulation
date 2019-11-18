@@ -16,7 +16,6 @@ tree("Need food")
 			sequence
 				SearchForFood
 				GoToFood
-				Wait(2.0)
 				EatFood
 
 tree("Need water")
@@ -24,7 +23,6 @@ tree("Need water")
 		mute
 			sequence
 				GoToWater
-				Wait(2.0)
 				DrinkWater
 
 tree("Need to breed")
@@ -37,10 +35,7 @@ tree("Need to breed")
 			sequence
 				SearchForAPartner
 				GoToPartner
-				Wait(2.0)
-				sequence
-					IsMale
-					ImpregnateMate
+				Breed
 
 tree("Move randomly")
 	MoveRandomly

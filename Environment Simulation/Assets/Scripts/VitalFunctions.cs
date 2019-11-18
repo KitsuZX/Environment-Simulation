@@ -46,7 +46,7 @@ public class VitalFunctions : MonoBehaviour
         currentHydration += maxWaterToGet;
     }
 
-    public void GetPregnant(GenesData fatherGenesData)
+    public void Impregnate(GenesData fatherGenesData)
     {
         //SALE EL LOGO DE FOLLANDO///
         ////////////////////////////
@@ -55,9 +55,9 @@ public class VitalFunctions : MonoBehaviour
     }
 
     [ContextMenu("Dejar preñá")]
-    public void DebugGetPregnant()
+    public void DebugImpregnate()
     {
-        GetPregnant(new GenesData());
+        Impregnate(new GenesData());
     }
 
     private void FixedUpdate()
