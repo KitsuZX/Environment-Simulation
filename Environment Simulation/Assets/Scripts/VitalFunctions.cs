@@ -5,14 +5,11 @@ using UnityEngine;
 public class VitalFunctions : MonoBehaviour
 {
     [SerializeField, Range(0, 1)] private float needThresholdPortion = 0.5f;
-    [SerializeField] private float energyLostPerSecond = 0.1f;
+    [SerializeField] private float energyLost; // = 0.1f;
     [SerializeField] private float hydrationLostPerSecond = 0.1f;
     public Sprite PregnantCommunicationSprite => _pregnantCommunicationSprite;
     [SerializeField] private Sprite _pregnantCommunicationSprite;
     [SerializeField] private AnimationCurve curveGrowUp;
-
-    public Vector3 minimumScale;
-    public Vector3 maxScale;
 
     public float CurrentAge { get; private set; }
     public bool IsMale { get; private set; }
@@ -28,6 +25,8 @@ public class VitalFunctions : MonoBehaviour
     private float currentHydration;
     private Genes genes;
     private Pregnant pregnancy;
+
+    [SerializeField] private EnergyFactors energyFactors;
 
     public void EatFood(IEatable food)
     {
@@ -66,7 +65,15 @@ public class VitalFunctions : MonoBehaviour
         float dt = Time.fixedDeltaTime;
 
         growUp(dt);
-        currentEnergy -= energyLostPerSecond * dt;
+        if (IsPregnant)
+        {
+            currentEnergy -= energyLost + (energyFactors.pregnantEnergyLost * (genes.genesData.childCountMean * energyFactors.numChildFactor)) * dt; ;
+        }
+        else
+        {
+            currentEnergy -= energyLost * dt;
+        }
+        
         currentHydration -= hydrationLostPerSecond * dt;
 
         if (currentEnergy < 0 || currentHydration < 0)
@@ -86,23 +93,14 @@ public class VitalFunctions : MonoBehaviour
     {
         genes = GetComponent<Genes>();
         CurrentAge = 0;
-
-        Material[] mats = GetComponentInChildren<MeshRenderer>().materials;
-
         IsMale = Random.value < 0.5f;
-        if (IsMale)
-        {
-            mats[1].color = new Color(92,55,16);
-            
-        }
-        else
-        {
-            mats[1].color = new Color(173, 103, 29);
-        }
+       
     }
     private void Start() 
     {
         currentEnergy = genes.genesData.maxEnergy;
         currentHydration = genes.genesData.maxHydration;
+
+        energyLost = (Mathf.Pow(genes.genesData.speed, 2) * energyFactors.speedFactor) + (genes.genesData.perceptionRadius * energyFactors.perceptionRadiusFactor);
     }
 }
