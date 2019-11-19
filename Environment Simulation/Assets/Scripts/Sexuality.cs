@@ -14,6 +14,6 @@ public class Sexuality : MonoBehaviour
 
     private void Awake()
     {
-        GetComponent<PandaBehaviour>().OnInitialized = () => breedingTree = GetComponent<PandaBehaviour>().GetTree("Need to breed");
+        breedingTree = GetComponent<PandaBehaviour>().GetTree("Need to breed");
     }
 }
