@@ -67,7 +67,7 @@ public class VitalFunctions : MonoBehaviour
         growUp(dt);
         if (IsPregnant)
         {
-            currentEnergy -= energyLost + (energyFactors.pregnantEnergyLost * (genes.genesData.childCountMean * energyFactors.numChildFactor)) * dt; ;
+            currentEnergy -= energyLost + (energyFactors.pregnantEnergyLost * genes.genesData.childCountMean) * dt; ;
         }
         else
         {

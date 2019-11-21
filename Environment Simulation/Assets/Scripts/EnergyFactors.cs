@@ -8,5 +8,4 @@ public struct EnergyFactors
     public float speedFactor;
     public float perceptionRadiusFactor;
     public float pregnantEnergyLost;
-    public float numChildFactor;
 }
