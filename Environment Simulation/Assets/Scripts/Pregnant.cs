@@ -71,6 +71,7 @@ public class Pregnant : MonoBehaviour
     {
         GameObject son = Instantiate(gameObject);
         son.GetComponent<Genes>().genesData = childGenes;
+        son.GetComponent<VitalFunctions>().CurrentAge = gestationPeriodLength;
         Destroy(son.GetComponent<Pregnant>());
     }
 

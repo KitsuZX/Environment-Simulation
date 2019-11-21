@@ -273,6 +273,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Center.y
       value: 1.0679703
+      objectReference: {fileID: 0}
     - target: {fileID: 417898897, guid: d8af8a8003b2fd1499a057086be30e73, type: 3}
       propertyPath: m_BaseOffset
       value: 0

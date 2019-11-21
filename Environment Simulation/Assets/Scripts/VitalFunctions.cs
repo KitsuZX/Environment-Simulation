@@ -11,7 +11,7 @@ public class VitalFunctions : MonoBehaviour
     [SerializeField] private Sprite _pregnantCommunicationSprite;
     [SerializeField] private AnimationCurve curveGrowUp;
 
-    public float CurrentAge { get; private set; }
+    public float CurrentAge { get; set; }
     public bool IsMale { get; private set; }
     
     public bool IsHungry => 1 - (currentEnergy / genes.genesData.maxEnergy) > needThresholdPortion;
@@ -90,7 +90,7 @@ public class VitalFunctions : MonoBehaviour
     private void Awake()
     {
         genes = GetComponent<Genes>();
-        CurrentAge = 0;
+        //CurrentAge = 0;
         IsMale = Random.value < 0.5f;
        
     }
