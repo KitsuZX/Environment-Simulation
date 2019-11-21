@@ -11,14 +11,17 @@ public class Bush : MonoBehaviour, IEatable
 
     [SerializeField] private float perceptableFoodAmount = 15f;
 
+    [Header("Animation")]
+    [SerializeField, Range(0, 1)] private float minScale = 0.5f;
+    [SerializeField, Range(0, 1)] private float maxScale = 1;
+    [SerializeField] private float eatAnimationLength;
+    [SerializeField] private AnimationCurve eatAnimationCurve;
+
     public bool IsAvailableToEat => this && actualFoodAmount > perceptableFoodAmount;
     public Vector3 Position => transform.position;
 
-
-    private void Awake()
-    {
-        actualFoodAmount = maxFoodAmount;
-    }
+    private Coroutine eatAnimationCoroutine;
+    private float desiredScale;
 
     public float Eat(float requestedEnergy)
     {
@@ -27,8 +30,42 @@ public class Bush : MonoBehaviour, IEatable
 
         actualFoodAmount = foodRetrieved;
 
+        StopAllCoroutines();
+        eatAnimationCoroutine = StartCoroutine(_EatenAnimation());
+
         return foodRetrieved;
     }
+
+    private IEnumerator _EatenAnimation()
+    {
+        float t = 0;
+        float dt;
+
+        float topValue = transform.localScale.x;
+
+        while (t < 1)
+        {
+            dt = Time.deltaTime / eatAnimationLength;
+            t += dt;
+            t = Mathf.Min(t, 1);
+
+            transform.localScale = Vector3.one * Mathf.LerpUnclamped(desiredScale, topValue, eatAnimationCurve.Evaluate(t));
+
+            yield return null;
+        }
+
+        eatAnimationCoroutine = null;
+    }
+
+
+
+
+    private void Awake()
+    {
+        actualFoodAmount = maxFoodAmount;
+    }
+
+    
 
     private void FixedUpdate()
     {
@@ -37,7 +74,13 @@ public class Bush : MonoBehaviour, IEatable
             actualFoodAmount += foodGainedPerSecond * Time.fixedDeltaTime;
             actualFoodAmount = Mathf.Clamp(actualFoodAmount, 0, maxFoodAmount);
 
-            transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, actualFoodAmount / maxFoodAmount);
+            desiredScale = Mathf.Lerp(minScale, maxScale, actualFoodAmount / maxFoodAmount);
+
+            if (eatAnimationCoroutine == null)
+            {
+                transform.localScale = Vector3.one * desiredScale;
+            }
         }
     }
+
 }
