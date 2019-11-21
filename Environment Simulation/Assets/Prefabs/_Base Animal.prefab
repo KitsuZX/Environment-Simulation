@@ -171,7 +171,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   needThresholdPortion: 0.307
-  energyLost: 0
   hydrationLostPerSecond: 0.1
   _pregnantCommunicationSprite: {fileID: 21300000, guid: d3d7ed8ba9d0a704b8082f60339eb390,
     type: 3}
@@ -218,9 +217,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   energyFactors:
-    speedFactor: 0.01
-    perceptionRadiusFactor: 0.01
-    pregnantEnergyLost: 0.01
+    speedFactor: 0.02
+    perceptionRadiusFactor: 0.02
+    pregnantEnergyLost: 0.04
 --- !u!114 &417898898
 MonoBehaviour:
   m_ObjectHideFlags: 0
