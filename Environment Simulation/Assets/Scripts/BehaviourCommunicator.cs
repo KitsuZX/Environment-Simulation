@@ -28,8 +28,6 @@ public class BehaviourCommunicator : MonoBehaviour
 
         if (forceActive || (isHidden && distance < maxShowDistance)) Show();
         else if (!isHidden && distance > maxShowDistance) Hide();
-
-        if (!isHidden) transform.LookAt(camera, camera.up);
     }
 
     private void Show()

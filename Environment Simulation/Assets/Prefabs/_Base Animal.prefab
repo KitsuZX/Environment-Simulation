@@ -562,11 +562,11 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 273519932059268250}
   m_HandleRect: {fileID: 0}
-  m_Direction: 0
+  m_Direction: 1
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
@@ -698,6 +698,7 @@ GameObject:
   - component: {fileID: 1990118747322105100}
   - component: {fileID: 1019285594992077178}
   - component: {fileID: 4953220258333500610}
+  - component: {fileID: 3020060588884583224}
   m_Layer: 8
   m_Name: Debugger UI
   m_TagString: Untagged
@@ -777,6 +778,18 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &3020060588884583224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5446710635129446961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9ee998b52f649348b5fc77018ac33b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5529173322253937223
 GameObject:
   m_ObjectHideFlags: 0
@@ -1075,11 +1088,11 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 6187245336469417707}
   m_HandleRect: {fileID: 0}
-  m_Direction: 0
+  m_Direction: 1
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
@@ -1101,6 +1114,7 @@ GameObject:
   - component: {fileID: 8308892159132413326}
   - component: {fileID: 1930835293496818298}
   - component: {fileID: 4590614368541998886}
+  - component: {fileID: 5022289407451215307}
   m_Layer: 8
   m_Name: Behaviour Communicator
   m_TagString: Untagged
@@ -1198,3 +1212,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minimumScale: 0.075
   trueScale: 1
+--- !u!114 &5022289407451215307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8423825933039921245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9ee998b52f649348b5fc77018ac33b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
