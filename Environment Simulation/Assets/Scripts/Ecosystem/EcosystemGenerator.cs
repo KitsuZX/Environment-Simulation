@@ -111,6 +111,9 @@ public class EcosystemGenerator : MonoBehaviour
 
 
             GameObject rabbit = Instantiate(rabbitPrefab, terrainData.tileCentres[x, y] + offset, Quaternion.identity);
+            Genes genes = rabbit.GetComponent<Genes>();
+            genes.genesData.ApplyRandomVariance();
+            rabbit.GetComponent<VitalFunctions>().CurrentAge = Random.Range(0, genes.lifeExpectancy);
             ecosystem.AddAnimal(rabbit);
         }
 
@@ -124,6 +127,9 @@ public class EcosystemGenerator : MonoBehaviour
 
 
             GameObject fox = Instantiate(foxPrefab, terrainData.tileCentres[x, y] + offset, Quaternion.identity);
+            Genes genes = fox.GetComponent<Genes>();
+            genes.genesData.ApplyRandomVariance();
+            fox.GetComponent<VitalFunctions>().CurrentAge = Random.Range(0, genes.lifeExpectancy);
             ecosystem.AddAnimal(fox);
         }
     }
