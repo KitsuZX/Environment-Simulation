@@ -352,7 +352,9 @@ MonoBehaviour:
     type: 3}
   selectedMeshMaterial: {fileID: 2100000, guid: 3324aaecf5f6e78489d44ebd5ae6cfcb,
     type: 2}
+  targetPointMaterial: {fileID: 2100000, guid: 6a1ab0b0fae35044dbe8fd622167eca0, type: 2}
   mateColor: {r: 1, g: 0, b: 0.71579885, a: 1}
+  availableFoodColor: {r: 0, g: 0.3773585, b: 0.14391917, a: 1}
 --- !u!136 &8047262194327420134
 CapsuleCollider:
   m_ObjectHideFlags: 0

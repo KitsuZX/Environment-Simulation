@@ -12,6 +12,9 @@ public class AnimalMovement : MonoBehaviour
 	[SerializeField] private float timeBetweenRandomlyChoosingTarget = 8f;
 	[SerializeField] private AnimationCurve jumpCurve = null;
 
+
+    public Vector3 TargetPoint => _agent.destination;
+
 	private bool _isJumping = false;
 	private Transform _model;
 

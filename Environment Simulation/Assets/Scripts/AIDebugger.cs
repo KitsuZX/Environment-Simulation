@@ -9,13 +9,16 @@ public class AIDebugger : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
 {
     public Mesh selectedMesh;
     public Material selectedMeshMaterial;
+    public Material targetPointMaterial;
     public Color mateColor;
+    public Color availableFoodColor;
 
     private bool isSelected = false;
 
     private Perceptor perceptor;
     private BehaviourCommunicator communicator;
     private Sexuality sexuality;
+    private AnimalMovement animalMovement;
 
     #region Selection events
     public void OnSelect(BaseEventData eventData)
@@ -42,6 +45,7 @@ public class AIDebugger : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
         {
             VisualizeSelected();
             VisualizePerception();
+            VisualizeMovement();
         }
     }
 
@@ -67,6 +71,24 @@ public class AIDebugger : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
         }
 
         //Draw food
+        ICollection<IEatable> foods = perceptor.GetAllPerceivedFood();
+        IEatable closestFood = perceptor.GetClosestFood();
+        foreach (var eatable in foods)
+        {
+            Gizmos.Line(position, eatable.Position, eatable.IsAvailableToEat ? availableFoodColor : Color.black, eatable != closestFood);
+        }
+
+        //Draw danger
+        ICollection<Transform> dangers = perceptor.GetDangers();
+        foreach (var danger in dangers)
+        {
+            Gizmos.Line(position, danger.position, Color.red, false);
+        }
+    }
+
+    private void VisualizeMovement()
+    {
+        Graphics.DrawMesh(selectedMesh, animalMovement.TargetPoint + new Vector3(0, 1, 0), Quaternion.Euler(90, 0, 0), targetPointMaterial, LayerMask.NameToLayer("Default"));
     }
 
     private void Awake()
@@ -74,5 +96,6 @@ public class AIDebugger : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
         perceptor = GetComponentInChildren<Perceptor>();
         communicator = GetComponentInChildren<BehaviourCommunicator>();
         sexuality = GetComponent<Sexuality>();
+        animalMovement = GetComponent<AnimalMovement>();
     }
 }

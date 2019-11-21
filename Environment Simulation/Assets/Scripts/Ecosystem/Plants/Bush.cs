@@ -71,7 +71,7 @@ public class Bush : MonoBehaviour, IEatable
     {
         if(actualFoodAmount < maxFoodAmount)
         {
-            actualFoodAmount += foodGainedPerSecond * Time.fixedDeltaTime;
+            actualFoodAmount += foodGainedPerSecond * Time.deltaTime;
             actualFoodAmount = Mathf.Clamp(actualFoodAmount, 0, maxFoodAmount);
 
             desiredScale = Mathf.Lerp(minScale, maxScale, actualFoodAmount / maxFoodAmount);
