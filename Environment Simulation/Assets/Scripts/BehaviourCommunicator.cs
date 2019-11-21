@@ -10,7 +10,6 @@ public class BehaviourCommunicator : MonoBehaviour
     private new Transform camera;
     private SpriteRenderer spriteRenderer;
 
-    public bool forceActive = false;
     private bool isHidden;
 
 
@@ -18,7 +17,7 @@ public class BehaviourCommunicator : MonoBehaviour
     {
         spriteRenderer.sprite = sprite;
 
-        spriteRenderer.enabled = forceActive || (!isHidden && sprite);
+        spriteRenderer.enabled = !isHidden && sprite;
     }
 
 
@@ -26,7 +25,7 @@ public class BehaviourCommunicator : MonoBehaviour
     {
         float distance = Vector3.Distance(transform.position, camera.position);
 
-        if (forceActive || (isHidden && distance < maxShowDistance)) Show();
+        if (isHidden && distance < maxShowDistance) Show();
         else if (!isHidden && distance > maxShowDistance) Hide();
 
         if (!isHidden) transform.LookAt(camera, camera.up);

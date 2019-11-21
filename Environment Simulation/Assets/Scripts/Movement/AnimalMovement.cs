@@ -12,9 +12,6 @@ public class AnimalMovement : MonoBehaviour
 	[SerializeField] private float timeBetweenRandomlyChoosingTarget = 8f;
 	[SerializeField] private AnimationCurve jumpCurve = null;
 
-
-    public Vector3 TargetPoint => _agent.destination;
-
 	private bool _isJumping = false;
 	private Transform _model;
 
@@ -92,12 +89,8 @@ public class AnimalMovement : MonoBehaviour
 
 	public void MoveRandom()
 	{
-		if (GoTo(randomTarget))
-        {
-            CancelInvoke("UpdateRandomTarget");
-            UpdateRandomTarget();
-            InvokeRepeating("UpdateRandomTarget", timeBetweenRandomlyChoosingTarget, timeBetweenRandomlyChoosingTarget);
-        }
+        //TODO: Si llega al punto aleatorio, volver a escoger un punto aleatorio para que no se quede quieto.
+		GoTo(randomTarget);		
 	}
 	
 	public bool GoToNearestWaterSource()

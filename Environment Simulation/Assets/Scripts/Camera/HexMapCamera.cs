@@ -44,7 +44,7 @@ public class HexMapCamera : MonoBehaviour
 
     void AdjustRotation(float delta)
     {
-        rotationAngle += delta * rotationSpeed * Time.unscaledDeltaTime;
+        rotationAngle += delta * rotationSpeed * Time.deltaTime;
         if (rotationAngle < 0f)
         {
             rotationAngle += 360f;
@@ -71,7 +71,7 @@ public class HexMapCamera : MonoBehaviour
     {
         Vector3 direction = transform.localRotation * new Vector3(xDelta, 0f, zDelta).normalized; //Normalizamos para movernos a la misma velocidad en todas direcciones
         float damping = Mathf.Max(Mathf.Abs(xDelta), Mathf.Abs(zDelta));
-        float distance = Mathf.Lerp(moveSpeedMinZoom, moveSpeedMaxZoom, zoom) * damping * Time.unscaledDeltaTime;
+        float distance = Mathf.Lerp(moveSpeedMinZoom, moveSpeedMaxZoom, zoom) * damping * Time.deltaTime;
 
         Vector3 position = transform.localPosition;
         position += direction * distance;

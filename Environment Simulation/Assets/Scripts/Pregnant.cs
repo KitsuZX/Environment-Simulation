@@ -73,7 +73,6 @@ public class Pregnant : MonoBehaviour
         GameObject son = Instantiate(gameObject);
         ecosystem.AddAnimal(son);
         son.GetComponent<Genes>().genesData = childGenes;
-        son.GetComponent<VitalFunctions>().CurrentAge = gestationPeriodLength;
         Destroy(son.GetComponent<Pregnant>());
     }
 
@@ -111,9 +110,7 @@ public class Pregnant : MonoBehaviour
 
     private void OnDestroy()
     {
-        foreach (Transform child in pregnantIcon.transform.parent)
-        {
-            if (child.name == "Pregnant Sign") Destroy(child.gameObject);
-        } 
+        Destroy(pregnantIcon.gameObject);
+        
     }
 }
