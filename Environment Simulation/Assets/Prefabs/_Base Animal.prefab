@@ -14,12 +14,13 @@ GameObject:
   - component: {fileID: 417898898}
   - component: {fileID: 417898897}
   - component: {fileID: 1635231981}
-  - component: {fileID: 199727276690911796}
   - component: {fileID: 1669547873746271220}
   - component: {fileID: 1635231982}
   - component: {fileID: 1635231983}
   - component: {fileID: 1635231984}
   - component: {fileID: 3124669621952521773}
+  - component: {fileID: 972303118209784331}
+  - component: {fileID: 8047262194327420134}
   m_Layer: 8
   m_Name: _Base Animal
   m_TagString: Untagged
@@ -165,6 +166,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  minimumScale: {x: 0, y: 0, z: 0}
+  maxScale: {x: 0, y: 0, z: 0}
 --- !u!114 &417898898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,7 +231,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -252,19 +255,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &199727276690911796
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 199727276690911755}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5, z: 0.5}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1669547873746271220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,6 +336,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a5926ff60c119f4fbe34fd6f795d443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &972303118209784331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199727276690911755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a337693f81d0a8448619d6c876cf51f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedMesh: {fileID: 3613567641014311022, guid: 10896a9c013f81d45bae3b39611a233f,
+    type: 3}
+  selectedMeshMaterial: {fileID: 2100000, guid: 3324aaecf5f6e78489d44ebd5ae6cfcb,
+    type: 2}
+  mateColor: {r: 1, g: 0, b: 0.71579885, a: 1}
+--- !u!136 &8047262194327420134
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199727276690911755}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &438673293313000217
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,6 +473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxShowDistance: 50
+  forceActive: 0
 --- !u!212 &1930835293496818298
 SpriteRenderer:
   m_ObjectHideFlags: 0

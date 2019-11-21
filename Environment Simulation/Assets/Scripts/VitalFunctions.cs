@@ -22,8 +22,6 @@ public class VitalFunctions : MonoBehaviour
     public bool IsOldEnoughForSex => CurrentAge > genes.reproductiveAgeRange.x && CurrentAge < genes.reproductiveAgeRange.y;
     public bool IsPregnant => pregnancy;
 
-    [System.NonSerialized] public Perceptor.PerceivedMate chosenPartner;
-
     private float currentEnergy;
     private float currentHydration;
     private Genes genes;

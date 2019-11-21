@@ -90,6 +90,11 @@ public class Perceptor : MonoBehaviour
         return closest;
     }
 
+    public ICollection<IEatable> GetAllPerceivedFood()
+    {
+        return perceivedFood.Values;
+    }
+
     //Devuelve ICollection porque así no hace falta copiar a un array, se pasa directamente lo que contiene el diccionario.
     public ICollection<Transform> GetDangers()
     {
@@ -115,6 +120,11 @@ public class Perceptor : MonoBehaviour
         }
 
         return sexiestMate;
+    }
+
+    public ICollection<PerceivedMate> GetAllPerceivedMates()
+    {
+        return perceivedMates.Values;
     }
     #endregion
 

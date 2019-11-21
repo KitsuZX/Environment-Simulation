@@ -4,11 +4,13 @@ PluginImporter:
   externalObjects: {}
   serializedVersion: 2
   iconMap: {}
-  executionOrder: {}
+  executionOrder:
+    Panda.BehaviourTree: -50
   defineConstraints: []
   isPreloaded: 0
   isOverridable: 0
   isExplicitlyReferenced: 0
+  validateReferences: 1
   platformData:
   - first:
       Any: 

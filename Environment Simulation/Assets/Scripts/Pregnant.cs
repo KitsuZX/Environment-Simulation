@@ -106,7 +106,9 @@ public class Pregnant : MonoBehaviour
 
     private void OnDestroy()
     {
-        Destroy(pregnantIcon.gameObject);
-        
+        foreach (Transform child in pregnantIcon.transform.parent)
+        {
+            if (child.name == "Pregnant Sign") Destroy(child.gameObject);
+        } 
     }
 }
