@@ -134,35 +134,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   needThresholdPortion: 0.307
-  energyLostPerSecond: 0.1
+  energyLost: 0
   hydrationLostPerSecond: 0.1
-  _pregnantCommunicationSprite: {fileID: 0}
+  _pregnantCommunicationSprite: {fileID: 21300000, guid: d3d7ed8ba9d0a704b8082f60339eb390,
+    type: 3}
   curveGrowUp:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 0.5
-      inSlope: 1.917399
-      outSlope: 1.917399
+      time: -0.0019574277
+      value: 0.5011902
+      inSlope: 2.9567735
+      outSlope: 2.9567735
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.51772285
-      value: 1.4926813
-      inSlope: -0.008241948
-      outSlope: -0.008241948
+      time: 0.5043784
+      value: 1.9983104
+      inSlope: 0.03156754
+      outSlope: 0.03156754
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 1
+      outWeight: 0.82661426
     - serializedVersion: 3
-      time: 1.0179559
-      value: 1.301944
-      inSlope: -0.26598537
-      outSlope: -0.26598537
+      time: 1.096273
+      value: 1.9869548
+      inSlope: -0.01918524
+      outSlope: -0.01918524
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -179,8 +180,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  minimumScale: {x: 0, y: 0, z: 0}
-  maxScale: {x: 0, y: 0, z: 0}
+  energyFactors:
+    speedFactor: 0.01
+    perceptionRadiusFactor: 0.01
+    pregnantEnergyLost: 0.01
 --- !u!114 &417898898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,7 +247,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 1
+  m_StoppingDistance: 0.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
