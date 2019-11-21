@@ -8,6 +8,7 @@ TagManager:
   - Fox
   - Bush
   - TerrainGenerator
+  - Ecosystem
   layers:
   - Default
   - TransparentFX
