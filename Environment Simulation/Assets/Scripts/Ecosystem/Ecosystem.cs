@@ -47,5 +47,10 @@ public class Ecosystem : MonoBehaviour
         foxesText.text = "Foxes: \n" + FoxesCount.ToString();
         rabbitsText.text = "Rabbit: \n" + RabbitsCount.ToString();
     }
-  
+
+    private void Update()
+    {
+        Graph.Instance.AddValue(RabbitsCount);
+    }
+
 }
