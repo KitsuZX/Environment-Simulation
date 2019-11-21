@@ -11,7 +11,12 @@ public class Ecosystem : MonoBehaviour
     public int FoxesCount => foxes.Count;
     public int RabbitsCount => rabbits.Count;
 
-    public void RemoveAnimal(GameObject animal)
+	private void Start()
+	{
+		InvokeRepeating("UpdateGraph", 0f, 1f);
+	}
+
+	public void RemoveAnimal(GameObject animal)
     {
         if (animal.CompareTag("Fox"))
         {
@@ -35,9 +40,10 @@ public class Ecosystem : MonoBehaviour
         }     
     }
 
-    private void Update()
+    private void UpdateGraph()
     {
-        //Graph.Instance.AddValue(RabbitsCount);
-    }
+        Graph.Instance.AddRabbit(RabbitsCount);
+		Graph.Instance.AddFox(FoxesCount);
+	}
 
 }
