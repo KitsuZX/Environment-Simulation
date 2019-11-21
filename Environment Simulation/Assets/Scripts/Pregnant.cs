@@ -8,8 +8,8 @@ public class Pregnant : MonoBehaviour
     private static Vector3 COMMUNICATION_OFFSET = new Vector3(0, 0.7f, 0);
     private const float COMMUNICATION_SCALE = 0.7f;
 
+    public int ChildCount { get; private set; }
     private float timePregnant;
-    private int childCount;
     private float gestationPeriodLength;
     private GenesData motherGenesData;
     private GenesData fatherGenesData;
@@ -39,13 +39,13 @@ public class Pregnant : MonoBehaviour
 
         pregnancyStarted = true;
         timePregnant = 0;
-        childCount = Mathf.RoundToInt(motherGenesData.childCountMean);
+        ChildCount = Mathf.RoundToInt(motherGenesData.childCountMean);
         gestationPeriodLength = motherGenesData.gestationPeriodLength;
     }
     
     public void GiveBirth()
     {
-        for (int i = 0;i < childCount; i++)
+        for (int i = 0;i < ChildCount; i++)
         {
             GenesData genesData = GenesData.Mix(motherGenesData, fatherGenesData);
             genesData.ApplyRandomVariance();

@@ -5,7 +5,6 @@ using UnityEngine;
 public class VitalFunctions : MonoBehaviour
 {
     [SerializeField, Range(0, 1)] private float needThresholdPortion = 0.5f;
-    [SerializeField] private float energyLost; // = 0.1f;
     [SerializeField] private float hydrationLostPerSecond = 0.1f;
     public Sprite PregnantCommunicationSprite => _pregnantCommunicationSprite;
     [SerializeField] private Sprite _pregnantCommunicationSprite;
@@ -61,17 +60,12 @@ public class VitalFunctions : MonoBehaviour
     private void FixedUpdate()
     {
         float dt = Time.fixedDeltaTime;
-
         growUp(dt);
-        if (IsPregnant)
-        {
-            CurrentEnergy -= energyLost + (energyFactors.pregnantEnergyLost * genes.genesData.childCountMean) * dt; ;
-        }
-        else
-        {
-            CurrentEnergy -= energyLost * dt;
-        }
-        
+
+        CurrentEnergy -= (genes.genesData.speed * genes.genesData.speed) * energyFactors.speedFactor * dt;
+        CurrentEnergy -= genes.genesData.perceptionRadius * energyFactors.perceptionRadiusFactor * dt;
+        if (IsPregnant) CurrentEnergy -= pregnancy.ChildCount * energyFactors.pregnantEnergyLost * dt;
+
         CurrentHydration -= hydrationLostPerSecond * dt;
 
         if (CurrentEnergy < 0 || CurrentHydration < 0)
@@ -99,7 +93,5 @@ public class VitalFunctions : MonoBehaviour
     {
         CurrentEnergy = genes.genesData.maxEnergy;
         CurrentHydration = genes.genesData.maxHydration;
-
-        energyLost = (Mathf.Pow(genes.genesData.speed, 2) * energyFactors.speedFactor) + (genes.genesData.perceptionRadius * energyFactors.perceptionRadiusFactor);
     }
 }
