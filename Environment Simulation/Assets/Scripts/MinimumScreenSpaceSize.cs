@@ -5,10 +5,10 @@ using UnityEngine;
 public class MinimumScreenSpaceSize : MonoBehaviour
 {
     public float minimumScale = 0.1f;
+    public float trueScale = 1;
 
     private new Camera camera;
-    private float trueScale;
-
+    
 
     private void Update()
     {
@@ -23,6 +23,5 @@ public class MinimumScreenSpaceSize : MonoBehaviour
     private void Start()
     {
         camera = Camera.main;
-        trueScale = transform.localScale.x;
     }
 }
