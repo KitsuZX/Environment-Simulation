@@ -2,16 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using Gizmos = Popcron.Gizmos;
 
 [RequireComponent(typeof(VitalFunctions))]
 public class AIDebugger : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointerClickHandler
 {
+    [Header("Selection")]
+    public float coneHeight = 2;
     public Mesh selectedMesh;
     public Material selectedMeshMaterial;
     public Material targetPointMaterial;
+
+    [Header("Gizmo colors")]
     public Color mateColor;
     public Color availableFoodColor;
+
+    [Header("Sliders")]
+    [SerializeField] private GameObject canvas;
+    [SerializeField] private Slider energySlider;
+    [SerializeField] private Slider thirstSlider;
 
     private bool isSelected = false;
 
@@ -19,6 +29,8 @@ public class AIDebugger : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
     private BehaviourCommunicator communicator;
     private Sexuality sexuality;
     private AnimalMovement animalMovement;
+    private VitalFunctions vitalFunctions;
+    private GenesData genesData;
 
     #region Selection events
     public void OnSelect(BaseEventData eventData)
@@ -41,18 +53,23 @@ public class AIDebugger : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
 
     private void Update()
     {
+        canvas.SetActive(isSelected);
+
         if (isSelected)
         {
             VisualizeSelected();
             VisualizePerception();
             VisualizeMovement();
+
+            energySlider.value = vitalFunctions.CurrentEnergy;
+            thirstSlider.value = vitalFunctions.CurrentHydration;
         }
     }
 
 
     private void VisualizeSelected()
     {
-        Graphics.DrawMesh(selectedMesh, transform.position + new Vector3(0, 1, 0), Quaternion.Euler(90, 0, 0), selectedMeshMaterial, LayerMask.NameToLayer("Default"));
+        Graphics.DrawMesh(selectedMesh, transform.position + new Vector3(0, coneHeight, 0), Quaternion.Euler(90, 0, 0), selectedMeshMaterial, LayerMask.NameToLayer("Default"));
     }
 
     private void VisualizePerception()
@@ -97,5 +114,16 @@ public class AIDebugger : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
         communicator = GetComponentInChildren<BehaviourCommunicator>();
         sexuality = GetComponent<Sexuality>();
         animalMovement = GetComponent<AnimalMovement>();
+        vitalFunctions = GetComponent<VitalFunctions>();
+        genesData = GetComponent<Genes>().genesData;
+    }
+
+    private void Start()
+    {
+        energySlider.maxValue = genesData.maxEnergy;
+        energySlider.minValue = 0;
+
+        thirstSlider.maxValue = genesData.maxHydration;
+        thirstSlider.minValue = 0;
     }
 }

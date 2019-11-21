@@ -109,6 +109,21 @@ PrefabInstance:
       propertyPath: energyFactors.numChildFactor
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 4135570546072025918, guid: d8af8a8003b2fd1499a057086be30e73,
+        type: 3}
+      propertyPath: energyFactors.speedFactor
+      value: 0.003
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135570546072025918, guid: d8af8a8003b2fd1499a057086be30e73,
+        type: 3}
+      propertyPath: energyFactors.perceptionRadiusFactor
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135570546072025918, guid: d8af8a8003b2fd1499a057086be30e73,
+        type: 3}
+      propertyPath: energyFactors.pregnantEnergyLost
+      value: 0.003
+      objectReference: {fileID: 0}
     - target: {fileID: 5011048986808969544, guid: d8af8a8003b2fd1499a057086be30e73,
         type: 3}
       propertyPath: rabbitPerception
@@ -157,6 +172,46 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Center.y
       value: 1.0679703
+      objectReference: {fileID: 0}
+    - target: {fileID: 8569891092251269124, guid: d8af8a8003b2fd1499a057086be30e73,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8569891092251269124, guid: d8af8a8003b2fd1499a057086be30e73,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8569891092251269124, guid: d8af8a8003b2fd1499a057086be30e73,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8569891092251269124, guid: d8af8a8003b2fd1499a057086be30e73,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187245336469417707, guid: d8af8a8003b2fd1499a057086be30e73,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187245336469417707, guid: d8af8a8003b2fd1499a057086be30e73,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 273519932059268250, guid: d8af8a8003b2fd1499a057086be30e73,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 273519932059268250, guid: d8af8a8003b2fd1499a057086be30e73,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8af8a8003b2fd1499a057086be30e73, type: 3}

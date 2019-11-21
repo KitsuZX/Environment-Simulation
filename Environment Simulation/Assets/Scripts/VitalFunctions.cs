@@ -5,7 +5,6 @@ using UnityEngine;
 public class VitalFunctions : MonoBehaviour
 {
     [SerializeField, Range(0, 1)] private float needThresholdPortion = 0.5f;
-    [SerializeField] private float energyLost; // = 0.1f;
     [SerializeField] private float hydrationLostPerSecond = 0.1f;
     public Sprite PregnantCommunicationSprite => _pregnantCommunicationSprite;
     [SerializeField] private Sprite _pregnantCommunicationSprite;
@@ -14,13 +13,13 @@ public class VitalFunctions : MonoBehaviour
     public float CurrentAge { get; set; }
     public bool IsMale { get; private set; }
     
-    public bool IsHungry => 1 - (currentEnergy / genes.genesData.maxEnergy) > needThresholdPortion;
-    public bool IsThirsty => 1 - (currentHydration/ genes.genesData.maxHydration) > needThresholdPortion;
+    public bool IsHungry => 1 - (CurrentEnergy / genes.genesData.maxEnergy) > needThresholdPortion;
+    public bool IsThirsty => 1 - (CurrentHydration/ genes.genesData.maxHydration) > needThresholdPortion;
     public bool IsOldEnoughForSex => CurrentAge > genes.reproductiveAgeRange.x && CurrentAge < genes.reproductiveAgeRange.y;
     public bool IsPregnant => pregnancy;
 
-    private float currentEnergy;
-    private float currentHydration;
+    public float CurrentEnergy { get; private set; }
+    public float CurrentHydration { get; private set; }
     private Genes genes;
     private Pregnant pregnancy;
 
@@ -30,18 +29,18 @@ public class VitalFunctions : MonoBehaviour
     {
         //SALE EL LOGO DE COMIENDO///
         /////////////////////////////
-        float maxEnergyToGet = genes.genesData.maxEnergy - currentEnergy;
+        float maxEnergyToGet = genes.genesData.maxEnergy - CurrentEnergy;
 
         float energyEarned = food.Eat(maxEnergyToGet);
-        currentEnergy += energyEarned;
+        CurrentEnergy += energyEarned;
     }
 
     public void DrinkWater()
     {
         //SALE EL LOGO DE BEBIENDO///
         ////////////////////////////
-        float maxWaterToGet = genes.genesData.maxHydration - currentHydration;
-        currentHydration += maxWaterToGet;
+        float maxWaterToGet = genes.genesData.maxHydration - CurrentHydration;
+        CurrentHydration += maxWaterToGet;
     }
 
     public void Impregnate(GenesData fatherGenesData)
@@ -61,20 +60,15 @@ public class VitalFunctions : MonoBehaviour
     private void FixedUpdate()
     {
         float dt = Time.fixedDeltaTime;
-
         growUp(dt);
-        if (IsPregnant)
-        {
-            currentEnergy -= energyLost + (energyFactors.pregnantEnergyLost * genes.genesData.childCountMean) * dt; ;
-        }
-        else
-        {
-            currentEnergy -= energyLost * dt;
-        }
-        
-        currentHydration -= hydrationLostPerSecond * dt;
 
-        if (currentEnergy < 0 || currentHydration < 0)
+        CurrentEnergy -= (genes.genesData.speed * genes.genesData.speed) * energyFactors.speedFactor * dt;
+        CurrentEnergy -= genes.genesData.perceptionRadius * energyFactors.perceptionRadiusFactor * dt;
+        if (IsPregnant) CurrentEnergy -= pregnancy.ChildCount * energyFactors.pregnantEnergyLost * dt;
+
+        CurrentHydration -= hydrationLostPerSecond * dt;
+
+        if (CurrentEnergy < 0 || CurrentHydration < 0)
         {
             Destroy(gameObject);
             FindObjectOfType<Ecosystem>().RemoveAnimal(gameObject);
@@ -97,9 +91,7 @@ public class VitalFunctions : MonoBehaviour
     }
     private void Start() 
     {
-        currentEnergy = genes.genesData.maxEnergy;
-        currentHydration = genes.genesData.maxHydration;
-
-        energyLost = (Mathf.Pow(genes.genesData.speed, 2) * energyFactors.speedFactor) + (genes.genesData.perceptionRadius * energyFactors.perceptionRadiusFactor);
+        CurrentEnergy = genes.genesData.maxEnergy;
+        CurrentHydration = genes.genesData.maxHydration;
     }
 }
