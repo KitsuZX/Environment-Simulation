@@ -77,6 +77,7 @@ public class VitalFunctions : MonoBehaviour
         if (currentEnergy < 0 || currentHydration < 0)
         {
             Destroy(gameObject);
+            FindObjectOfType<Ecosystem>().RemoveAnimal(gameObject);
         }
     }
 

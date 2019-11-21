@@ -29,13 +29,20 @@ public class EcosystemGenerator : MonoBehaviour
     [SerializeField] private Transform bushesParent;
 
     private TerrainData terrainData;
+    private Ecosystem ecosystem;
 
-    private void Start()
+
+    private void Awake()
     {
         TerrainGenerator generator = GetComponent<TerrainGenerator>();
         Assert.IsNotNull(generator);
         terrainData = generator.TerrainData;
 
+        ecosystem = FindObjectOfType<Ecosystem>();
+    }
+
+    private void Start()
+    {     
         GenerateTrees();
         GenerateBushes();
         GenerateAnimals();
@@ -103,7 +110,8 @@ public class EcosystemGenerator : MonoBehaviour
             } while (!terrainData.walkable[x, y]);
 
 
-            Instantiate(rabbitPrefab, terrainData.tileCentres[x, y] + offset, Quaternion.identity);
+            GameObject rabbit = Instantiate(rabbitPrefab, terrainData.tileCentres[x, y] + offset, Quaternion.identity);
+            ecosystem.AddAnimal(rabbit);
         }
 
         for (int i = 0; i < foxCount; i++)
@@ -115,7 +123,8 @@ public class EcosystemGenerator : MonoBehaviour
             } while (!terrainData.walkable[x, y]);
 
 
-            Instantiate(foxPrefab, terrainData.tileCentres[x, y] + offset, Quaternion.identity);
+            GameObject fox = Instantiate(foxPrefab, terrainData.tileCentres[x, y] + offset, Quaternion.identity);
+            ecosystem.AddAnimal(fox);
         }
     }
 }
