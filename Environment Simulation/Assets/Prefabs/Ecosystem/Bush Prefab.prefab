@@ -49,7 +49,43 @@ MonoBehaviour:
   maxFoodAmount: 100
   foodGainedPerSecond: 10
   actualFoodAmount: 100
-  perceptableFoodAmount: 0
+  perceptableFoodAmount: 15
+  minScale: 0.5
+  maxScale: 1
+  eatAnimationLength: 0.5
+  eatAnimationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -1.754039
+      outSlope: -1.754039
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.6236095
+      value: -0.093835324
+      inSlope: -0.8744732
+      outSlope: -0.8744732
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.096754156
+      outWeight: 0.2934775
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0.2493031
+      outSlope: 0.2493031
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!135 &5749390879464611308
 SphereCollider:
   m_ObjectHideFlags: 0

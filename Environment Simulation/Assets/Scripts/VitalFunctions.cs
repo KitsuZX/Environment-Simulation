@@ -5,16 +5,13 @@ using UnityEngine;
 public class VitalFunctions : MonoBehaviour
 {
     [SerializeField, Range(0, 1)] private float needThresholdPortion = 0.5f;
-    [SerializeField] private float energyLostPerSecond = 0.1f;
+    [SerializeField] private float energyLost; // = 0.1f;
     [SerializeField] private float hydrationLostPerSecond = 0.1f;
     public Sprite PregnantCommunicationSprite => _pregnantCommunicationSprite;
     [SerializeField] private Sprite _pregnantCommunicationSprite;
     [SerializeField] private AnimationCurve curveGrowUp;
 
-    public Vector3 minimumScale;
-    public Vector3 maxScale;
-
-    public float CurrentAge { get; private set; }
+    public float CurrentAge { get; set; }
     public bool IsMale { get; private set; }
     
     public bool IsHungry => 1 - (currentEnergy / genes.genesData.maxEnergy) > needThresholdPortion;
@@ -22,12 +19,12 @@ public class VitalFunctions : MonoBehaviour
     public bool IsOldEnoughForSex => CurrentAge > genes.reproductiveAgeRange.x && CurrentAge < genes.reproductiveAgeRange.y;
     public bool IsPregnant => pregnancy;
 
-    [System.NonSerialized] public Perceptor.PerceivedMate chosenPartner;
-
     private float currentEnergy;
     private float currentHydration;
     private Genes genes;
     private Pregnant pregnancy;
+
+    [SerializeField] private EnergyFactors energyFactors;
 
     public void EatFood(IEatable food)
     {
@@ -66,7 +63,15 @@ public class VitalFunctions : MonoBehaviour
         float dt = Time.fixedDeltaTime;
 
         growUp(dt);
-        currentEnergy -= energyLostPerSecond * dt;
+        if (IsPregnant)
+        {
+            currentEnergy -= energyLost + (energyFactors.pregnantEnergyLost * genes.genesData.childCountMean) * dt; ;
+        }
+        else
+        {
+            currentEnergy -= energyLost * dt;
+        }
+        
         currentHydration -= hydrationLostPerSecond * dt;
 
         if (currentEnergy < 0 || currentHydration < 0)
@@ -86,13 +91,15 @@ public class VitalFunctions : MonoBehaviour
     private void Awake()
     {
         genes = GetComponent<Genes>();
-        CurrentAge = 0;
-
+        //CurrentAge = 0;
         IsMale = Random.value < 0.5f;
+       
     }
     private void Start() 
     {
         currentEnergy = genes.genesData.maxEnergy;
         currentHydration = genes.genesData.maxHydration;
+
+        energyLost = (Mathf.Pow(genes.genesData.speed, 2) * energyFactors.speedFactor) + (genes.genesData.perceptionRadius * energyFactors.perceptionRadiusFactor);
     }
 }

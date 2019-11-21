@@ -10,6 +10,7 @@ public class TimeAccelerator : MonoBehaviour
     private void FixedUpdate()
     {
         Time.timeScale = timeScale;
+        Time.fixedDeltaTime = 0.02f * timeScale;
     }
 
     private void Awake()

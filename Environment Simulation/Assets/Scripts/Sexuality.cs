@@ -12,7 +12,7 @@ public class Sexuality : MonoBehaviour
     private PandaTree breedingTree;
 
 
-    private void Awake()
+    private void Start()
     {
         breedingTree = GetComponent<PandaBehaviour>().GetTree("Need to breed");
     }
