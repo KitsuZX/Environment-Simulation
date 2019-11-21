@@ -5,9 +5,6 @@ using TMPro;
 
 public class Ecosystem : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI foxesText;
-    [SerializeField] private TextMeshProUGUI rabbitsText;
-
     [HideInInspector] public List<GameObject> foxes = new List<GameObject>();
     [HideInInspector] public List<GameObject> rabbits = new List<GameObject>();
 
@@ -23,9 +20,7 @@ public class Ecosystem : MonoBehaviour
         else
         {
             rabbits.Remove(animal);
-        }
-
-        UpdateTexts();
+        }      
     }
 
     public void AddAnimal(GameObject animal)
@@ -37,20 +32,12 @@ public class Ecosystem : MonoBehaviour
         else
         {
             rabbits.Add(animal);
-        }
-
-        UpdateTexts();
-    }
-
-    private void UpdateTexts()
-    {
-        foxesText.text = "Foxes: \n" + FoxesCount.ToString();
-        rabbitsText.text = "Rabbit: \n" + RabbitsCount.ToString();
+        }     
     }
 
     private void Update()
     {
-        Graph.Instance.AddValue(RabbitsCount);
+        //Graph.Instance.AddValue(RabbitsCount);
     }
 
 }
