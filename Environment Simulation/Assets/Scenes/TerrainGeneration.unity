@@ -976,7 +976,7 @@ GameObject:
   - component: {fileID: 645011706}
   - component: {fileID: 645011705}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Time Accelerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1058,7 +1058,7 @@ LineRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 2100000, guid: d70792a205be03440b584553b6eb5a79, type: 2}
+  - {fileID: 2100000, guid: 254235e0a2a061a4699d89d6b8fb81ae, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2200,8 +2200,8 @@ MonoBehaviour:
   treeThreshold: 0.025
   scaleVariation: 0.2
   bushThreshold: 0.025
-  rabbitCount: 30
-  foxCount: 5
+  rabbitCount: 15
+  foxCount: 6
   rabbitPrefab: {fileID: 1587338229735979916, guid: f2bd56d5ed9513c4791ba67447441a63,
     type: 3}
   foxPrefab: {fileID: 1587338229735979916, guid: dd8ac85fc7b71b34994c3a8475eed558,

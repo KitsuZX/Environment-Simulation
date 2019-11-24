@@ -66,7 +66,7 @@ public class Graph : MonoBehaviour
 
         for (int i = 0; i < valueList.Count; i++)
         {		
-			float valueXNorm = (float) i / (float) 120f;
+			float valueXNorm = (float) i / (float) 400f;
 			float xPos = Mathf.Lerp(minContainerX, maxContainerX, valueXNorm);
 
 			float valueYNorm = valueList[i] / (float)40f;
